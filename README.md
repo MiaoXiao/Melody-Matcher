@@ -1,9 +1,9 @@
 # CS100-Music-Game-
 
 ## Team members: 
-* Rica Feng
-* Sherina Bala
-* Stanley Ari Cohen
+* Rica Feng (rfeng001@ucr.edu)
+* Sherina Bala (sbala003@ucr.edu)
+* Stanley Ari Cohen (scohe001@ucr.edu)
 
 ## Goal: 
 Create a web based video game where the player has to distinguish between different tones. 
