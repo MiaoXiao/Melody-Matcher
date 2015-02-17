@@ -5,7 +5,7 @@
     <script src="soundManager.js"></script>
   </head>
   
-  <body onload="loadSounds('piano');">
+  <body onload="loadSounds('piano'); chooseScale('Cmaj');">
     <button onclick="playSound('C4');" class="playSound">Play C</button>
 	<br>
     <button onclick="playSound('Db4');" class="playSound">Play Db</button>
@@ -31,6 +31,10 @@
     <button onclick="playSound('B4');" class="playSound">Play B</button>
 	<br>
     <button onclick="playSound('C5');" class="playSound">Play C</button>
+	<br>
+    <button onclick="generateMelody(4, 5);" class="playSound">Generate Melody</button>
+	<br>
+    <button onclick="playMelody('C5');" class="playSound">Play Melody</button>
 	<br>
   </body>
   
