@@ -6,8 +6,7 @@
 * Stanley Ari Cohen (scohe001@ucr.edu)
 
 ## Goal: 
-Create a web based video game where the player has to distinguish between different tones. 
-This will help players better distinguish between different tones and sounds and will also help players new to music, learn different scales.
+A web based video game where the player has to try to copy melodies by playing them on a virtual piano. This will help players better distinguish between different tones and sounds and will also help players new to music learn different scales.
 
 ## Requires 
 * A working browser
@@ -22,10 +21,9 @@ The game ends when they player runs out of time before they can replicate a melo
 
 ## Choosing a Level:
 The player can choose 1 out of 3 levels, Easy, Medium, Hard. 
-All levels will increase in difficulty based on how many melodies are successfully replicated. 
-So an easy level will eventually reach hard difficulty. 
+All levels will increase in difficulty based on how many melodies are successfully replicated, so an easy level will eventually reach hard difficulty. 
 
-Score Calculation:
+## Score Calculation:
 When a player successfully replicates a melody a score is given:
 	
 ``ExtraPoints = TotalTime - TimeTaken;``
