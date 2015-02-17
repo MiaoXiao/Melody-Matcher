@@ -1,4 +1,4 @@
-var pics = ["tiger.png", "penguin.png", "scorpion.png"];
+var pics = ["tiger.png", "penguin.png", "scorpion.png", "turtle.png"];
 var current = 0;
 function butClick() {
     var image = document.getElementById('myImage');
