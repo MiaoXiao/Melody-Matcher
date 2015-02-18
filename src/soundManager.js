@@ -1,5 +1,5 @@
 //global variables
-//defaut volume
+//default volume
 var VOLUME = 0.5;
 //default speed
 var SPEED = 1;
@@ -10,11 +10,19 @@ var SCALE = [];
 
 //change speed. between .1 and 2
 function changeSpeed(speed) {
+	//check that speed is within bounds
+	if (speed < 0.1 || speed > 2) {
+		window.alert("ERROR: SPEED NOT BETWEEN 0.1 and 2");
+	}
 	SPEED = speed;
 }
 
 //change volume. between 0 and 1
 function changeVolume(volume) {
+	//check that volume is within bounds
+	if (volume < 0 || volume > 1) {
+		window.alert("ERROR: VOLUME NOT BETWEEN 0 and 1");
+	}
 	VOLUME = volume;
 }
 
@@ -22,42 +30,67 @@ function changeVolume(volume) {
 function chooseScale(scale) {
 	//clear scale array
 	SCALE.length = 0;
-	if (scale == "Fmaj") //F major
-	{
-		SCALE[0] = "C4";
-		SCALE[1] = "D4";
-		SCALE[2] = "E4";
-		SCALE[3] = "F4";
-		SCALE[4] = "G4";
-		SCALE[5] = "A4";
-		SCALE[6] = "Bb4";
-		SCALE[7] = "C5";		
-	}
-	else //assume C major
-	{
-		SCALE[0] = "C4";
-		SCALE[1] = "D4";
-		SCALE[2] = "E4";
-		SCALE[3] = "F4";
-		SCALE[4] = "G4";
-		SCALE[5] = "A4";
-		SCALE[6] = "B4";
-		SCALE[7] = "C5";
+	//choose scale
+	switch (scale) {
+		case "Fmaj":
+			SCALE[0] = "C4";
+			SCALE[1] = "D4";
+			SCALE[2] = "E4";
+			SCALE[3] = "F4";
+			SCALE[4] = "G4";
+			SCALE[5] = "A4";
+			SCALE[6] = "Bb4";
+			SCALE[7] = "C5";
+			break;
+		case "Cmaj":
+			SCALE[0] = "C4";
+			SCALE[1] = "D4";
+			SCALE[2] = "E4";
+			SCALE[3] = "F4";
+			SCALE[4] = "G4";
+			SCALE[5] = "A4";
+			SCALE[6] = "B4";
+			SCALE[7] = "C5";
+			break;
 	}
 }
 
 //creates a random melody by filling answerkey array
 function generateMelody(numNotes, range) {
+	//check that range is within bounds
+	if (range < 1 || range > 7) {
+		window.alert("ERROR: RANGE NOT BETWEEN 1 and 7");
+	}
+	//check that numNotes is within bounds
+	if (numNotes < 1) {
+		window.alert("ERROR: NUM NOTES BELOW 0");
+	}
 	//clear array
 	ANSWERKEY.length = 0;
+	//holds random number between 0 and range
+	var randNum;
 	//fills answer key with random iterators between range and 0
 	for (var i = 0; i < numNotes; i++) {
-		ANSWERKEY[i] = Math.floor((Math.random() * range) + 0);
+		randNum = Math.floor((Math.random() * range) + 0);
+		//if the random number is the same as the last one, dec or inc by 1
+		if (i != 0 && randNum == ANSWERKEY[i - 1]) {
+			if (randNum == 0) {
+				randNum += 1;
+			}
+			else if (randNum == 7) {
+				randNum -= 1;
+			}
+			else if (Math.floor((Math.random() * 1) + 0)) {
+				randNum += 1;
+			}
+			else {
+				randNum -= 1;
+			}
+		}
+		ANSWERKEY[i] = randNum;
 		//window.alert(ANSWERKEY[i]);
 	}
 }
-
-
 
 //check to see if melody is correct so far
 function checkMelody(note) {
