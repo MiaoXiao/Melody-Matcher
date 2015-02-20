@@ -11,6 +11,9 @@ var SCALE = [];
 var ANSPOS = 0;
 //current messege
 var DISPLAY = "";
+//Hold the full chromatic
+var CHROMATIC = ["C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4", "A4", "Bb4", "B4", "C5"];
+
 
 //change speed. between .1 and 2
 function changeSpeed(speed) {
@@ -66,45 +69,71 @@ function loadSounds(instrument) {
 
 //choose a specific scale
 function chooseScale(scale) {
+	//The notes in a major scale
+	var major = [0, 2, 4, 5, 7, 9, 11];
 	//clear scale array
 	SCALE.length = 0;
-	//choose scale
+	
+	var start = 0;
+
 	switch (scale) {
 		case "Cmaj":
-			SCALE[0] = "C4";
-			SCALE[1] = "D4";
-			SCALE[2] = "E4";
-			SCALE[3] = "F4";
-			SCALE[4] = "G4";
-			SCALE[5] = "A4";
-			SCALE[6] = "B4";
-			SCALE[7] = "C5";
+			start = 0;
 			break;
 		case "C#maj":
 		case "Dbmaj":
+			start = 1;
 			break;
 		case "Dmaj":
+			start = 2;
 			break;
 		case "Ebmaj":
+			start = 3;
 			break;
 		case "Emaj":
+			start = 4;
 			break;
 		case "Fmaj":
+			start = 5;
 			break;
 		case "F#maj":
 		case "Gbmaj":
+			start = 6;
 			break;
 		case "Gmaj":
+			start = 7;
 			break;
 		case "Abmaj":
+			start = 8;
 			break;
 		case "Amaj":
+			start = 9;
 			break;
 		case "Bbmaj":
+			start = 10;
 			break;
 		case "Bmaj":
 		case "Cbmaj":
+			start = 11;
 			break;
+	}
+	
+	for(var x = 0; x < major.length; x++) {
+		var note = start + major[x];
+		if((note == (CHROMATIC.length - 1)) || note == 0) {
+			//Cover edge case for the C's
+			SCALE.push(CHROMATIC[CHROMATIC.length-1]);
+			SCALE.push(CHROMATIC[0]);
+		} else if(note >= CHROMATIC.length) {
+			//If we loop around to low C
+			SCALE.push(CHROMATIC[(note%CHROMATIC.length) + 1]);
+		} else {
+			SCALE.push(CHROMATIC[note]);
+		}
+		
+		//For testing
+		//window.alert(SCALE[x]);
+		//createjs.Sound.play(SCALE[x], "none", x * (SPEED * 1000), 0, 0, VOLUME);
 	}
 }
 
@@ -112,7 +141,7 @@ function chooseScale(scale) {
 function playMelody() {
 	for (var i = 0; i < ANSWERKEY.length; i++) {
 		//i * (speed * 1000) will give a delay that is consistent
-		createjs.Sound.play(SCALE[ANSWERKEY[i]], "none", i * (SPEED * 1000), 0, 0, VOLUME);
+		createjs.Sound.play(SCALE[ANSWERKEY[i]], "none", 2 * (SPEED * 1000), 0, 0, VOLUME);
 	}
 }
 
