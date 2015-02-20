@@ -6,36 +6,38 @@
   </head>
   
   <body onload="loadSounds('piano'); chooseScale('Cmaj');">
-    <button onclick="playSound('C4');" class="playSound">Play C</button>
+  	
+    <button onclick="onButtonClick('C4');" class="playSound">Play C</button>
 	<br>
-    <button onclick="playSound('Db4');" class="playSound">Play Db</button>
+    <button onclick="onButtonClick('Db4');" class="playSound">Play Db</button>
 	<br>
-    <button onclick="playSound('D4');" class="playSound">Play D</button>
+    <button onclick="onButtonClick('D4');" class="playSound">Play D</button>
 	<br>
-    <button onclick="playSound('Eb4');" class="playSound">Play Eb</button>
+    <button onclick="onButtonClick('Eb4');" class="playSound">Play Eb</button>
 	<br>
-    <button onclick="playSound('E4');" class="playSound">Play E</button>
+    <button onclick="onButtonClick('E4');;" class="playSound">Play E</button>
 	<br>
-    <button onclick="playSound('F4');" class="playSound">Play F</button>
+    <button onclick="onButtonClick('F4');" class="playSound">Play F</button>
 	<br>
-    <button onclick="playSound('Gb4');" class="playSound">Play Gb</button>
+    <button onclick="onButtonClick('Gb4');" class="playSound">Play Gb</button>
 	<br>
-    <button onclick="playSound('G4');" class="playSound">Play G</button>
+    <button onclick="onButtonClick('G4');" class="playSound">Play G</button>
 	<br>
-    <button onclick="playSound('Ab4');" class="playSound">Play Ab</button>
+    <button onclick="onButtonClick('Ab4');" class="playSound">Play Ab</button>
 	<br>
-    <button onclick="playSound('A4');" class="playSound">Play A</button>
+    <button onclick="onButtonClick('A4');" class="playSound">Play A</button>
 	<br>
-    <button onclick="playSound('Bb4');" class="playSound">Play Bb</button>
+    <button onclick="onButtonClick('Bb4');" class="playSound">Play Bb</button>
 	<br>
-    <button onclick="playSound('B4');" class="playSound">Play B</button>
+    <button onclick="onButtonClick('B4');" class="playSound">Play B</button>
 	<br>
-    <button onclick="playSound('C5');" class="playSound">Play C</button>
+    <button onclick="onButtonClick('C5');" class="playSound">Play C</button>
 	<br>
-    <button onclick="generateMelody(4, 5);" class="playSound">Generate Melody</button>
+    <button onclick="generateMelody(4, 5);" class="playSound">Generate New Melody</button>
 	<br>
-    <button onclick="playMelody('C5');" class="playSound">Play Melody</button>
+    <button onclick="playMelody('C5');" class="playSound">Play Current Melody</button>
 	<br>
+	<p id="display"></p>
   </body>
   
 </html>
