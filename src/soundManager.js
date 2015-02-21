@@ -141,7 +141,7 @@ function chooseScale(scale) {
 function playMelody() {
 	for (var i = 0; i < ANSWERKEY.length; i++) {
 		//i * (speed * 1000) will give a delay that is consistent
-		createjs.Sound.play(SCALE[ANSWERKEY[i]], "none", 2 * (SPEED * 1000), 0, 0, VOLUME);
+		createjs.Sound.play(SCALE[ANSWERKEY[i]], "none", i * (SPEED * 1000), 0, 0, VOLUME);
 	}
 }
 
