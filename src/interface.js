@@ -1,5 +1,5 @@
 //Store the current difficulty for the session for in between pages
-localStorage.setItem("diffictulty", -1);
+localStorage.setItem("difficulty", 0);
 localStorage.setItem("volume", 90);
 
 function dif_selected() {
@@ -15,6 +15,6 @@ function dif_selected() {
 
 function letsgo() {
     localStorage.setItem("volume", document.getElementById("volume").value);
-    window.alert(localStorage.getItem("volume"));
+    //window.alert(localStorage.getItem("volume"));
     document.location.href = "testsoundManager.html";
 }

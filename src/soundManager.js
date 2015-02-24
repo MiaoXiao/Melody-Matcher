@@ -33,7 +33,6 @@ function changeVolume(volume) {
 //load all sounds that will be used
 //pass in what instrument to use, violin or piano
 function loadSounds(instrument) {
-	
 	//check to see if you can play sounds
 	if (!createjs.Sound.initializeDefaultPlugins()) {
 		window.alert("ERROR: PROBLEM LOADING SOUNDS");
@@ -160,6 +159,8 @@ function generateMelody() {
 	if (NUMNOTES < 1) {
 		window.alert("ERROR: NUM NOTES BELOW 0");
 	}
+	//window.alert("Range: " + RANGE);
+	//window.alert("Numnotes: " + NUMNOTES);
 	//clear array
 	ANSWERKEY.length = 0;
 	//holds random number between 0 and range
@@ -185,6 +186,7 @@ function generateMelody() {
 		ANSWERKEY[i] = randNum;
 		//window.alert(ANSWERKEY[i]);
 	}
+	//window.alert(ANSWERKEY);
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
@@ -250,9 +252,9 @@ function checkMelody(note) {
 	}
 }
 
-//displays messege
+//displays current messege and level
 function displayMessege() {
-	document.getElementById("display").innerHTML = DISPLAY;
+	document.getElementById("display").innerHTML = DISPLAY + "<br>" + "Level: " + parseInt(localStorage.getItem("difficulty"));
 }
 
 //run 3 functions every key press
@@ -266,9 +268,8 @@ function onButtonClick(note) {
 function initStart() {
 	loadSounds('piano');
 	chooseScale('Cmaj');
-	//var test = 20;
 	//set starting difficulty 
-	switch (localStorage.getItem("difficulty")) {
+	switch (parseInt(localStorage.getItem("difficulty"))) {
 		case 0:
 			SPEED = 1.0;
 			NUMNOTES = 2;
@@ -286,4 +287,5 @@ function initStart() {
 			break;
 	}
 	generateMelody();
+	displayMessege();
 }
