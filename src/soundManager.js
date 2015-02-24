@@ -146,6 +146,12 @@ function playMelody() {
 
 //creates a random melody by filling answerkey array
 function generateMelody(numNotes, range) {
+    //TODO:
+    //change the melody depending on difficulty
+    //Difficulty is accessable by running
+    //localStorage.getItem("difficulty");
+    
+    
 	//check that range is within bounds
 	if (range < 1 || range > 7) {
 		window.alert("ERROR: RANGE NOT BETWEEN 1 and 7");
