@@ -197,7 +197,7 @@ function playSound(note) {
 //this only runs after every correct melody
 function checkDifficulty() {
 	//get next difficulty (lastdifficulty + 1)
-	var newDifficulty = localStorage.getItem("difficulty") + 1;
+	var newDifficulty = parseInt(localStorage.getItem("difficulty")) + 1;
 	
 	//every multiple of 2 levels, increase RANGE.
 	if (newDifficulty % 2 == 0) {
