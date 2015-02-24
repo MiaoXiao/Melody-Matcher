@@ -131,10 +131,9 @@ function chooseScale(scale) {
 			SCALE.push(CHROMATIC[note]);
 		}
 		
-		//For testing
-		//window.alert(SCALE[x]);
-		//createjs.Sound.play(SCALE[x], "none", x * (SPEED * 1000), 0, 0, VOLUME);
-	}
+    }
+    //For testing
+    //window.alert(SCALE)
 }
 
 //play melody using answerkey array
