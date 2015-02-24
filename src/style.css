@@ -16,7 +16,14 @@ body {
   transform: translate(-50%, -50%)*/
 
 
-  text-align: center;
+  /*text-align: center;*/
+}
+
+#settings {
+    font-size: 12px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }
 
 button {
