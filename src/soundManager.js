@@ -1,8 +1,15 @@
 //global variables
 //default volume
 var VOLUME = 0.5;
+
+//next 3 vars determine difficulty of melody
 //default speed
-var SPEED = 1;
+var SPEED;
+//number of notes in a melody
+var NUMNOTES;
+// range of notes
+var RANGE;
+
 //key for melody
 var ANSWERKEY = [];
 //current scale
@@ -13,16 +20,6 @@ var ANSPOS = 0;
 var DISPLAY = "";
 //Hold the full chromatic
 var CHROMATIC = ["C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4", "A4", "Bb4", "B4", "C5"];
-
-
-//change speed. between .1 and 2
-function changeSpeed(speed) {
-	//check that speed is within bounds
-	if (speed < 0.1 || speed > 2) {
-		window.alert("ERROR: SPEED NOT BETWEEN 0.1 and 2");
-	}
-	SPEED = speed;
-}
 
 //change volume. between 0 and 1
 function changeVolume(volume) {
@@ -38,7 +35,10 @@ function changeVolume(volume) {
 function loadSounds(instrument) {
 	
 	//check to see if you can play sounds
-	if (!createjs.Sound.initializeDefaultPlugins()) { return; }
+	if (!createjs.Sound.initializeDefaultPlugins()) {
+		window.alert("ERROR: PROBLEM LOADING SOUNDS");
+		return; 
+	}
 	
 	//audio path
 	var audioPath = "./sounds/" + instrument + "/";
@@ -69,8 +69,7 @@ function loadSounds(instrument) {
 
 //choose a specific scale
 function chooseScale(scale) {
-	//The notes in a major scale
-	var major = [0, 2, 4, 5, 7, 9, 11];
+
 	//clear scale array
 	SCALE.length = 0;
 	
@@ -118,46 +117,47 @@ function chooseScale(scale) {
 			break;
 	}
 	
-	for(var x = 0; x < major.length; x++) {
-		var note = start + major[x];
+	//The notes in a major scale
+	var major = [0, 2, 4, 5, 7, 9, 11, 12];
+	
+	//create scale
+	for(var i = 0; i < major.length; i++) {
+		var note = start + major[i];
 		if((note == (CHROMATIC.length - 1)) || note == 0) {
 			//Cover edge case for the C's
-			SCALE.push(CHROMATIC[CHROMATIC.length-1]);
+			//SCALE.push(CHROMATIC[CHROMATIC.length - 1]);
 			SCALE.push(CHROMATIC[0]);
-		} else if(note >= CHROMATIC.length) {
+		} 
+		else if(note >= CHROMATIC.length) {
 			//If we loop around to low C
 			SCALE.push(CHROMATIC[(note%CHROMATIC.length) + 1]);
-		} else {
+		} 
+		else {
 			SCALE.push(CHROMATIC[note]);
 		}
-		
     }
     //For testing
     //window.alert(SCALE)
 }
 
 //play melody using answerkey array
+//if nodelay is true, that means the melody plays without any delay at the start of the melody
 function playMelody() {
+	//play the melody
 	for (var i = 0; i < ANSWERKEY.length; i++) {
-		//i * (speed * 1000) will give a delay that is consistent
+		//delay * (speed * 1000) will give a delay that is consistent
 		createjs.Sound.play(SCALE[ANSWERKEY[i]], "none", i * (SPEED * 1000), 0, 0, VOLUME);
 	}
 }
 
 //creates a random melody by filling answerkey array
-function generateMelody(numNotes, range) {
-    //TODO:
-    //change the melody depending on difficulty
-    //Difficulty is accessable by running
-    //localStorage.getItem("difficulty");
-    
-    
+function generateMelody() {
 	//check that range is within bounds
-	if (range < 1 || range > 7) {
-		window.alert("ERROR: RANGE NOT BETWEEN 1 and 7");
+	if (RANGE < 1 || RANGE > 8) {
+		window.alert("ERROR: RANGE NOT BETWEEN 1 and 8");
 	}
 	//check that numNotes is within bounds
-	if (numNotes < 1) {
+	if (NUMNOTES < 1) {
 		window.alert("ERROR: NUM NOTES BELOW 0");
 	}
 	//clear array
@@ -165,8 +165,8 @@ function generateMelody(numNotes, range) {
 	//holds random number between 0 and range
 	var randNum;
 	//fills answer key with random iterators between range and 0
-	for (var i = 0; i < numNotes; i++) {
-		randNum = Math.floor((Math.random() * range) + 0);
+	for (var i = 0; i < NUMNOTES; i++) {
+		randNum = Math.floor((Math.random() * RANGE) + 0);
 		//if the random number is the same as the last one, dec or inc by 1
 		if (i != 0 && randNum == ANSWERKEY[i - 1]) {
 			if (randNum == 0) {
@@ -185,7 +185,6 @@ function generateMelody(numNotes, range) {
 		ANSWERKEY[i] = randNum;
 		//window.alert(ANSWERKEY[i]);
 	}
-	playMelody();
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
@@ -193,29 +192,61 @@ function playSound(note) {
 	createjs.Sound.play(note, "none", 0, 0, 0, VOLUME);
 }
 
+//check difficulty every time a correct melody is entered
+//if difficulty is high enough, increase number of notes or range in the next generated melody
+//this only runs after every correct melody
+function checkDifficulty() {
+	//get next difficulty (lastdifficulty + 1)
+	var newDifficulty = localStorage.getItem("difficulty") + 1;
+	
+	//every multiple of 2 levels, increase RANGE.
+	if (newDifficulty % 2 == 0) {
+		RANGE++;
+	}
+	//every multiple of 5 levels, increase numnotes
+	if (newDifficulty % 5 == 0) {
+		NUMNOTES++;
+	}
+	//every 10 levels, reset range back to 3
+	//also increase speed by a factor of 0.05, as long as the speed isint already 0.05
+	if (newDifficulty % 10 == 0) {
+		if (SPEED > 0.05) {
+			SPEED -= 0.05;
+		}
+		RANGE = 3;
+	}
+	
+	//set new difficulty
+	localStorage.setItem("difficulty", newDifficulty);
+}
+
 //check to see if melody is correct so far
 //note is a string (ex. C4)
-//updates current messsege
+//updates current messege
 function checkMelody(note) {
 	//if correct
 	if (SCALE[ANSWERKEY[ANSPOS]] == note) {
 		ANSPOS++;
 		//check if melody has been completed
 		if (ANSPOS >= ANSWERKEY.length) {
-			//increase time
-			//calculate score for melody
+			//increase time (STILL NEED TO WORK ON)
+			
+			//calculate score for melody (STILL NEED TO WORK ON)
+			
 			//possibly increase difficulty
+			checkDifficulty();
 			//generate a new melody
+			generateMelody();
 			ANSPOS = 0;
-			DISPLAY = "Melody correct!";
+			DISPLAY = "Melody correct! New melody generated...";
 		}
 		else { //correct note otherwise
 			DISPLAY = "Nice!";
 		}
 	}
-	else {
-		ANSPOS = 0;
+	else { //wrong note
 		DISPLAY = "Incorrect!";
+		ANSPOS = 0
 	}
 }
 
@@ -229,4 +260,30 @@ function onButtonClick(note) {
 	playSound(note);
 	checkMelody(note);
 	displayMessege();
+}
+
+//at the start of every game, run all these functions once.
+function initStart() {
+	loadSounds('piano');
+	chooseScale('Cmaj');
+	//var test = 20;
+	//set starting difficulty 
+	switch (localStorage.getItem("difficulty")) {
+		case 0:
+			SPEED = 1.0;
+			NUMNOTES = 2;
+			RANGE = 3;
+			break;
+		case 10:
+			SPEED = 0.95;
+			NUMNOTES = 4;
+			RANGE = 3;
+			break;
+		case 20:
+			SPEED = 0.90;
+			NUMNOTES = 6;
+			RANGE = 3;
+			break;
+	}
+	generateMelody();
 }
