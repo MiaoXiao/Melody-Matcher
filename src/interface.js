@@ -14,9 +14,7 @@ function dif_selected() {
 }
 
 function letsgo() {
+    localStorage.setItem("volume", document.getElementById("volume").value);
+    window.alert(localStorage.getItem("volume"));
     document.location.href = "testsoundManager.html";
-}
-
-function change_vol() {
-    localStorage.setItem("volume", document.getElementById("myRange").value);
 }
