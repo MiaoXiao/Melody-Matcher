@@ -14,6 +14,7 @@ function dif_selected() {
 }
 
 function letsgo() {
+    window.alert(localStorage.getItem("difficulty"));
     document.location.href = "testsoundManager.html";
 }
 

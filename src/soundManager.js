@@ -242,7 +242,7 @@ function checkMelody(note) {
 }
 
 //displays current messege and level
-function displayMessege() {
+function displayMessage() {
 	document.getElementById("display").innerHTML = DISPLAY + "<br>" + "Level: " + parseInt(localStorage.getItem("difficulty"));
 }
 
@@ -250,7 +250,7 @@ function displayMessege() {
 function onButtonClick(note) {
 	playSound(note);
 	checkMelody(note);
-	displayMessege();
+	displayMessage();
 }
 
 //at the start of every game, run all these functions once.
@@ -276,5 +276,5 @@ function initStart() {
 			break;
 	}
 	generateMelody();
-	displayMessege();
+	displayMessage();
 }
