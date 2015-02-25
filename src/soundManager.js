@@ -241,9 +241,18 @@ function checkMelody(note) {
 	}
 }
 
+function level_to_name(level) {
+    var level = parseInt(localStorage.getItem("difficulty"));
+    return (level < 10) ? "Easy" :
+           (level < 20) ? "Medium" :
+           (level < 30) ? "Hard" :
+           (level < 40) ? "Very Hard" :
+                          "EXPERT";
+}
+
 //displays current messege and level
 function displayMessage() {
-	document.getElementById("display").innerHTML = DISPLAY + "<br>" + "Level: " + parseInt(localStorage.getItem("difficulty"));
+    document.getElementById("display").innerHTML = DISPLAY + "<br>" + "Level: " + localStorage.getItem("difficulty") + "\t(" + level_to_name() + ")";
 }
 
 //run 3 functions every key press
