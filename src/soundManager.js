@@ -237,7 +237,7 @@ function checkMelody(note) {
 	}
 	else { //wrong note
 		DISPLAY = "Incorrect!";
-		ANSPOS = 0
+		ANSPOS = 0;
 	}
 }
 
