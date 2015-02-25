@@ -145,7 +145,7 @@ function playMelody() {
 	//play the melody
 	for (var i = 0; i < ANSWERKEY.length; i++) {
 		//delay * (speed * 1000) will give a delay that is consistent
-		createjs.Sound.play(SCALE[ANSWERKEY[i]], "none", i * (SPEED * 1000), 0, 0, VOLUME);
+        createjs.Sound.play(SCALE[ANSWERKEY[i]], "none", i * (SPEED * 1000), 0, 0, get_vol());
 	}
 }
 
@@ -191,7 +191,7 @@ function generateMelody() {
 
 //play a sound given an id (ex C4, G4, Bb4)
 function playSound(note) {
-	createjs.Sound.play(note, "none", 0, 0, 0, VOLUME);
+	createjs.Sound.play(note, "none", 0, 0, 0, get_vol());
 }
 
 //check difficulty every time a correct melody is entered

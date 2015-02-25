@@ -18,3 +18,11 @@ function letsgo() {
     //window.alert(localStorage.getItem("volume"));
     document.location.href = "testsoundManager.html";
 }
+
+function change_vol(vol_amount) {
+    localStorage.setItem("volume", vol_amount);
+}
+
+function get_vol() {
+    return parseFloat(localStorage.getItem("volume"))/100.0;
+}
