@@ -5,39 +5,20 @@
 * Sherina Bala (sbala003@ucr.edu)
 * Stanley Ari Cohen (scohe001@ucr.edu)
 
-## Goal: 
-A web based video game where the player has to try to copy melodies by playing them on a virtual piano. This will help players better distinguish between different tones and sounds and will also help players new to music learn different scales.
+## General Gameplay: 
+Players try to copy melodies by playing them on a virtual piano in order to earn points. However, you only have a certain amount of time to perfectly replicate each melody, or else the game is over. All melodies are randomly generated! This game will help players better distinguish between different tones and sounds and will also help players new to music learn different scales.
 
 ## Requires 
-* A working browser
-
-## Basic Gameplay:
-The player will hear a melody, and will try to replicate that melody as quickly as possible by clicking piano keys on a virtual keyboard. 
-But you only have a certain amount of time, once you replicate the melody the time is reset. If the time reaches 0, they lose.
-The player will be able to see a keyboard representation with all the keys labeled with its corresponding key note.
-Instead of clicking, the player can also type “p” to play the melody and can also type ‘q’ through ‘o’ to “play” the piano.
-Difficulty of a melody is based on number of the tones in a melody, speed of the melody, and range of tones in melody.
-The game ends when they player runs out of time before they can replicate a melody. After the game, their progress/stats for that game is shown.
+* A working browser!
 
 ## Choosing a Level:
-The player can choose 1 out of 3 levels, Easy, Medium, Hard. 
+The player can choose 1 out of 3 starting levels; Easy, Medium, Hard. 
 All levels will increase in difficulty based on how many melodies are successfully replicated, so an easy level will eventually reach hard difficulty. 
 
 ## Score Calculation:
-When a player successfully replicates a melody a score is given:
-	
-``ExtraPoints = TotalTime - TimeTaken;``
+Points are awarded every time the player correctly copies a melody. The faster you copy a melody, and the more difficult a melody is, the more points you get! As the levels get higher, so do the reqards. Certain actions will even award you bonus points.
 
-``Score = BasePoints + ExtraPoints;``
-
-BasePoints is how many points a melody is worth. (Basepoints calculated on how many tones the melody has, or how fast it is)
-TotalTimeLeft is how many seconds left until the player must replicate a melody, or else they lose. 
-TotalTime is reset to a fixed number every time a melody is replicated.
-TimeTaken is how many seconds it took the player to find the correct melody.
-
-## Melodies:
-All Melodies are randomly generated, given a couple parameters such as number of tones, speed of melody, and range of melody. 
-The player can choose from a preset of sounds when they play the game, the default being the piano.
+Before you even start the game. you can add modifiers that will make the game more difficult but will also award you more points per melody!
 
 ## Statistics:
-Scores on all levels, and current progress will be saved in a cookie. They can be viewed from the stats screen.
+After every complete game, your score on all melodies is recorded for that session. There will be a staticstics screen where you can view all this information. This is a great way to see your progress as you play!
