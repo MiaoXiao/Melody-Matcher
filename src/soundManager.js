@@ -1,6 +1,4 @@
 //global variables
-//default volume
-var VOLUME = 0.5;
 
 //next 3 vars determine difficulty of melody
 //default speed
@@ -20,15 +18,6 @@ var ANSPOS = 0;
 var DISPLAY = "";
 //Hold the full chromatic
 var CHROMATIC = ["C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4", "A4", "Bb4", "B4", "C5"];
-
-//change volume. between 0 and 1
-function changeVolume(volume) {
-	//check that volume is within bounds
-	if (volume < 0 || volume > 1) {
-		window.alert("ERROR: VOLUME NOT BETWEEN 0 and 1");
-	}
-	VOLUME = volume;
-}
 
 //load all sounds that will be used
 //pass in what instrument to use, violin or piano
