@@ -241,6 +241,7 @@ function checkMelody(note) {
 	}
 }
 
+//given current level, displays level name
 function level_to_name(level) {
     var level = parseInt(localStorage.getItem("difficulty"));
     return (level < 10) ? "Easy" :
