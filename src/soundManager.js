@@ -14,8 +14,6 @@ var ANSWERKEY = [];
 var SCALE = [];
 //current position in answerkey
 var ANSPOS = 0;
-//current messege
-var DISPLAY = "";
 //Hold the full chromatic
 var CHROMATIC = ["C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4", "A4", "Bb4", "B4", "C5"];
 
@@ -229,19 +227,20 @@ function checkMelody(note) {
 			//generate a new melody
 			generateMelody();
 			ANSPOS = 0;
-			DISPLAY = "Melody correct! New melody generated...";
+			sessionStorage.setItem("display", "finish");
+			//DISPLAY = "Melody correct! New melody generated...";
 		}
 		else { //correct note otherwise
-			DISPLAY = "Nice!";
+			sessionStorage.setItem("display", "correct");
 		}
 	}
 	else { //wrong note
-		DISPLAY = "Incorrect!";
+		sessionStorage.setItem("display", "incorrect");
 		ANSPOS = 0;
 	}
 }
 
-//given current level, displays level name
+/*//given current level, displays level name
 function level_to_name(level) {
     var level = parseInt(localStorage.getItem("difficulty"));
     return (level < 10) ? "Easy" :
@@ -249,12 +248,12 @@ function level_to_name(level) {
            (level < 30) ? "Hard" :
            (level < 40) ? "Very Hard" :
                           "EXPERT";
-}
+}*/
 
 //displays current messege and level
-function displayMessage() {
+/*function displayMessage() {
     document.getElementById("display").innerHTML = DISPLAY + "<br>" + "Level: " + localStorage.getItem("difficulty") + "\t(" + level_to_name() + ")";
-}
+}*/
 
 //run 3 functions every key press
 function onButtonClick(note) {
@@ -268,7 +267,7 @@ function initStart() {
 	loadSounds('piano');
 	chooseScale('Cmaj');
 	//set starting difficulty 
-	switch (parseInt(localStorage.getItem("difficulty"))) {
+	switch (parseInt(sessionStorage.getItem("difficulty"))) {
 		case 0:
 			SPEED = 1.0;
 			NUMNOTES = 2;
@@ -286,5 +285,5 @@ function initStart() {
 			break;
 	}
 	generateMelody();
-	displayMessage();
+	sessionStorage.setItem("display", "start");
 }
