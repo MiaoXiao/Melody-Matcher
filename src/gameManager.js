@@ -55,7 +55,6 @@ function loadSounds(instrument) {
 
 //choose a specific scale
 function chooseScale(scale) {
-
 	//clear scale array
 	SCALE.length = 0;
 	
@@ -127,12 +126,16 @@ function chooseScale(scale) {
 }
 
 //play melody using answerkey array
-//if nodelay is true, that means the melody plays without any delay at the start of the melody
+//melody can only play, if it is not already playing
 function playMelody() {
-	//play the melody
 	for (var i = 0; i < ANSWERKEY.length; i++) {
 		//delay * (speed * 1000) will give a delay that is consistent
         createjs.Sound.play(SCALE[ANSWERKEY[i]], "none", i * (SPEED * 1000), 0, 0, get_vol());
+		//if the sound was just played, disable the button for the duration of the melody
+		if (i + 1 == ANSWERKEY.length) {
+			document.getElementById("playmelodybtn").disabled = true;
+			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false}, (i +  1) * (SPEED * 1000));
+		}
 	}
 }
 
@@ -186,7 +189,7 @@ function playSound(note) {
 //this only runs after every correct melody
 function checkDifficulty() {
 	//get next difficulty (lastdifficulty + 1)
-	var newDifficulty = parseInt(localStorage.getItem("difficulty")) + 1;
+	var newDifficulty = parseInt(sessionStorage.getItem("difficulty")) + 1;
 	
 	//every multiple of 2 levels, increase RANGE.
 	if (newDifficulty % 2 == 0) {
@@ -206,7 +209,7 @@ function checkDifficulty() {
 	}
 	
 	//set new difficulty
-	localStorage.setItem("difficulty", newDifficulty);
+	sessionStorage.setItem("difficulty", newDifficulty);
 }
 
 //check to see if melody is correct so far
@@ -218,10 +221,11 @@ function checkMelody(note) {
 		ANSPOS++;
 		//check if melody has been completed
 		if (ANSPOS >= ANSWERKEY.length) {
+			//window.alert("completed!");
 			//increase time (STILL NEED TO WORK ON)
 			
-			//calculate score for melody (STILL NEED TO WORK ON)
-			
+			//calculate score for melody
+			//calculateScore(NUMNOTES, RANGE);
 			//possibly increase difficulty
 			checkDifficulty();
 			//generate a new melody
@@ -259,7 +263,6 @@ function level_to_name(level) {
 function onButtonClick(note) {
 	playSound(note);
 	checkMelody(note);
-	displayMessage();
 }
 
 //at the start of every game, run all these functions once.
