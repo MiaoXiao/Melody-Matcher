@@ -1,19 +1,47 @@
-//global variables
+//stores information about current melody
+var MELODYINFO = {
+	//melody speed
+	speed: 1.0,
+	//number of notes in melody
+	numNotes: 2,
+	//range of notes
+	range: 3,
+	
+	//key for melody
+	anskey: [],
+	//current position in answerkey
+	anspos: 0,
+	
+	//number of wrong notes before getting the melody correct
+	wrongNotes: 0,
+	//seconds it took to solve the melody
+	secondsTaken: 0,
+	
+	//status of whether the player has earned bonus points for this melody or not
+	bonus: {
+		//solved melody with no mistakes
+		bonusNoError: true,
+		//solved melody under 10 seconds
+		bonusSpeed: true,
+		//solved melody under 5 seconds
+		bonusVerySpeed: true,
+		//solved melody while only playing the melody once or less
+		bonusPlayOnce: true
+	}
+};
 
-//next 3 vars determine difficulty of melody
-//default speed
-var SPEED;
-//number of notes in a melody
-var NUMNOTES;
-// range of notes
-var RANGE;
+//information about the entire game so far
+var GAMEINFO = {
+	//array of all melodyinfos
+	allMelodies: [],
+	//how many melodies correct so far
+	melodiesCorrect: 0,
+	//score multiplier for the game
+	multi: 1.0,
+	//current scale for this game
+	scale: []
+};
 
-//key for melody
-var ANSWERKEY = [];
-//current scale
-var SCALE = [];
-//current position in answerkey
-var ANSPOS = 0;
 //Hold the full chromatic
 var CHROMATIC = ["C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4", "A4", "Bb4", "B4", "C5"];
 
@@ -56,7 +84,7 @@ function loadSounds(instrument) {
 //choose a specific scale
 function chooseScale(scale) {
 	//clear scale array
-	SCALE.length = 0;
+	GAMEINFO.scale.length = 0;
 	
 	var start = 0;
 
@@ -111,14 +139,14 @@ function chooseScale(scale) {
 		if((note == (CHROMATIC.length - 1)) || note == 0) {
 			//Cover edge case for the C's
 			//SCALE.push(CHROMATIC[CHROMATIC.length - 1]);
-			SCALE.push(CHROMATIC[0]);
+			GAMEINFO.scale.push(CHROMATIC[0]);
 		} 
 		else if(note >= CHROMATIC.length) {
 			//If we loop around to low C
-			SCALE.push(CHROMATIC[(note%CHROMATIC.length) + 1]);
+			GAMEINFO.scale.push(CHROMATIC[(note%CHROMATIC.length) + 1]);
 		} 
 		else {
-			SCALE.push(CHROMATIC[note]);
+			GAMEINFO.scale.push(CHROMATIC[note]);
 		}
     }
     //For testing
@@ -128,13 +156,13 @@ function chooseScale(scale) {
 //play melody using answerkey array
 //melody can only play, if it is not already playing
 function playMelody() {
-	for (var i = 0; i < ANSWERKEY.length; i++) {
+	for (var i = 0; i < MELODYINFO.anskey.length; i++) {
 		//delay * (speed * 1000) will give a delay that is consistent
-        createjs.Sound.play(SCALE[ANSWERKEY[i]], "none", i * (SPEED * 1000), 0, 0, get_vol());
+        createjs.Sound.play(GAMEINFO.scale[MELODYINFO.anskey[i]], "none", i * (MELODYINFO.speed * 1000), 0, 0, get_vol());
 		//if the sound was just played, disable the button for the duration of the melody
-		if (i + 1 == ANSWERKEY.length) {
+		if (i + 1 == MELODYINFO.anskey.length) {
 			document.getElementById("playmelodybtn").disabled = true;
-			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false}, (i +  1) * (SPEED * 1000));
+			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false}, (i +  1) * (MELODYINFO.speed * 1000));
 		}
 	}
 }
@@ -142,24 +170,24 @@ function playMelody() {
 //creates a random melody by filling answerkey array
 function generateMelody() {
 	//check that range is within bounds
-	if (RANGE < 1 || RANGE > 8) {
+	if (MELODYINFO.range < 1 || MELODYINFO.range > 8) {
 		window.alert("ERROR: RANGE NOT BETWEEN 1 and 8");
 	}
 	//check that numNotes is within bounds
-	if (NUMNOTES < 1) {
+	if (MELODYINFO.numNotes < 1) {
 		window.alert("ERROR: NUM NOTES BELOW 0");
 	}
-	//window.alert("Range: " + RANGE);
-	//window.alert("Numnotes: " + NUMNOTES);
+	//window.alert("Range: " + MELODYINFO.range);
+	//window.alert("Numnotes: " + MELODYINFO.numNotes);
 	//clear array
-	ANSWERKEY.length = 0;
+	MELODYINFO.anskey.length = 0;
 	//holds random number between 0 and range
 	var randNum;
 	//fills answer key with random iterators between range and 0
-	for (var i = 0; i < NUMNOTES; i++) {
-		randNum = Math.floor((Math.random() * RANGE) + 0);
+	for (var i = 0; i < MELODYINFO.numNotes; i++) {
+		randNum = Math.floor((Math.random() * MELODYINFO.range) + 0);
 		//if the random number is the same as the last one, dec or inc by 1
-		if (i != 0 && randNum == ANSWERKEY[i - 1]) {
+		if (i != 0 && randNum == MELODYINFO.anskey[i - 1]) {
 			if (randNum == 0) {
 				randNum += 1;
 			}
@@ -173,10 +201,9 @@ function generateMelody() {
 				randNum -= 1;
 			}
 		}
-		ANSWERKEY[i] = randNum;
-		//window.alert(ANSWERKEY[i]);
+		MELODYINFO.anskey[i] = randNum;
 	}
-	//window.alert(ANSWERKEY);
+	//window.alert("Full Melody: " + MELODYINFO.anskey);
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
@@ -193,54 +220,126 @@ function checkDifficulty() {
 	
 	//every multiple of 2 levels, increase RANGE.
 	if (newDifficulty % 2 == 0) {
-		RANGE++;
+		MELODYINFO.range++;
 	}
 	//every multiple of 5 levels, increase numnotes
 	if (newDifficulty % 5 == 0) {
-		NUMNOTES++;
+		MELODYINFO.numNotes++;
 	}
 	//every 10 levels, reset range back to 3
 	//also increase speed by a factor of 0.05, as long as the speed isint already 0.05
 	if (newDifficulty % 10 == 0) {
-		if (SPEED > 0.05) {
-			SPEED -= 0.05;
+		if (MELODYINFO.speed > 0.05) {
+			MELODYINFO.speed -= 0.05;
 		}
-		RANGE = 3;
+		MELODYINFO.range = 3;
 	}
 	
 	//set new difficulty
 	sessionStorage.setItem("difficulty", newDifficulty);
 }
 
+//based off number of notes and the range, calculates a score for correct melody
+//bonus booleons are passed to determine whether the player is awarded bonus points
+function calculateScore(melodyinfo) {
+	//get the current level
+	var currentLevel = parseInt(sessionStorage.getItem("difficulty"));
+	
+	//base points
+	var basePoints = (melodyinfo.numNotes * 50) + (melodyinfo.range * 25);
+	
+	//bonus for getting a melody correct without making a mistake
+	var bonusNoError = 0;
+	if (melodyinfo.bonusNoError) {
+		bonusNoError = 25 * currentLevel;
+	}
+	
+	//bonus for getting a melody correct in under 10 seconds, or under 5 seconds
+	bonusTime = 0;
+	bonusVeryTime = 0;
+	if(melodyinfo.bonusTime) {
+		bonusTime = 10 * currentLevel;
+		
+	}	
+	else if (melodyinfo.bonusVeryTime) {
+		bonusVeryTime = 20 * currentLevel;
+	}
+	
+	//bonus for only playing the melody once or less
+	var bonusPlayOnce = 0;
+	if (melodyinfo.bonusPlayOnce) {
+		bonusPlayOnce = 15 * currentLevel;
+	}
+	
+	//final score for the melody
+	var finalScore = GAMEINFO.multi * (basePoints + bonusNoError + bonusTime + bonusVeryTime);
+	sessionStorage.setItem("score", finalScore);
+	window.alert("Score for melody: " + finalScore);
+}
+
+//update display
+//update GAMEINFO
+//regenerate MELODYINFO
+//calculate score
+//reset time to TIMESTART
+function getnextMelody() {
+	//window.alert("Getting next melody");
+	sessionStorage.setItem("display", "finish");
+	
+	//calculate score for melody
+	calculateScore(MELODYINFO);
+	
+	//add one more correct melody
+	GAMEINFO.melodiesCorrect++;
+	//push completed melody information to array
+	GAMEINFO.allMelodies.push(MELODYINFO);
+
+	//possibly increase difficulty, by checking speed, range, and numNotes
+	checkDifficulty();
+	
+	//RESET CURRENT MELODY
+	//reset current position in answerkey
+	MELODYINFO.anspos = 0;
+	//reset number of wrong notes before getting the melody correct
+	MELODYINFO.wrongNotes = 0;
+	//reset seconds it took to solve the melody
+	MELODYINFO.secondsTaken = 0;
+	//reset all bonuses
+	/*
+	var x;
+	for (x in MELODYINFO.bonus) {
+		MELODYINFO.bonus[x] = true;
+	}*/
+	
+	//generate a new melody
+	generateMelody();
+}
+
 //check to see if melody is correct so far
 //note is a string (ex. C4)
 //updates current messege
 function checkMelody(note) {
+	//shortcut variables from melodyinfo
+	var cur_scale = GAMEINFO.scale;
+	var cur_anskey = MELODYINFO.anskey;
+	var cur_anspos = MELODYINFO.anspos;
+	
 	//if correct
-	if (SCALE[ANSWERKEY[ANSPOS]] == note) {
-		ANSPOS++;
+	if (cur_scale[cur_anskey[cur_anspos]] == note) {
+		cur_anspos++;
 		//check if melody has been completed
-		if (ANSPOS >= ANSWERKEY.length) {
-			//window.alert("completed!");
-			//increase time (STILL NEED TO WORK ON)
-			
-			//calculate score for melody
-			//calculateScore(NUMNOTES, RANGE);
-			//possibly increase difficulty
-			checkDifficulty();
-			//generate a new melody
-			generateMelody();
-			ANSPOS = 0;
-			sessionStorage.setItem("display", "finish");
-			//DISPLAY = "Melody correct! New melody generated...";
+		if (cur_anspos >= cur_anskey.length) {
+			getnextMelody();
 		}
 		else { //correct note otherwise
 			sessionStorage.setItem("display", "correct");
+			MELODYINFO.anspos++;
 		}
 	}
 	else { //wrong note
 		sessionStorage.setItem("display", "incorrect");
-		ANSPOS = 0;
+		MELODYINFO.wrongNotes++;
+		MELODYINFO.anspos = 0;
 	}
 }
 
@@ -267,26 +366,28 @@ function onButtonClick(note) {
 
 //at the start of every game, run all these functions once.
 function initStart() {
+	sessionStorage.setItem("display", "start");
+	
 	loadSounds('piano');
 	chooseScale('Cmaj');
 	//set starting difficulty 
 	switch (parseInt(sessionStorage.getItem("difficulty"))) {
 		case 0:
-			SPEED = 1.0;
-			NUMNOTES = 2;
-			RANGE = 3;
+			MELODYINFO.speed = 1.0;
+			MELODYINFO.numNotes = 2;
+			MELODYINFO.range = 3;
 			break;
 		case 10:
-			SPEED = 0.95;
-			NUMNOTES = 4;
-			RANGE = 3;
+			MELODYINFO.speed = 0.95;
+			MELODYINFO.numNotes = 4;
+			MELODYINFO.range = 3;
 			break;
 		case 20:
-			SPEED = 0.90;
-			NUMNOTES = 6;
-			RANGE = 3;
+			MELODYINFO.speed = 0.90;
+			MELODYINFO.numNotes = 6;
+			MELODYINFO.range = 3;
 			break;
+			window.alert("Game start error: melody not initialized correctly");
 	}
 	generateMelody();
-	sessionStorage.setItem("display", "start");
 }

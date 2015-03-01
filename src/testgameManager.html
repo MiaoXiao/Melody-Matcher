@@ -1,6 +1,12 @@
 <html>
   <head>
-	<title> Play Sounds </title>
+		<title> Play Sounds </title>
+		<script src="https://code.createjs.com/createjs-2014.12.12.min.js"></script>
+		<script src="sound.js"></script>
+		<script src="time.js"></script>
+		<script src="score.js"></script>
+		<script src="interface.js"></script>
+		<script src="gameManager.js"></script>
   </head>
   
   <body onload="initStart();">
@@ -31,11 +37,12 @@
 	
     <button onclick="onButtonClick('C5');" class="playSound key key-natural">C</button>
     </div>
-    <br>
-    <div id="controls">
-    <button onclick="playMelody();" class="playSound btn-block">Play Current Melody</button>
-	<br>
-	<p id="display"></p>
+    
+    <div id="display">
+		<br>
+		<center> <button id="playmelodybtn" onclick="playMelody();" class="playSound btn-block">Play Current Melody</button> </center>
+		<br>
+		<center><p></p></center>
     </div>
   </body>
   
@@ -44,12 +51,7 @@
   </div>
 
   <link href="style.css" rel="stylesheet">
-  <script src="https://code.createjs.com/createjs-2014.12.12.min.js"></script>
-  <script src="sound.js"></script>
-  <script src="time.js"></script>
-  <script src="interface.js"></script>
-  <script src="soundManager.js"></script>
-
-  
-
+	<footer>
+		
+	</footer>
 </html>
