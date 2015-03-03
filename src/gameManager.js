@@ -22,15 +22,76 @@ var MELODYINFO = {
 	//status of whether the player has earned bonus points for this melody or not
 	bonus: {
 		//solved melody with no mistakes
-		bonusNoError: true,
-		//solved melody under 10 seconds
-		bonusSpeed: true,
-		//solved melody under 5 seconds
-		bonusVerySpeed: true,
+		bonus_NoError: true,
 		//solved melody while only playing the melody once or less
-		bonusPlayOnce: true	
+		bonus_PlayOnce: true,
+		
+		//solved melody under 10 seconds
+		bonus_Speed: true,
+		//solved melody under 5 seconds
+		bonus_VerySpeed: true
 	},
 	
+	//information on score for melody
+	score: {
+		//final score
+		score_final: 0,
+		//base points
+		score_base: 0,
+		
+		//possible bonus points
+		score_noerror: 0,
+		score_playonce: 0,
+		score_speed: 0,
+		score_veryspeed: 0	
+	},
+
+	//calculates and updates score
+	calculateScore: function() {
+		//get the current level
+		var currentLevel = parseInt(sessionStorage.getItem("difficulty"));
+		
+		//base points
+		this.score.score_base = (this.numNotes * 50) + (this.range * 25);
+		this.score.score_final += this.score.score_base;
+		
+		//bonus for getting a melody correct without making a mistake
+		if (this.bonus.bonus_NoError) {
+			//window.alert("no error!");
+			this.score.score_noerror = 15 * this.numNotes;
+			this.score.score_final += this.score.score_noerror;
+		}
+		
+		//bonus for getting a melody correct in under 10 seconds, or under 5 seconds
+		if(this.bonus.bonus_Speed) {
+			//this.score.score_speed = 10 * this.numNotes;
+		}	
+		else if (this.bonus_VerySpeed) {
+			//this.score.score_veryspeed = 20 * this.numNotes;
+		}
+		
+		//bonus for only playing the melody once or less
+		if (this.bonus.bonus_PlayOnce) {
+			//window.alert("play once!");
+			this.score.score_playonce = 10 * this.numNotes;
+			this.score.score_final += this.score.score_playonce;
+		}
+		
+		//apply multiplier
+		this.score.score_final *= GAMEINFO.multi;
+		
+		//final score for the melody
+		window.alert("Basepoints: " +  this.score.score_base);
+		window.alert("BonusNoError: " +  this.score.score_noerror);
+		window.alert("PlayOnce: " +  this.score.score_playonce);
+		window.alert("Score: " +  this.score.score_final);
+		
+		//add to game score
+		GAMEINFO.gamescore += this.score.score_final;
+		
+		window.alert("Game Score: " +  GAMEINFO.gamescore);
+	},
+		
 	//check difficulty every time a correct melody is entered
 	//if difficulty is high enough, increase number of notes or range in the next generated melody
 	//this only runs after every correct melody
@@ -71,29 +132,34 @@ var MELODYINFO = {
 		this.secondsTaken = 0;
 		//reset melodies playe
 		this.melodiesPlayed = 0;
-		//reset all bonuses
+		//reset bonuses
 		var x;
 		for (x in this.bonus) {
 			this.bonus[x] = true;
+		}
+		//reset score
+		for (x in this.score) {
+			this.score[x] = 0;
 		}
 	}
 	
 };
 
 //information about the entire game so far
+//most of this data will not change in a single game
 var GAMEINFO = {
-	//array of all melodyinfos
+	//current gamemode
+	gameMode: "standard",
+	//array of all melodies so far
 	allMelodies: [],
-	//how many melodies correct so far
-	melodiesCorrect: 0,
+	//entire game score
+	gamescore: 0,
 	//score multiplier for the game
 	multi: 1.0,
 	//current scale for this game
 	scale: [],
 	
 	updateGameInfo: function() {
-		//add one more correct melody
-		this.melodiesCorrect++;
 		//push completed melody information to array
 		this.allMelodies.push(MELODYINFO);
 	}
@@ -299,7 +365,7 @@ function chooseScale(scale) {
 function playMelody() {
 	MELODYINFO.melodiesPlayed++;
 	//if this is the second time playing the melody, play once bonus off
-	if (MELODYINFO.melodiesPlayed >= 2) MELODYINFO.bonus.bonusPlayOnce = false;
+	if (MELODYINFO.melodiesPlayed == 2) MELODYINFO.bonus.bonus_PlayOnce = false;
 	for (var i = 0; i < MELODYINFO.anskey.length; i++) {
 		//delay * (speed * 1000) will give a delay that is consistent
         createjs.Sound.play(GAMEINFO.scale[MELODYINFO.anskey[i]], "none", i * (MELODYINFO.speed * 1000), 0, 0, get_vol());
@@ -355,66 +421,22 @@ function playSound(note) {
 	createjs.Sound.play(note, "none", 0, 0, 0, get_vol());
 }
 
-//based off number of notes and the range, calculates a score for correct melody
-//bonus booleons are passed to determine whether the player is awarded bonus points
-function calculateScore(melodyinfo, multi) {
-	//final score for this melody
-	var finalScore = 0;
-	//get the current level
-	var currentLevel = parseInt(sessionStorage.getItem("difficulty"));
-	
-	//base points
-	var basePoints = (melodyinfo.numNotes * 50) + (melodyinfo.range * 25);
-	finalScore += basePoints;
-	
-	//bonus for getting a melody correct without making a mistake
-	var bonusNoError = 0;
-	if (melodyinfo.bonus.bonusNoError) {
-		//window.alert("no error!");
-		bonusNoError = 15 * melodyinfo.numNotes;
-		finalScore += bonusNoError;
-	}
-	
-	//bonus for getting a melody correct in under 10 seconds, or under 5 seconds
-	bonusTime = 0;
-	bonusVeryTime = 0;
-	if(melodyinfo.bonus.bonusTime) {
-		//bonusTime = 10 * melodyinfo.currentLevel;
-	}	
-	else if (melodyinfo.bonusVeryTime) {
-		//bonusVeryTime = 20 * melodyinfo.currentLevel;
-	}
-	
-	//bonus for only playing the melody once or less
-	var bonusPlayOnce = 0;
-	if (melodyinfo.bonus.bonusPlayOnce) {
-		//window.alert("play once!");
-		bonusPlayOnce = 10 * melodyinfo.numNotes;
-		finalScore += bonusPlayOnce;
-	}
-	
-	//apply multiplier
-	finalScore *= multi;
-	
-	//final score for the melody
-	sessionStorage.setItem("score", finalScore);
-	window.alert("Basepoints: " +  basePoints);
-	window.alert("BonusNoError: " +  bonusNoError);
-	window.alert("PlayOnce: " +  bonusPlayOnce);
-	window.alert("Score: " +  finalScore);
-}
-
 //run all these functions after every correct melody
 function getnextMelody() {
 	//window.alert("Getting next melody");
 	sessionStorage.setItem("display", "finish");
 	
 	//calculate score for melody
-	calculateScore(MELODYINFO, GAMEINFO.multi);
+	MELODYINFO.calculateScore();
 	
 	//update gameinfo
 	GAMEINFO.updateGameInfo();
-
+	
+	//save information
+	localStorage.setItem("stats", JSON.stringify(GAMEINFO));
+	//USE: TO GET LATEST GAME INFORMATION
+	//var finalGameInfo = JSON.parse(localStorage.getItem("stats"));
+	
 	//reset melody info
 	MELODYINFO.resetMelodyInfo();
 	
@@ -448,7 +470,7 @@ function checkMelody(note) {
 		MELODYINFO.wrongNotes++;
 		MELODYINFO.anspos = 0;
 		//no error bonus lost
-		MELODYINFO.bonus.bonusNoError = false;
+		MELODYINFO.bonus.bonus_NoError = false;
 	}
 }
 
@@ -467,7 +489,7 @@ function level_to_name(level) {
     document.getElementById("display").innerHTML = DISPLAY + "<br>" + "Level: " + localStorage.getItem("difficulty") + "\t(" + level_to_name() + ")";
 }*/
 
-//run 3 functions every key press
+//run these functions every key press
 function onButtonClick(note) {
 	playSound(note);
 	checkMelody(note);
@@ -498,5 +520,6 @@ function initStart() {
 			break;
 			window.alert("Game start error: melody not initialized correctly");
 	}
+	//save stats
 	generateMelody();
 }
