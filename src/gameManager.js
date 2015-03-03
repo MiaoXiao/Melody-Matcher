@@ -16,6 +16,8 @@ var MELODYINFO = {
 	wrongNotes: 0,
 	//seconds it took to solve the melody
 	secondsTaken: 0,
+	//number of times melody was played for this level
+	melodiesPlayed: 0,
 	
 	//status of whether the player has earned bonus points for this melody or not
 	bonus: {
@@ -26,8 +28,56 @@ var MELODYINFO = {
 		//solved melody under 5 seconds
 		bonusVerySpeed: true,
 		//solved melody while only playing the melody once or less
-		bonusPlayOnce: true
+		bonusPlayOnce: true	
+	},
+	
+	//check difficulty every time a correct melody is entered
+	//if difficulty is high enough, increase number of notes or range in the next generated melody
+	//this only runs after every correct melody
+	checkDifficulty: function() {
+		//get next difficulty (lastdifficulty + 1)
+		var newDifficulty = parseInt(sessionStorage.getItem("difficulty")) + 1;
+		
+		//every multiple of 2 levels, increase RANGE.
+		if (newDifficulty % 2 == 0) {
+			this.range++;
+		}
+		//every multiple of 5 levels, increase numnotes
+		if (newDifficulty % 5 == 0) {
+			this.numNotes++;
+		}
+		//every 10 levels, reset range back to 3
+		//also increase speed by a factor of 0.05, as long as the speed isint already 0.05
+		if (newDifficulty % 10 == 0) {
+			if (speed > 0.05) {
+				speed -= 0.05;
+			}
+			this.range = 3;
+		}
+		
+		//set new difficulty
+		sessionStorage.setItem("difficulty", newDifficulty);
+	},
+
+	//resets all relevant melody info
+	resetMelodyInfo: function() {
+		//possibly increase difficulty, by checking speed, range, and numNotes
+		this.checkDifficulty();
+		//reset current position in answerkey
+		this.anspos = 0;
+		//reset number of wrong notes before getting the melody correct
+		this.wrongNotes = 0;
+		//reset seconds it took to solve the melody
+		this.secondsTaken = 0;
+		//reset melodies playe
+		this.melodiesPlayed = 0;
+		//reset all bonuses
+		var x;
+		for (x in this.bonus) {
+			this.bonus[x] = true;
+		}
 	}
+	
 };
 
 //information about the entire game so far
@@ -39,7 +89,14 @@ var GAMEINFO = {
 	//score multiplier for the game
 	multi: 1.0,
 	//current scale for this game
-	scale: []
+	scale: [],
+	
+	updateGameInfo: function() {
+		//add one more correct melody
+		this.melodiesCorrect++;
+		//push completed melody information to array
+		this.allMelodies.push(MELODYINFO);
+	}
 };
 
 //Hold the full chromatic
@@ -57,21 +114,105 @@ function loadSounds(instrument) {
 	//audio path
 	var audioPath = "./sounds/" + instrument + "/";
 	
+	
 	//library of sounds
 	var sounds = [
-		{src: "0_C4.ogg", id: "C4"},
-		{src: "1_Db4.ogg", id: "Db4"},
-		{src: "2_D4.ogg", id: "D4"},
-		{src: "3_Eb4.ogg", id: "Eb4"},
-		{src: "4_E4.ogg", id: "E4"},
-		{src: "5_F4.ogg", id: "F4"},
-		{src: "6_Gb4.ogg", id: "Gb4"},
-		{src: "7_G4.ogg", id: "G4"},
-		{src: "8_Ab4.ogg", id: "Ab4"},
-		{src: "9_A4.ogg", id: "A4"},
-		{src: "10_Bb4.ogg", id: "Bb4"},
-		{src: "11_B4.ogg", id: "B4"},
-		{src: "12_C5.ogg", id: "C5"}
+		//1st octave 
+		/*
+		{src: "0_C2.ogg", id: "C2"},
+		{src: "1_Db2.ogg", id: "Db2"},
+		{src: "2_D2.ogg", id: "D2"},
+		{src: "3_Eb2.ogg", id: "Eb2"},
+		{src: "4_E2.ogg", id: "E2"},
+		{src: "5_F2.ogg", id: "F2"},
+		{src: "6_Gb2.ogg", id: "Gb2"},
+		{src: "7_G2.ogg", id: "G2"},
+		{src: "8_Ab2.ogg", id: "Ab2"},
+		{src: "9_A2.ogg", id: "A2"},
+		{src: "10_Bb2.ogg", id: "Bb2"},
+		{src: "11_B2.ogg", id: "B2"},
+		//2nd octave
+		{src: "12_C3.ogg", id: "C3"},
+		{src: "13_Db3.ogg", id: "Db3"},
+		{src: "14_D43ogg", id: "D3"},
+		{src: "15_Eb3.ogg", id: "Eb3"},
+		{src: "16_E3.ogg", id: "E3"},
+		{src: "17_F3.ogg", id: "F3"},
+		{src: "18_Gb3.ogg", id: "Gb3"},
+		{src: "19_G3.ogg", id: "G3"},
+		{src: "20_Ab3.ogg", id: "Ab3"},
+		{src: "21_A3ogg", id: "A3"},
+		{src: "22_Bb3.ogg", id: "Bb3"},
+		{src: "23_B3.ogg", id: "B3"},
+		*/
+		//3rd octave 
+		{src: "24_C4.ogg", id: "C4"},
+		{src: "25_Db4.ogg", id: "Db4"},
+		{src: "26_D4.ogg", id: "D4"},
+		{src: "27_Eb4.ogg", id: "Eb4"},
+		{src: "28_E4.ogg", id: "E4"},
+		{src: "29_F4.ogg", id: "F4"},
+		{src: "30_Gb4.ogg", id: "Gb4"},
+		{src: "31_G4.ogg", id: "G4"},
+		{src: "32_Ab4.ogg", id: "Ab4"},
+		{src: "33_A4.ogg", id: "A4"},
+		{src: "34_Bb4.ogg", id: "Bb4"},
+		{src: "35_B4.ogg", id: "B4"},
+		
+		//4th octave
+		{src: "36_C5.ogg", id: "C5"}
+		/*
+		{src: "37_Db5.ogg", id: "Db5"},
+		{src: "38_D5.ogg", id: "D5"},
+		{src: "39_Eb5.ogg", id: "Eb5"},
+		{src: "40_E5.ogg", id: "E5"},
+		{src: "41_F5.ogg", id: "F5"},
+		{src: "42_Gb5.ogg", id: "Gb5"},
+		{src: "43_G5.ogg", id: "G5"},
+		{src: "44_Ab5.ogg", id: "Ab5"},
+		{src: "45_A5.ogg", id: "A5"},
+		{src: "46_Bb5.ogg", id: "Bb5"},
+		{src: "47_B5.ogg", id: "B5"},
+		//5th octave
+		{src: "48_C6.ogg", id: "C6"}
+		{src: "49_Db6.ogg", id: "Db6"},
+		{src: "50_D6.ogg", id: "D6"},
+		{src: "51_Eb6.ogg", id: "Eb6"},
+		{src: "52_E6.ogg", id: "E6"},
+		{src: "53_F6.ogg", id: "F6"},
+		{src: "54_Gb6.ogg", id: "Gb6"},
+		{src: "55_G6.ogg", id: "G6"},
+		{src: "56_Ab6.ogg", id: "Ab6"},
+		{src: "57_A6.ogg", id: "A6"},
+		{src: "58_Bb6.ogg", id: "Bb6"},
+		{src: "59_B6.ogg", id: "B6"},
+		//6th octave
+		{src: "60_C7.ogg", id: "C7"}
+		{src: "61_D7.ogg", id: "Db7"},
+		{src: "62_D7.ogg", id: "D7"},
+		{src: "63_Eb7.ogg", id: "Eb7"},
+		{src: "64_E7.ogg", id: "E7"},
+		{src: "65_F7.ogg", id: "F7"},
+		{src: "66_Gb7.ogg", id: "Gb7"},
+		{src: "67_G7.ogg", id: "G7"},
+		{src: "68_Ab7.ogg", id: "Ab7"},
+		{src: "69_A7.ogg", id: "A7"},
+		{src: "70_Bb7.ogg", id: "Bb7"},
+		{src: "71_B7.ogg", id: "B7"},
+		//7th octave
+		{src: "72_C8.ogg", id: "C8"}
+		{src: "73_Db8.ogg", id: "Db8"},
+		{src: "74_D8.ogg", id: "D8"},
+		{src: "75_Eb8.ogg", id: "Eb8"},
+		{src: "76_E8.ogg", id: "E8"},
+		{src: "77_F8.ogg", id: "F8"},
+		{src: "78_Gb8.ogg", id: "Gb8"},
+		{src: "79_G8.ogg", id: "G8"},
+		{src: "80_Ab8.ogg", id: "Ab8"},
+		{src: "81_A8.ogg", id: "A8"},
+		{src: "82_Bb8.ogg", id: "Bb8"},
+		{src: "83_B8.ogg", id: "B8"},
+		*/
 	];
 	createjs.Sound.alternateExtensions = ["mp3"];
 	
@@ -134,14 +275,14 @@ function chooseScale(scale) {
 	var major = [0, 2, 4, 5, 7, 9, 11, 12];
 	
 	//create scale
-	for(var i = 0; i < major.length; i++) {
+	for (var i = 0; i < major.length; i++) {
 		var note = start + major[i];
-		if((note == (CHROMATIC.length - 1)) || note == 0) {
+		if ((note == (CHROMATIC.length - 1)) || note == 0) {
 			//Cover edge case for the C's
 			//SCALE.push(CHROMATIC[CHROMATIC.length - 1]);
 			GAMEINFO.scale.push(CHROMATIC[0]);
 		} 
-		else if(note >= CHROMATIC.length) {
+		else if (note >= CHROMATIC.length) {
 			//If we loop around to low C
 			GAMEINFO.scale.push(CHROMATIC[(note%CHROMATIC.length) + 1]);
 		} 
@@ -156,6 +297,9 @@ function chooseScale(scale) {
 //play melody using answerkey array
 //melody can only play, if it is not already playing
 function playMelody() {
+	MELODYINFO.melodiesPlayed++;
+	//if this is the second time playing the melody, play once bonus off
+	if (MELODYINFO.melodiesPlayed >= 2) MELODYINFO.bonus.bonusPlayOnce = false;
 	for (var i = 0; i < MELODYINFO.anskey.length; i++) {
 		//delay * (speed * 1000) will give a delay that is consistent
         createjs.Sound.play(GAMEINFO.scale[MELODYINFO.anskey[i]], "none", i * (MELODYINFO.speed * 1000), 0, 0, get_vol());
@@ -211,105 +355,68 @@ function playSound(note) {
 	createjs.Sound.play(note, "none", 0, 0, 0, get_vol());
 }
 
-//check difficulty every time a correct melody is entered
-//if difficulty is high enough, increase number of notes or range in the next generated melody
-//this only runs after every correct melody
-function checkDifficulty() {
-	//get next difficulty (lastdifficulty + 1)
-	var newDifficulty = parseInt(sessionStorage.getItem("difficulty")) + 1;
-	
-	//every multiple of 2 levels, increase RANGE.
-	if (newDifficulty % 2 == 0) {
-		MELODYINFO.range++;
-	}
-	//every multiple of 5 levels, increase numnotes
-	if (newDifficulty % 5 == 0) {
-		MELODYINFO.numNotes++;
-	}
-	//every 10 levels, reset range back to 3
-	//also increase speed by a factor of 0.05, as long as the speed isint already 0.05
-	if (newDifficulty % 10 == 0) {
-		if (MELODYINFO.speed > 0.05) {
-			MELODYINFO.speed -= 0.05;
-		}
-		MELODYINFO.range = 3;
-	}
-	
-	//set new difficulty
-	sessionStorage.setItem("difficulty", newDifficulty);
-}
-
 //based off number of notes and the range, calculates a score for correct melody
 //bonus booleons are passed to determine whether the player is awarded bonus points
-function calculateScore(melodyinfo) {
+function calculateScore(melodyinfo, multi) {
+	//final score for this melody
+	var finalScore = 0;
 	//get the current level
 	var currentLevel = parseInt(sessionStorage.getItem("difficulty"));
 	
 	//base points
 	var basePoints = (melodyinfo.numNotes * 50) + (melodyinfo.range * 25);
+	finalScore += basePoints;
 	
 	//bonus for getting a melody correct without making a mistake
 	var bonusNoError = 0;
-	if (melodyinfo.bonusNoError) {
-		bonusNoError = 25 * currentLevel;
+	if (melodyinfo.bonus.bonusNoError) {
+		//window.alert("no error!");
+		bonusNoError = 15 * melodyinfo.numNotes;
+		finalScore += bonusNoError;
 	}
 	
 	//bonus for getting a melody correct in under 10 seconds, or under 5 seconds
 	bonusTime = 0;
 	bonusVeryTime = 0;
-	if(melodyinfo.bonusTime) {
-		bonusTime = 10 * currentLevel;
-		
+	if(melodyinfo.bonus.bonusTime) {
+		//bonusTime = 10 * melodyinfo.currentLevel;
 	}	
 	else if (melodyinfo.bonusVeryTime) {
-		bonusVeryTime = 20 * currentLevel;
+		//bonusVeryTime = 20 * melodyinfo.currentLevel;
 	}
 	
 	//bonus for only playing the melody once or less
 	var bonusPlayOnce = 0;
-	if (melodyinfo.bonusPlayOnce) {
-		bonusPlayOnce = 15 * currentLevel;
+	if (melodyinfo.bonus.bonusPlayOnce) {
+		//window.alert("play once!");
+		bonusPlayOnce = 10 * melodyinfo.numNotes;
+		finalScore += bonusPlayOnce;
 	}
 	
+	//apply multiplier
+	finalScore *= multi;
+	
 	//final score for the melody
-	var finalScore = GAMEINFO.multi * (basePoints + bonusNoError + bonusTime + bonusVeryTime);
 	sessionStorage.setItem("score", finalScore);
-	window.alert("Score for melody: " + finalScore);
+	window.alert("Basepoints: " +  basePoints);
+	window.alert("BonusNoError: " +  bonusNoError);
+	window.alert("PlayOnce: " +  bonusPlayOnce);
+	window.alert("Score: " +  finalScore);
 }
 
-//update display
-//update GAMEINFO
-//regenerate MELODYINFO
-//calculate score
-//reset time to TIMESTART
+//run all these functions after every correct melody
 function getnextMelody() {
 	//window.alert("Getting next melody");
 	sessionStorage.setItem("display", "finish");
 	
 	//calculate score for melody
-	calculateScore(MELODYINFO);
+	calculateScore(MELODYINFO, GAMEINFO.multi);
 	
-	//add one more correct melody
-	GAMEINFO.melodiesCorrect++;
-	//push completed melody information to array
-	GAMEINFO.allMelodies.push(MELODYINFO);
+	//update gameinfo
+	GAMEINFO.updateGameInfo();
 
-	//possibly increase difficulty, by checking speed, range, and numNotes
-	checkDifficulty();
-	
-	//RESET CURRENT MELODY
-	//reset current position in answerkey
-	MELODYINFO.anspos = 0;
-	//reset number of wrong notes before getting the melody correct
-	MELODYINFO.wrongNotes = 0;
-	//reset seconds it took to solve the melody
-	MELODYINFO.secondsTaken = 0;
-	//reset all bonuses
-	/*
-	var x;
-	for (x in MELODYINFO.bonus) {
-		MELODYINFO.bonus[x] = true;
-	}*/
+	//reset melody info
+	MELODYINFO.resetMelodyInfo();
 	
 	//generate a new melody
 	generateMelody();
@@ -340,6 +447,8 @@ function checkMelody(note) {
 		sessionStorage.setItem("display", "incorrect");
 		MELODYINFO.wrongNotes++;
 		MELODYINFO.anspos = 0;
+		//no error bonus lost
+		MELODYINFO.bonus.bonusNoError = false;
 	}
 }
 
