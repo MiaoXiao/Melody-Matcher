@@ -166,7 +166,14 @@ var GAMEINFO = {
 };
 
 //Hold the full chromatic
-var CHROMATIC = ["C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4", "A4", "Bb4", "B4", "C5"];
+var CHROMATIC = [
+	"C2", "Db2", "D2", "Eb2", "E2", "F2", "Gb2", "G2", "Ab2", "A2", "Bb2", "B2", 
+	"C3", "Db3", "D3", "Eb3", "E3", "F3", "Gb3", "G3", "Ab3", "A3", "Bb3", "B3", 
+	"C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4", "A4", "Bb4", "B4", 
+	"C5", "Db5", "D5", "Eb5", "E5", "F5", "Gb5", "G5", "Ab5", "A5", "Bb5", "B5",
+	"C6", "Db6", "D6", "Eb6", "E6", "F6", "Gb6", "G6", "Ab6", "A6", "Bb6", "B6",
+	"C7"
+];
 
 //load all sounds that will be used
 //pass in what instrument to use, violin or piano
@@ -198,14 +205,14 @@ function loadSounds(instrument) {
 		//2nd octave
 		{src: "12_C3.ogg", id: "C3"},
 		{src: "13_Db3.ogg", id: "Db3"},
-		{src: "14_D43ogg", id: "D3"},
+		{src: "14_D3.ogg", id: "D3"},
 		{src: "15_Eb3.ogg", id: "Eb3"},
 		{src: "16_E3.ogg", id: "E3"},
 		{src: "17_F3.ogg", id: "F3"},
 		{src: "18_Gb3.ogg", id: "Gb3"},
 		{src: "19_G3.ogg", id: "G3"},
 		{src: "20_Ab3.ogg", id: "Ab3"},
-		{src: "21_A3ogg", id: "A3"},
+		{src: "21_A3.ogg", id: "A3"},
 		{src: "22_Bb3.ogg", id: "Bb3"},
 		{src: "23_B3.ogg", id: "B3"},
 		//3rd octave 
@@ -247,19 +254,8 @@ function loadSounds(instrument) {
 		{src: "57_A6.ogg", id: "A6"},
 		{src: "58_Bb6.ogg", id: "Bb6"},
 		{src: "59_B6.ogg", id: "B6"},
-		//6th octave
+		
 		{src: "60_C7.ogg", id: "C7"},
-		{src: "61_Db7.ogg", id: "Db7"},
-		{src: "62_D7.ogg", id: "D7"},
-		{src: "63_Eb7.ogg", id: "Eb7"},
-		{src: "64_E7.ogg", id: "E7"},
-		{src: "65_F7.ogg", id: "F7"},
-		{src: "66_Gb7.ogg", id: "Gb7"},
-		{src: "67_G7.ogg", id: "G7"},
-		{src: "68_Ab7.ogg", id: "Ab7"},
-		{src: "69_A7.ogg", id: "A7"},
-		{src: "70_Bb7.ogg", id: "Bb7"},
-		{src: "71_B7.ogg", id: "B7"}
 	];
 	createjs.Sound.alternateExtensions = ["mp3"];
 	
@@ -276,6 +272,7 @@ function chooseScale(scale) {
 	
 	var start = 0;
 
+	//choose starting pos based on scale
 	switch (scale) {
 		case "Cmaj":
 			start = 0;
@@ -319,7 +316,14 @@ function chooseScale(scale) {
 	}
 	
 	//The notes in a major scale
-	var major = [0, 2, 4, 5, 7, 9, 11, 12];
+	var major = [
+		0, 2, 4, 5, 7, 9, 11, 
+		12, 14, 16, 17, 19, 21, 23, 
+		24, 26, 28, 29, 31, 33, 35,
+		36, 38, 40, 41, 43, 45, 47,
+		48, 50, 52, 53, 55, 57, 59,
+		60
+		];
 	
 	//create scale
 	for (var i = 0; i < major.length; i++) {
@@ -338,7 +342,7 @@ function chooseScale(scale) {
 		}
     }
     //For testing
-    //window.alert(SCALE)
+    //window.alert(GAMEINFO.scale);
 }
 
 //play melody using answerkey array
