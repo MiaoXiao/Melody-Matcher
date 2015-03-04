@@ -180,11 +180,9 @@ function loadSounds(instrument) {
 	//audio path
 	var audioPath = "./sounds/" + instrument + "/";
 	
-	
 	//library of sounds
 	var sounds = [
 		//1st octave 
-		/*
 		{src: "0_C2.ogg", id: "C2"},
 		{src: "1_Db2.ogg", id: "Db2"},
 		{src: "2_D2.ogg", id: "D2"},
@@ -210,7 +208,6 @@ function loadSounds(instrument) {
 		{src: "21_A3ogg", id: "A3"},
 		{src: "22_Bb3.ogg", id: "Bb3"},
 		{src: "23_B3.ogg", id: "B3"},
-		*/
 		//3rd octave 
 		{src: "24_C4.ogg", id: "C4"},
 		{src: "25_Db4.ogg", id: "Db4"},
@@ -224,10 +221,8 @@ function loadSounds(instrument) {
 		{src: "33_A4.ogg", id: "A4"},
 		{src: "34_Bb4.ogg", id: "Bb4"},
 		{src: "35_B4.ogg", id: "B4"},
-		
 		//4th octave
-		{src: "36_C5.ogg", id: "C5"}
-		/*
+		{src: "36_C5.ogg", id: "C5"},
 		{src: "37_Db5.ogg", id: "Db5"},
 		{src: "38_D5.ogg", id: "D5"},
 		{src: "39_Eb5.ogg", id: "Eb5"},
@@ -240,7 +235,7 @@ function loadSounds(instrument) {
 		{src: "46_Bb5.ogg", id: "Bb5"},
 		{src: "47_B5.ogg", id: "B5"},
 		//5th octave
-		{src: "48_C6.ogg", id: "C6"}
+		{src: "48_C6.ogg", id: "C6"},
 		{src: "49_Db6.ogg", id: "Db6"},
 		{src: "50_D6.ogg", id: "D6"},
 		{src: "51_Eb6.ogg", id: "Eb6"},
@@ -253,8 +248,8 @@ function loadSounds(instrument) {
 		{src: "58_Bb6.ogg", id: "Bb6"},
 		{src: "59_B6.ogg", id: "B6"},
 		//6th octave
-		{src: "60_C7.ogg", id: "C7"}
-		{src: "61_D7.ogg", id: "Db7"},
+		{src: "60_C7.ogg", id: "C7"},
+		{src: "61_Db7.ogg", id: "Db7"},
 		{src: "62_D7.ogg", id: "D7"},
 		{src: "63_Eb7.ogg", id: "Eb7"},
 		{src: "64_E7.ogg", id: "E7"},
@@ -264,21 +259,7 @@ function loadSounds(instrument) {
 		{src: "68_Ab7.ogg", id: "Ab7"},
 		{src: "69_A7.ogg", id: "A7"},
 		{src: "70_Bb7.ogg", id: "Bb7"},
-		{src: "71_B7.ogg", id: "B7"},
-		//7th octave
-		{src: "72_C8.ogg", id: "C8"}
-		{src: "73_Db8.ogg", id: "Db8"},
-		{src: "74_D8.ogg", id: "D8"},
-		{src: "75_Eb8.ogg", id: "Eb8"},
-		{src: "76_E8.ogg", id: "E8"},
-		{src: "77_F8.ogg", id: "F8"},
-		{src: "78_Gb8.ogg", id: "Gb8"},
-		{src: "79_G8.ogg", id: "G8"},
-		{src: "80_Ab8.ogg", id: "Ab8"},
-		{src: "81_A8.ogg", id: "A8"},
-		{src: "82_Bb8.ogg", id: "Bb8"},
-		{src: "83_B8.ogg", id: "B8"},
-		*/
+		{src: "71_B7.ogg", id: "B7"}
 	];
 	createjs.Sound.alternateExtensions = ["mp3"];
 	
