@@ -77,8 +77,8 @@ var MELODYINFO = {
 			this.score.score_final += this.score.score_playonce;
 		}
 		
-		//apply multiplier
-		this.score.score_final *= GAMEINFO.multi;
+		//apply multiplier. round to nearest int
+		this.score.score_final = Math.round(this.score.score_final * GAMEINFO.multi);
 		
 		//final score for the melody
 		window.alert("Basepoints: " +  this.score.score_base);
@@ -273,6 +273,7 @@ function chooseScale(scale) {
 	var start = 0;
 
 	//choose starting pos based on scale
+	//every extra flat is +.5 for multi
 	switch (scale) {
 		case "Cmaj":
 			start = 0;
@@ -280,40 +281,79 @@ function chooseScale(scale) {
 		case "C#maj":
 		case "Dbmaj":
 			start = 1;
+			GAMEINFO.multi += .25;
 			break;
 		case "Dmaj":
 			start = 2;
+			GAMEINFO.scale.push('Db2');
 			break;
 		case "Ebmaj":
 			start = 3;
+			GAMEINFO.scale.push('C2');
+			GAMEINFO.scale.push('D2');
 			break;
 		case "Emaj":
 			start = 4;
+			GAMEINFO.scale.push('Db2');
+			GAMEINFO.scale.push('Eb2');
 			break;
 		case "Fmaj":
 			start = 5;
+			GAMEINFO.scale.push('C2');
+			GAMEINFO.scale.push('D2');
+			GAMEINFO.scale.push('E2');
 			break;
 		case "F#maj":
 		case "Gbmaj":
 			start = 6;
+			GAMEINFO.scale.push('Db2');
+			GAMEINFO.scale.push('Eb2');
+			GAMEINFO.scale.push('F2');
 			break;
 		case "Gmaj":
 			start = 7;
+			GAMEINFO.scale.push('D2');
+			GAMEINFO.scale.push('E2');
+			GAMEINFO.scale.push('Gb2');
 			break;
 		case "Abmaj":
 			start = 8;
+			GAMEINFO.scale.push('C2');
+			GAMEINFO.scale.push('Db2');
+			GAMEINFO.scale.push('Eb2');
+			GAMEINFO.scale.push('F2');
+			GAMEINFO.scale.push('G2');
 			break;
 		case "Amaj":
 			start = 9;
+			GAMEINFO.scale.push('Db2');
+			GAMEINFO.scale.push('D2');
+			GAMEINFO.scale.push('E2');
+			GAMEINFO.scale.push('Gb2');
+			GAMEINFO.scale.push('Ab2');
 			break;
 		case "Bbmaj":
 			start = 10;
+			GAMEINFO.scale.push('C2');
+			GAMEINFO.scale.push('D2');
+			GAMEINFO.scale.push('Eb2');
+			GAMEINFO.scale.push('F2');
+			GAMEINFO.scale.push('G2');
+			GAMEINFO.scale.push('A2');
 			break;
 		case "Bmaj":
 		case "Cbmaj":
 			start = 11;
+			GAMEINFO.scale.push('B2');
+			GAMEINFO.scale.push('Db2');
+			GAMEINFO.scale.push('Eb2');
+			GAMEINFO.scale.push('E2');
+			GAMEINFO.scale.push('Gb2');
+			GAMEINFO.scale.push('Bb2');
 			break;
 	}
+	
+
 	
 	//The notes in a major scale
 	var major = [
@@ -327,22 +367,18 @@ function chooseScale(scale) {
 	
 	//create scale
 	for (var i = 0; i < major.length; i++) {
-		var note = start + major[i];
-		if ((note == (CHROMATIC.length - 1)) || note == 0) {
-			//Cover edge case for the C's
-			//SCALE.push(CHROMATIC[CHROMATIC.length - 1]);
-			GAMEINFO.scale.push(CHROMATIC[0]);
-		} 
-		else if (note >= CHROMATIC.length) {
-			//If we loop around to low C
-			GAMEINFO.scale.push(CHROMATIC[(note%CHROMATIC.length) + 1]);
-		} 
-		else {
-			GAMEINFO.scale.push(CHROMATIC[note]);
-		}
-    }
+			var note = start + major[i];
+			if (note > 60) i = major.length;
+			else GAMEINFO.scale.push(CHROMATIC[note]);
+	}
+    
+	//increase multi, depending on how many flats in the scale
+	for (var i = 0; i < GAMEINFO.scale.length; i++) {
+		if (GAMEINFO.scale[i].search('b') != -1) GAMEINFO.multi += .05;
+	}
+	
     //For testing
-    //window.alert(GAMEINFO.scale);
+    window.alert(GAMEINFO.scale);
 }
 
 //play melody using answerkey array
@@ -485,7 +521,7 @@ function initStart() {
 	sessionStorage.setItem("display", "start");
 	
 	loadSounds('piano');
-	chooseScale('Cmaj');
+	chooseScale('Dbmaj');
 	//set starting difficulty 
 	switch (parseInt(sessionStorage.getItem("difficulty"))) {
 		case 0:
