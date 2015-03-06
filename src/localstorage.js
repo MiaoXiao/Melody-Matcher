@@ -11,7 +11,7 @@ if(typeof(Storage) !== "undefined") {
 
 var finalGameInfo = JSON.parse(localStorage.getItem("stats"));
 var storage = JSON.parse(localStorage.getItem("storedstats"));
-successfulMelodies();
+//successfulMelodies();
 //document.getElementById("test1").innerHTML = "successful melodies: " + x;//SESSION.successfulmelodies;
 //var x = successfulMelodies();
 //OVERALL.updateSessions();
@@ -25,8 +25,7 @@ successfulMelodies();
 
 var SESSION = {
 	//date: Date(), 
-	successfulmelodies: 0
-	
+	successfulmelodies: 0,
 };
 /*
 var OVERALL = {
@@ -42,7 +41,6 @@ var OVERALL = {
 //returns the number of successful melodies for one session
 function successfulMelodies() {
 	SESSION.successfulmelodies = finalGameInfo.allMelodies.length;
-	return successfulmelodies;
 }
 
 
@@ -76,3 +74,7 @@ function TSM(){
 
 */
 
+function init() {
+	successfulMelodies();
+	document.getElementById("test").innerHTML = "numb of successes: " + SESSION.successfulmelodies;
+}
