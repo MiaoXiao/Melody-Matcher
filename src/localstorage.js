@@ -10,6 +10,7 @@ if(typeof(Storage) !== "undefined") {
 
 
 var finalGameInfo = JSON.parse(localStorage.getItem("stats"));
+var storage = JSON.parse(localStorage.getItem("storedstats"));
 successfulMelodies();
 //document.getElementById("test1").innerHTML = "successful melodies: " + x;//SESSION.successfulmelodies;
 //var x = successfulMelodies();
@@ -40,16 +41,17 @@ var OVERALL = {
 */
 //returns the number of successful melodies for one session
 function successfulMelodies() {
-	//document.getElementById("test1").innerHTML = "successful melodies: ";
 	SESSION.successfulmelodies = finalGameInfo.allMelodies.length;
-	document.getElementById("test1").innerHTML = "successful melodies: ";
-	
+	return successfulmelodies;
+}
+
+
+//returns the number of successful melodies total
+function TSM(){
+	return storage.successfulmelodies + successfulmelodies;
 }
 
 /*
-//returns the number of successful melodies total
-
-
 //returns longest streak of days played
 
 //returns longest streak of melodies with no errors
