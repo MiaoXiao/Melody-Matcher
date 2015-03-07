@@ -6,6 +6,8 @@ var MELODYINFO = {
 	numNotes: 2,
 	//range of possible notes
 	range: 3,
+	//actual distance between the lowest and highest note in a generated melody
+	actualrange: 0,
 	
 	//key for melody
 	anskey: [],
@@ -48,17 +50,16 @@ var MELODYINFO = {
 		var currentLevel = parseInt(sessionStorage.getItem("difficulty"));
 		
 		//base points
-		this.score.score_base = (this.numNotes * 50) + (this.range * 25);
+		this.score.score_base = (this.numNotes * 50) + (this.actualrange * 25);
 		this.score.score_final += this.score.score_base;
 		
 		//bonus for getting a melody correct without making a mistake
 		if (this.bonus.bonus_NoError) {
-			//window.alert("no error!");
-			this.score.score_noerror = 15 * this.numNotes;
+			this.score.score_noerror = 20 * this.numNotes + 20 * this.actualrange;
 			this.score.score_final += this.score.score_noerror;
 		}
 		
-		//bonus for getting a melody correct in under 5 seconds
+		//bonus for getting a melody correct in under 10 seconds
 		if (this.bonus.bonus_Speed) {
 			this.score.score_speed = 10 * this.numNotes;
 			this.score.score_final += this.score.score_speed;
@@ -66,7 +67,6 @@ var MELODYINFO = {
 
 		//bonus for only playing the melody once or less
 		if (this.bonus.bonus_PlayOnce) {
-			//window.alert("play once!");
 			this.score.score_playonce = 10 * this.numNotes;
 			this.score.score_final += this.score.score_playonce;
 		}
@@ -116,23 +116,21 @@ var MELODYINFO = {
 		sessionStorage.setItem("difficulty", newDifficulty);
 	},
 
-		//set starting difficulty 
+	//set starting difficulty, which is just based on time
 	resetDifficulty: function() {
+		TIMEMANAGER.maxTime.Dec = 99;
 		switch (parseInt(sessionStorage.getItem("difficulty"))) {
 			case 0:
-				this.speed = 1.0;
-				this.numNotes = 2;
-				this.range = 3;
+				TIMEMANAGER.maxTime.Sec = 59;
+				GAMEINFO.multi += .2;
 				break;
 			case 10:
-				this.speed = 0.95;
-				this.numNotes = 4;
-				this.range = 3;
+				TIMEMANAGER.maxTime.Sec = 39;
+				GAMEINFO.multi += .4;
 				break;
 			case 20:
-				this.speed = 0.90;
-				this.numNotes = 6;
-				this.range = 3;
+				TIMEMANAGER.maxTime.Sec = 19;
+				GAMEINFO.multi += .6;
 				break;
 				window.alert("Game start error: melody not initialized correctly");
 		}
@@ -490,6 +488,12 @@ function generateMelody() {
 	
 	//clear array
 	MELODYINFO.anskey.length = 0;
+	
+	//lcheck this var in order to get lowest note
+	var low = GAMEINFO.scale.length - 1;
+	//check this var in order to get highest note
+	var high = 0;
+	
 	//holds random number between 0 and range
 	var randNum;
 	//starting position of notes
@@ -513,8 +517,14 @@ function generateMelody() {
 			}
 		}
 		MELODYINFO.anskey[i] = randNum;
+		//check to see if highest or lowest note
+		if (randNum > high) high = randNum;
+		if (randNum < low) low = randNum;
 	}
-	window.alert("Full Melody: " + MELODYINFO.anskey);
+	//get actual range of melody
+	MELODYINFO.actualrange = high - low;
+	//window.alert("Actual Range: " + MELODYINFO.actualrange);
+	//window.alert("Full Melody: " + MELODYINFO.anskey);
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
