@@ -4,7 +4,7 @@ var MELODYINFO = {
 	speed: 1.0,
 	//number of notes in melody
 	numNotes: 2,
-	//range of notes
+	//range of possible notes
 	range: 3,
 	
 	//key for melody
@@ -94,21 +94,22 @@ var MELODYINFO = {
 		//get next difficulty (lastdifficulty + 1)
 		var newDifficulty = parseInt(sessionStorage.getItem("difficulty")) + 1;
 		
-		//every multiple of 2 levels, increase RANGE.
-		if (newDifficulty % 2 == 0) {
-			this.range++;
-		}
-		//every multiple of 5 levels, increase numnotes
+		//every multiple of 5 levels, increase RANGE.
 		if (newDifficulty % 5 == 0) {
+			if (this.range != GAMEINFO.scale.length)
+			{
+				this.range++;
+			}
+		}
+		//every multiple of 10 levels, increase numnotes
+		if (newDifficulty % 10 == 0) {
 			this.numNotes++;
 		}
-		//every 10 levels, reset range back to 3
-		//also increase speed by a factor of 0.05, as long as the speed isint already 0.05
+		//increase speed by a factor of 0.05, as long as the speed isint already 0.05
 		if (newDifficulty % 10 == 0) {
 			if (speed > 0.05) {
 				speed -= 0.05;
 			}
-			this.range = 3;
 		}
 		
 		//set new difficulty
@@ -202,7 +203,10 @@ var GAMEINFO = {
 
 //manages time
 var TIMEMANAGER = {
-	currentTime: {Sec: 29, Dec: 99},
+	//starting time
+	maxTime: {Sec: 59, Dec: 99},
+	//current time
+	currentTime: {Sec: 59, Dec: 99},
 	//decrease currenttime by 1 deca second. if deca hits 0, decrease sec
 	updateTime: function() {
 		if (TIMEMANAGER.currentTime.Dec != 0) 
@@ -228,15 +232,14 @@ var TIMEMANAGER = {
 			}
 		}
 		//check if bonus time ends
-		if (TIMEMANAGER.currentTime.Sec == 24) MELODYINFO.bonus.bonus_Speed = false;
+		if (TIMEMANAGER.currentTime.Sec == TIMEMANAGER.maxTime.Sec - 10) MELODYINFO.bonus.bonus_Speed = false;
 		//store time
 		sessionStorage.setItem("time", JSON.stringify(TIMEMANAGER.currentTime));
 		document.getElementById("time").innerHTML = TIMEMANAGER.currentTime.Sec + ":" + TIMEMANAGER.currentTime.Dec;
 	},
 	
 	resetTime: function() {
-		TIMEMANAGER.currentTime.Sec = 29;
-		TIMEMANAGER.currentTime.Dec = 99;
+		TIMEMANAGER.currentTime = TIMEMANAGER.maxTime;
 	}
 };
 
@@ -474,28 +477,31 @@ function playMelody() {
 //creates a random melody by filling answerkey array
 function generateMelody() {
 	//check that range is within bounds
-	if (MELODYINFO.range < 1 || MELODYINFO.range > 8) {
-		window.alert("ERROR: RANGE NOT BETWEEN 1 and 8");
+	if (MELODYINFO.range < 1 || MELODYINFO.range > GAMEINFO.scale.length) {
+		window.alert("ERROR: RANGE not between 1 and length of scale");
 	}
 	//check that numNotes is within bounds
 	if (MELODYINFO.numNotes < 1) {
-		window.alert("ERROR: NUM NOTES BELOW 0");
+		window.alert("ERROR: NUM NOTES below 0");
 	}
 	//window.alert("Range: " + MELODYINFO.range);
 	//window.alert("Numnotes: " + MELODYINFO.numNotes);
+	
 	//clear array
 	MELODYINFO.anskey.length = 0;
 	//holds random number between 0 and range
 	var randNum;
+	//starting position of notes
+	var starting = Math.floor(Math.random() * (GAMEINFO.scale.length - 1));
 	//fills answer key with random iterators between range and 0
 	for (var i = 0; i < MELODYINFO.numNotes; i++) {
-		randNum = Math.floor((Math.random() * MELODYINFO.range) + 0);
+		randNum = Math.floor((Math.random() * MELODYINFO.range) + starting);
 		//if the random number is the same as the last one, dec or inc by 1
 		if (i != 0 && randNum == MELODYINFO.anskey[i - 1]) {
 			if (randNum == 0) {
 				randNum += 1;
 			}
-			else if (randNum == 7) {
+			else if (randNum == GAMEINFO.scale.length) {
 				randNum -= 1;
 			}
 			else if (Math.floor((Math.random() * 1) + 0)) {
@@ -507,7 +513,7 @@ function generateMelody() {
 		}
 		MELODYINFO.anskey[i] = randNum;
 	}
-	//window.alert("Full Melody: " + MELODYINFO.anskey);
+	window.alert("Full Melody: " + MELODYINFO.anskey);
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
