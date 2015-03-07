@@ -596,12 +596,19 @@ function onButtonClick(note) {
 	if (!GAMEINFO.gameover) checkMelody(note);
 }
 
+//pointer to time function
+var updateTimeRef;
 //init game data, when game is restarted
 function initStart() {
 	sessionStorage.setItem("display", "restart");
 	
+	clearInterval(updateTimeRef);
+	
 	//enable game again
 	GAMEINFO.resetGameInfo();
+	
+	//display score as 0
+	document.getElementById("score").innerHTML = GAMEINFO.gamescore;
 	
 	//reset melody
 	MELODYINFO.resetMelodyInfo();
@@ -609,12 +616,13 @@ function initStart() {
 	//make sure melody can be played
 	document.getElementById("playmelodybtn").disabled = false;
 	
+	//set difficutly back to default
 	MELODYINFO.resetDifficulty();
 	
 	//set time
 	TIMEMANAGER.resetTime();
 	//start timer
-	var updateTimeRef = window.setInterval(TIMEMANAGER.updateTime, 10);
+	updateTimeRef = window.setInterval(TIMEMANAGER.updateTime, 10);
 	window.setInterval(function(){ if (GAMEINFO.gameover) clearInterval(updateTimeRef)}, 10);
 	
 	generateMelody();
@@ -630,6 +638,9 @@ function initOnce() {
 	//default sounds and scale
 	loadSounds('piano');
 	chooseScale('Cmaj');
+	
+	//display score as 0
+	document.getElementById("score").innerHTML = GAMEINFO.gamescore;
 	
 	MELODYINFO.resetDifficulty();
 }
