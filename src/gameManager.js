@@ -14,8 +14,8 @@ var MELODYINFO = {
 	
 	//number of wrong notes before getting the melody correct
 	wrongNotes: 0,
-	//seconds it took to solve the melody
-	secondsTaken: 0,
+	//time it took to solve the melody
+	timeTaken: {Sec: 0, Dec: 0},
 	//number of times melody was played for this level
 	melodiesPlayed: 0,
 	
@@ -25,11 +25,8 @@ var MELODYINFO = {
 		bonus_NoError: true,
 		//solved melody while only playing the melody once or less
 		bonus_PlayOnce: true,
-		
-		//solved melody under 10 seconds
-		bonus_Speed: true,
 		//solved melody under 5 seconds
-		bonus_VerySpeed: true
+		bonus_Speed: true
 	},
 	
 	//information on score for melody
@@ -43,7 +40,6 @@ var MELODYINFO = {
 		score_noerror: 0,
 		score_playonce: 0,
 		score_speed: 0,
-		score_veryspeed: 0	
 	},
 
 	//calculates and updates score
@@ -62,14 +58,12 @@ var MELODYINFO = {
 			this.score.score_final += this.score.score_noerror;
 		}
 		
-		//bonus for getting a melody correct in under 10 seconds, or under 5 seconds
-		if(this.bonus.bonus_Speed) {
-			//this.score.score_speed = 10 * this.numNotes;
+		//bonus for getting a melody correct in under 5 seconds
+		if (this.bonus.bonus_Speed) {
+			this.score.score_speed = 10 * this.numNotes;
+			this.score.score_final += this.score.score_speed;
 		}	
-		else if (this.bonus_VerySpeed) {
-			//this.score.score_veryspeed = 20 * this.numNotes;
-		}
-		
+
 		//bonus for only playing the melody once or less
 		if (this.bonus.bonus_PlayOnce) {
 			//window.alert("play once!");
@@ -81,17 +75,18 @@ var MELODYINFO = {
 		this.score.score_final = Math.round(this.score.score_final * GAMEINFO.multi);
 		
 		//final score for the melody
-		window.alert("Basepoints: " +  this.score.score_base);
-		window.alert("BonusNoError: " +  this.score.score_noerror);
-		window.alert("PlayOnce: " +  this.score.score_playonce);
-		window.alert("Score: " +  this.score.score_final);
+		//window.alert("Basepoints: " +  this.score.score_base);
+		//window.alert("BonusNoError: " +  this.score.score_noerror);
+		//window.alert("PlayOnce: " +  this.score.score_playonce);
+		//window.alert("Speed: " +  this.score.score_speed);
+		//window.alert("Score: " +  this.score.score_final);
 		
 		//add to game score
 		GAMEINFO.gamescore += this.score.score_final;
-		
-		window.alert("Game Score: " +  GAMEINFO.gamescore);
+		document.getElementById("score").innerHTML = GAMEINFO.gamescore;
+		//window.alert("Game Score: " +  GAMEINFO.gamescore);
 	},
-		
+	
 	//check difficulty every time a correct melody is entered
 	//if difficulty is high enough, increase number of notes or range in the next generated melody
 	//this only runs after every correct melody
@@ -120,16 +115,37 @@ var MELODYINFO = {
 		sessionStorage.setItem("difficulty", newDifficulty);
 	},
 
+		//set starting difficulty 
+	resetDifficulty: function() {
+		switch (parseInt(sessionStorage.getItem("difficulty"))) {
+			case 0:
+				this.speed = 1.0;
+				this.numNotes = 2;
+				this.range = 3;
+				break;
+			case 10:
+				this.speed = 0.95;
+				this.numNotes = 4;
+				this.range = 3;
+				break;
+			case 20:
+				this.speed = 0.90;
+				this.numNotes = 6;
+				this.range = 3;
+				break;
+				window.alert("Game start error: melody not initialized correctly");
+		}
+	},
+	
 	//resets all relevant melody info
 	resetMelodyInfo: function() {
-		//possibly increase difficulty, by checking speed, range, and numNotes
-		this.checkDifficulty();
 		//reset current position in answerkey
 		this.anspos = 0;
 		//reset number of wrong notes before getting the melody correct
 		this.wrongNotes = 0;
-		//reset seconds it took to solve the melody
-		this.secondsTaken = 0;
+		//reset time it took to solve the melody
+		this.timeTaken.Sec = 0;
+		this.timeTaken.Dec = 0;
 		//reset melodies playe
 		this.melodiesPlayed = 0;
 		//reset bonuses
@@ -150,6 +166,8 @@ var MELODYINFO = {
 var GAMEINFO = {
 	//current gamemode
 	gameMode: "standard",
+	//whether the game is over or not
+	gameover: 0,
 	//array of all melodies so far
 	allMelodies: [],
 	//entire game score
@@ -159,9 +177,66 @@ var GAMEINFO = {
 	//current scale for this game
 	scale: [],
 	
+	//push completed melody information to array
 	updateGameInfo: function() {
-		//push completed melody information to array
 		this.allMelodies.push(MELODYINFO);
+	},
+	//reset all game info (when restarting)
+	resetGameInfo: function() {
+		this.gameover = 0;
+		this.allMelodies = [];
+		this.gamescore = 0;
+	},
+	//do all this when game is over (time reaches 0)
+	gameOver: function() {
+		//window.alert("gg");
+		this.gameover = 1;
+		//disable play melody
+		document.getElementById("playmelodybtn").disabled = true;
+		//save information ( this last melody is NOT successful)
+		localStorage.setItem("stats", JSON.stringify(GAMEINFO));
+		sessionStorage.setItem("difficulty", "0")
+		
+	}
+};
+
+//manages time
+var TIMEMANAGER = {
+	currentTime: {Sec: 29, Dec: 99},
+	//decrease currenttime by 1 deca second. if deca hits 0, decrease sec
+	updateTime: function() {
+		if (TIMEMANAGER.currentTime.Dec != 0) 
+		{
+			TIMEMANAGER.currentTime.Dec--;
+			MELODYINFO.timeTaken.Dec++;
+			//console.log(TIMEMANAGER.currentTimeDec);
+		}
+		else {
+			if (TIMEMANAGER.currentTime.Sec != 0)
+			{
+				TIMEMANAGER.currentTime.Dec = 99;
+				TIMEMANAGER.currentTime.Sec--;
+				//update melody info
+				MELODYINFO.timeTaken.Dec = 0;
+				MELODYINFO.timeTaken.Sec++;
+				//console.log(TIMEMANAGER.currentTime.Sec);
+			}
+			else
+			{
+				//game over!
+				GAMEINFO.gameOver();
+			}
+		}
+		//check if bonus time ends
+		if (TIMEMANAGER.currentTime.Sec == 24) MELODYINFO.bonus.bonus_Speed = false;
+		//store time
+		sessionStorage.setItem("time", JSON.stringify(TIMEMANAGER.currentTime));
+		document.getElementById("time").innerHTML = TIMEMANAGER.currentTime.Sec + ":" + TIMEMANAGER.currentTime.Dec;
+	},
+	
+	resetTime: function() {
+		TIMEMANAGER.currentTime.Sec = 29;
+		TIMEMANAGER.currentTime.Dec = 99;
 	}
 };
 
@@ -353,8 +428,6 @@ function chooseScale(scale) {
 			break;
 	}
 	
-
-	
 	//The notes in a major scale
 	var major = [
 		0, 2, 4, 5, 7, 9, 11, 
@@ -378,7 +451,7 @@ function chooseScale(scale) {
 	}
 	
     //For testing
-    window.alert(GAMEINFO.scale);
+    //window.alert(GAMEINFO.scale);
 }
 
 //play melody using answerkey array
@@ -447,6 +520,9 @@ function getnextMelody() {
 	//window.alert("Getting next melody");
 	sessionStorage.setItem("display", "finish");
 	
+	//refill time
+	TIMEMANAGER.resetTime();
+	
 	//calculate score for melody
 	MELODYINFO.calculateScore();
 	
@@ -457,6 +533,9 @@ function getnextMelody() {
 	localStorage.setItem("stats", JSON.stringify(GAMEINFO));
 	//USE: TO GET LATEST GAME INFORMATION
 	//var finalGameInfo = JSON.parse(localStorage.getItem("stats"));
+	
+	//update difficulty
+	MELODYINFO.checkDifficulty();
 	
 	//reset melody info
 	MELODYINFO.resetMelodyInfo();
@@ -474,7 +553,7 @@ function checkMelody(note) {
 	var cur_anskey = MELODYINFO.anskey;
 	var cur_anspos = MELODYINFO.anspos;
 	
-	//if correct
+	//if correct and game is active
 	if (cur_scale[cur_anskey[cur_anspos]] == note) {
 		cur_anspos++;
 		//check if melody has been completed
@@ -513,34 +592,44 @@ function level_to_name(level) {
 //run these functions every key press
 function onButtonClick(note) {
 	playSound(note);
-	checkMelody(note);
+	//only check melody if game is not over
+	if (!GAMEINFO.gameover) checkMelody(note);
 }
 
-//at the start of every game, run all these functions once.
+//init game data, when game is restarted
 function initStart() {
+	sessionStorage.setItem("display", "restart");
+	
+	//enable game again
+	GAMEINFO.resetGameInfo();
+	
+	//reset melody
+	MELODYINFO.resetMelodyInfo();
+	
+	//make sure melody can be played
+	document.getElementById("playmelodybtn").disabled = false;
+	
+	MELODYINFO.resetDifficulty();
+	
+	//set time
+	TIMEMANAGER.resetTime();
+	//start timer
+	var updateTimeRef = window.setInterval(TIMEMANAGER.updateTime, 10);
+	window.setInterval(function(){ if (GAMEINFO.gameover) clearInterval(updateTimeRef)}, 10);
+	
+	generateMelody();
+}
+
+//run only once when web page is loaded
+function initOnce() {
 	sessionStorage.setItem("display", "start");
 	
+	//make sure playmelody is disabled
+	document.getElementById("playmelodybtn").disabled = true;
+	
+	//default sounds and scale
 	loadSounds('piano');
-	chooseScale('Dbmaj');
-	//set starting difficulty 
-	switch (parseInt(sessionStorage.getItem("difficulty"))) {
-		case 0:
-			MELODYINFO.speed = 1.0;
-			MELODYINFO.numNotes = 2;
-			MELODYINFO.range = 3;
-			break;
-		case 10:
-			MELODYINFO.speed = 0.95;
-			MELODYINFO.numNotes = 4;
-			MELODYINFO.range = 3;
-			break;
-		case 20:
-			MELODYINFO.speed = 0.90;
-			MELODYINFO.numNotes = 6;
-			MELODYINFO.range = 3;
-			break;
-			window.alert("Game start error: melody not initialized correctly");
-	}
-	//save stats
-	generateMelody();
+	chooseScale('Cmaj');
+	
+	MELODYINFO.resetDifficulty();
 }

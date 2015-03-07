@@ -9,7 +9,7 @@
 		<script src="gameManager.js"></script>
   </head>
   
-  <body onload="initStart();">
+  <body onload="initOnce()";>
     <div id="notes">
    <button onclick="onButtonClick('C2');" class="playSound key key-natural">C</button>
 	
@@ -139,7 +139,12 @@
 		<br>
 		<center> <button id="playmelodybtn" onclick="playMelody();" class="playSound btn-block">Play Current Melody</button> </center>
 		<br>
-		<center><p></p></center>
+		<center> <button id="restartbtn" onclick="initStart();" class="playSound btn-block">Restart</button> </center>
+		<br>
+		<center><p>Time: </p><p id = "time"></p></center>
+		<br>
+		<center><p>Score: </p><p id = "score"></p></center>
+		<br>
     </div>
   </body>
   
