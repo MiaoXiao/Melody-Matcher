@@ -72,9 +72,12 @@ function TSM(){
 
 //the most times a melody was played
 
+<<<<<<< HEAD
 */
+
 
 function init() {
 	successfulMelodies();
 	document.getElementById("test").innerHTML = "numb of successes: " + SESSION.successfulmelodies;
 }
+
