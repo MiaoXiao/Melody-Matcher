@@ -239,7 +239,8 @@ var TIMEMANAGER = {
 	},
 	
 	resetTime: function() {
-		TIMEMANAGER.currentTime = TIMEMANAGER.maxTime;
+		TIMEMANAGER.currentTime.Sec = TIMEMANAGER.maxTime.Sec;
+		TIMEMANAGER.currentTime.Dec = TIMEMANAGER.maxTime.Dec;
 	}
 };
 
