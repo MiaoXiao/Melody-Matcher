@@ -85,8 +85,6 @@
 	
 	</div>
     
-    
-    <br><center><button id="test" onclick="letsgo();"> TEST </button></center>
     <div id="display" class="controls">
 		<br>
 		<center> <button id="playmelodybtn" onclick="playMelody();" class="playSound btn-block">Play Current Melody</button> </center>
@@ -99,6 +97,10 @@
 		<br>
     </div>
   </body>
+  
+  <div id="start_screen" class="startup">
+    <button id="begin" onclick="letsgo();" class="btn-start">Play!</button>
+  </div>
   
   <div class="settings">
     Volume:<br><input onchange="change_vol(this.value)" type="range" id="volume" value="90">

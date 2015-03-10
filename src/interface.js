@@ -12,8 +12,9 @@ function dif_selected() {
 
 //start the game by switching html pages (should be removed)
 function letsgo() {
-    document.getElementById("notes").classList.add('test');
-    document.getElementById("display").classList.add('test');
+    document.getElementById("notes").classList.add('in');
+    document.getElementById("display").classList.add('in');
+    document.getElementById("start_screen").classList.add('out');
 }
 
 //change the volume
