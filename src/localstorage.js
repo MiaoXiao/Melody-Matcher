@@ -1,16 +1,16 @@
 var SESSION = {
-	date: Date(), 
+	date: new Date(), 
 	
 	most_melodyplay: 0,
 	most_secondstaken: 0,
 	
 	average_melodyplay: 0,
-	accuracy, 1.0,
+	accuracy: 1.0,
 	
 	streak_NoError: 0, 
 	streak_PlayOnce: 0,
 	streak_Speed: 0,
-	streak_VerySpeed: 0
+	streak_VerySpeed: 0,
 	
 	total_score: 0,
 	total_NoError: 0, 
@@ -35,7 +35,7 @@ var OVERALL = {
 	streak_NoError: 0, 
 	streak_PlayOnce: 0,
 	streak_Speed: 0,
-	streak_VerySpeed: 0
+	streak_VerySpeed: 0,
 	
 	total_score: 0,
 	total_NoError: 0, 
@@ -53,27 +53,71 @@ var OVERALL = {
 	
 };
 
-//what about if null cases????------------------------
+//Calling getItem() with a non-existent key will return null rather than throw an exception.
+// -http://diveintohtml5.info/storage.html
+
+//return true if localStorage storedstats has data
+function checkNull(){
+	if(localStorage.getItem("storedstats") != null){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+/* http://www.java2s.com/Code/JavaScript/Development/howmanydaysBetweentwodates.htm
+     Example File From "JavaScript and DHTML Cookbook"
+     Published by O'Reilly & Associates
+     Copyright 2003 Danny Goodman
+*/
+function daysBetween(date1, date2) {
+    var DSTAdjust = 0;
+    // constants used for our calculations below
+    oneMinute = 1000 * 60;
+    var oneDay = oneMinute * 60 * 24;
+    // equalize times in case date objects have them
+    date1.setHours(0);
+    date1.setMinutes(0);
+    date1.setSeconds(0);
+    date2.setHours(0);
+    date2.setMinutes(0);
+    date2.setSeconds(0);
+    // take care of spans across Daylight Saving Time changes
+    if (date2 > date1) {
+        DSTAdjust = 
+            (date2.getTimezoneOffset() - date1.getTimezoneOffset()) * oneMinute;
+    } else {
+        DSTAdjust = 
+            (date1.getTimezoneOffset() - date2.getTimezoneOffset()) * oneMinute;    
+    }
+    var diff = Math.abs(date2.getTime() - date1.getTime()) - DSTAdjust;
+    return Math.ceil(diff/oneDay);
+}
 
 //total number of successful melodies in one session
 function S_Total_SuccessfulMelodies() {
-	SESSION.total_successfulmelodies = f
-	inalGameInfo.allMelodies.length;
+	SESSION.total_successfulmelodies = finalGameInfo.allMelodies.length;
 }
 
-//total number of successful melodies overall
+//total number of successful melodies overall//
 function O_Total_SuccessfulMelodies(){
-	OVERALL.total_successfulmelodies = storage.total_successfulmelodies + SESSION.total_successfulmelodies;
+	if(checkNull()){
+		OVERALL.total_successfulmelodies = storage.total_successfulmelodies + SESSION.total_successfulmelodies;
+	}
+	else{
+		OVERALL.total_successfulmelodies = SESSION.total_successfulmelodies;
+	}
 }
 
 //most number of successful melodies
 functions O_Most_SuccessfulMelodies(){
-	if(storage.most_successfulmelodies != null){
-		if(storage.most_successfulmelodies < SESSION.total_successfulmelodies){
-			OVERALL.most_successfulmelodies = SESSION.total_successfulMelodies;
+	if(checkNull()){
+		if(storage.OVERALL.most_successfulmelodies < SESSION.total_successfulmelodies){
+			OVERALL.most_successfulmelodies = SESSION.total_successfulmelodies;
 		}
 		else{
-			OVERALL.most_successfulmelodies = storage.most_successfulmelodies;
+			OVERALL.most_successfulmelodies = storage.OVERALL.most_successfulmelodies;
 		}
 	}
 	else{
@@ -83,8 +127,8 @@ functions O_Most_SuccessfulMelodies(){
 
 //best score ever
 function O_Best_Score(){
-	if(storage.best_score != null){
-		if(storage.best_score < finalGameInfo.GAMEINFO.gamescore)
+	if(checkNull()){
+		if(storage.best_score < finalGameInfo.gamescore)
 			OVERALL.best_score = finalGameInfo.gamescore;
 		else
 			OVERALL.best_score = storage.best_score;
@@ -97,7 +141,7 @@ function O_Best_Score(){
 
 //average score overall
 function O_Average_Score(){
-	if(storage.average_score != null){
+	if(checkNull()){
 		OVERALL.average_score = (finalGameInfo.gamescore + storage.average_score)/2;
 	}
 	else {
@@ -120,6 +164,23 @@ function S_Streak_NoError(){
 	}
 }
 
+//longest streak of NoError melodies overall
+function O_Streak_NoError(){
+	if(checkNull()){
+		if(SESSION.streak_NoError > storage.streak_NoError){
+			OVERALL.streak_NoError = SESSION.streak_NoError;
+		}
+		else {
+			OVERALL.streak_NoError = storage.streak_NoError;
+		}
+	}
+	else{
+		OVERALL.streak_NoError = SESSION.streak_NoError;
+	}
+	
+	
+}
+
 //longest streak of Speed melodies (finished under 10 seconds) in one session
 function S_Streak_Speed(){
 	var sz = finalGameInfo.allMelodies.length;
@@ -132,6 +193,21 @@ function S_Streak_Speed(){
 		}
 		else
 			count = 0;
+	}
+}
+
+//longest streak of Speed melodies overall
+function O_Streak_Speed(){
+	if(checkNull()){
+		if(SESSION.streak_Speed > storage.streak_Speed){
+			OVERALL.streak_Speed = SESSION.streak_Speed;
+		}
+		else{
+			OVERALL.streak_Speed = storage.streak_Speed;
+		}
+	}
+	else{
+		OVERALL.streak_Speed = SESSION.streak_Speed;
 	}
 }
 
@@ -150,6 +226,21 @@ function S_Streak_VerySpeed(){
 	}
 }
 
+//longest streak of VerySpeed melodies overall
+function O_Streak_VerySpeed(){
+	if(checkNull()){
+		if(SESSION.streak_VerySpeed > storage.streak_VerySpeed){
+			OVERALL.streak_VerySpeed = SESSION.streak_VerySpeed;
+		}
+		else{
+			OVERALL.streak_VerySpeed = storage.streak_VerySpeed;
+		}
+	}
+	else{
+		OVERALL.streak_VerySpeed = SESSION.streak_VerySpeed;
+	}
+}
+
 //longest streak of playonce melodies in one session
 function S_Streak_PlayOnce(){
 	var sz = finalGameInfo.allMelodies.length;
@@ -163,6 +254,21 @@ function S_Streak_PlayOnce(){
 		else
 			count = 0;
 	}
+}
+
+//longest streak of PlayOnce melodies overall
+function O_Streak_PlayOnce(){
+	if(checkNull()){
+		if(SESSION.streak_PlayOnce > storage.streak_PlayOnce){
+			OVERALL.streak_PlayOnce = SESSION.streak_PlayOnce;
+		}
+		else{
+			OVERALL.streak_PlayOnce = storage.streak_PlayOnce;
+		}
+	}
+	else{
+		OVERALL.streak_PlayOnce = SESSION.streak_PlayOnce;
+	}	
 }
 
 //average number of times a melody is played per melody in one session
@@ -186,7 +292,7 @@ function S_Most_MelodyPlay(){
 
 //the most times a melody was played overall
 function O_Most_MelodyPlay(){
-	if(storage.most_melodyplay != null){
+	if(checkNull()){
 		if(storage.most_melodyplay < SESSION.most_melodyplay){
 			OVERALL.most_melodyplay = SESSION.most_melodyplay;
 		}
@@ -203,43 +309,77 @@ function O_Most_MelodyPlay(){
 function S_Most_SecondsTaken(){
 	var sz = finalGameInfo.allMelodies.length;
 	for(i = 0; i < sz; i++){
-		
+		if(SESSION.most_secondstaken < finalGameInfo.allMelodies[i].timetaken.Sec)
+		SESSION.most_secondstaken = finalGameInfo.allMelodies[i].timetaken.Sec;
 	}
 }
+
 //longest streak of days played
+function O_Streak_Days(){
+	if(checkNull()){
+		if(daysBetween(storage.allSessions[allSessions.length - 1], SESSION.date) == 1){
+			OVERALL.curr_streak_days = storage.curr_streak_days + 1;
+		}
+		else{
+			OVERALL.curr_streak_days = 1;
+		}
+		
+		if(OVERALL.curr_streak_days > storage.streak_days){
+			OVERALL.streak_days = OVERALL.curr_streak_days;
+		}
+		else{
+			OVERALL.streak_days = storage.streak_days;
+		}
+	}
+	
+	else{
+		OVERALL.curr_streak_days = 1;
+		OVERALL.streak_days = curr_streak_days;
+	}
+	
+	
+}
 
 //returns accuracy in one session
-//for date. convert twice to even out, temporarily
-/*<!DOCTYPE html>
-<html>
-<body>
+function S_Accuracy(){
+	var sz = finalGameInfo.allMelodies.length;
+	for(i = 0; i < sz; i++){
+		SESSION.accuracy += finalGameInfo.allMelodies[i].numNotes / (finalGameInfo.allMelodies[i].numNotes + finalGameInfo.allMelodies[i].wrongNotes)
+	}
+	SESSION.accuracy = SESSION.accuracy / sz;
+	
+}
 
-
-<p id="demo1"></p>
-<p id="demo2"></p>
-<p id="demo3"></p>
-<p id="demo4"></p>
-
-<script>
-var today = new Date();
-var d1 = new Date('December 17, 1995 03:24:00');
-var d2 = new Date('1995-12-17T03:24:00');
-var d3 = new Date(1995, 11, 17);
-var d4 = new Date(1995, 11, 17, 3, 24, 0);
-
-document.getElementById("demo1").innerHTML = d1;
-document.getElementById("demo2").innerHTML = d2;
-document.getElementById("demo3").innerHTML = d3;
-document.getElementById("").innerHTML = d4;
-</script>
-
-</body>
-</html>
-*/
-
-
+function callAll(){
+	S_Total_SuccessfulMelodies();
+	S_Streak_NoError();
+	S_Streak_PlayOnce();
+	S_Streak_Speed();
+	S_Streak_VerySpeed();
+	S_Average_MelodyPlay();
+	S_Most_MelodyPlay();
+	S_Most_SecondsTaken();
+	S_Accuracy();
+	
+	O_Total_SuccessfulMelodies();
+	O_Streak_NoError();
+	O_Streak_PlayOnce();
+	O_Streak_Speed();
+	O_Streak_VerySpeed();
+	O_Most_MelodyPlay();
+	O_Most_SuccessfulMelodies();
+	O_Best_Score();
+	O_Average_Score();
+	O_Streak_Days();
+	
+	
+}
 function init() {
-	/*
+	//localStorage.clear();
+	document.getElementById("test").innerHTML = 12 / 5;
+	
+	
+/*	
 	should there be a save button to save progress and open a new  page to call this
 //check browser for localStorage and sessionStorage support
 if(typeof(Storage) !== "undefined") {
@@ -248,13 +388,16 @@ if(typeof(Storage) !== "undefined") {
     document.getElementById("test").innerHTML = "no web storage support";
 }
 */
+//localStorage.clear();
 	//calls all function to store in local storage; possibly go in the if function
 //OVERALL.updateSessions();
-	var finalGameInfo = JSON.parse(localStorage.getItem("stats"));
-	var storage = JSON.parse(localStorage.getItem("storedstats"));
+	//var finalGameInfo = JSON.parse(localStorage.getItem("stats"));
+	//if(checkNull == true){
+		//var storage = JSON.parse(localStorage.getItem("storedstats"));
+	//}
 	//localStorage.setItem("storedstats", JSON.stringify(OVERALL));
-	
-	successfulMelodies();
-	document.getElementById("test").innerHTML = "numb of successes: " + SESSION.successfulmelodies;
+	//printDate();
+	//successfulMelodies();
+	//document.getElementById("test").innerHTML = "numb of successes: " + SESSION.successfulmelodies;
 }
 
