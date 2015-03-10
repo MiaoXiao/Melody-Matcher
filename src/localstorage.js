@@ -1,6 +1,6 @@
 var SESSION = {
 	date: new Date(), 
-	
+
 	most_melodyplay: 0,
 	most_secondstaken: 0,
 	
@@ -29,7 +29,6 @@ var OVERALL = {
 	best_score: 0, 
 	
 	average_score: 0,
-	
 	streak_days: 0,
 	curr_streak_days: 0,
 	streak_NoError: 0, 
@@ -53,11 +52,10 @@ var OVERALL = {
 	
 };
 
-//Calling getItem() with a non-existent key will return null rather than throw an exception.
-// -http://diveintohtml5.info/storage.html
-
 //return true if localStorage storedstats has data
 function checkNull(){
+//Calling getItem() with a non-existent key will return null rather than throw an exception.
+// -http://diveintohtml5.info/storage.html
 	if(localStorage.getItem("storedstats") != null){
 		return true;
 	}
@@ -65,7 +63,6 @@ function checkNull(){
 		return false;
 	}
 }
-
 /* http://www.java2s.com/Code/JavaScript/Development/howmanydaysBetweentwodates.htm
      Example File From "JavaScript and DHTML Cookbook"
      Published by O'Reilly & Associates
@@ -94,13 +91,11 @@ function daysBetween(date1, date2) {
     var diff = Math.abs(date2.getTime() - date1.getTime()) - DSTAdjust;
     return Math.ceil(diff/oneDay);
 }
-
 //total number of successful melodies in one session
 function S_Total_SuccessfulMelodies() {
 	SESSION.total_successfulmelodies = finalGameInfo.allMelodies.length;
 }
-
-//total number of successful melodies overall//
+//total number of successful melodies overall
 function O_Total_SuccessfulMelodies(){
 	if(checkNull()){
 		OVERALL.total_successfulmelodies = storage.total_successfulmelodies + SESSION.total_successfulmelodies;
@@ -109,7 +104,6 @@ function O_Total_SuccessfulMelodies(){
 		OVERALL.total_successfulmelodies = SESSION.total_successfulmelodies;
 	}
 }
-
 //most number of successful melodies
 functions O_Most_SuccessfulMelodies(){
 	if(checkNull()){
@@ -124,7 +118,6 @@ functions O_Most_SuccessfulMelodies(){
 		OVERALL.most_successfulmelodies = SESSION.total_successfulMelodies;
 	}
 }
-
 //best score ever
 function O_Best_Score(){
 	if(checkNull()){
@@ -138,7 +131,6 @@ function O_Best_Score(){
 	}
 	
 }
-
 //average score overall
 function O_Average_Score(){
 	if(checkNull()){
@@ -148,7 +140,6 @@ function O_Average_Score(){
 		OVERALL.average_score = finalGameInfo.gamescore;
 	}	
 }
-
 //longest streak of NoError melodies in one session
 function S_Streak_NoError(){
 	var sz = finalGameInfo.allMelodies.length;
@@ -163,7 +154,6 @@ function S_Streak_NoError(){
 			count = 0;
 	}
 }
-
 //longest streak of NoError melodies overall
 function O_Streak_NoError(){
 	if(checkNull()){
@@ -180,7 +170,6 @@ function O_Streak_NoError(){
 	
 	
 }
-
 //longest streak of Speed melodies (finished under 10 seconds) in one session
 function S_Streak_Speed(){
 	var sz = finalGameInfo.allMelodies.length;
@@ -195,7 +184,6 @@ function S_Streak_Speed(){
 			count = 0;
 	}
 }
-
 //longest streak of Speed melodies overall
 function O_Streak_Speed(){
 	if(checkNull()){
@@ -210,7 +198,6 @@ function O_Streak_Speed(){
 		OVERALL.streak_Speed = SESSION.streak_Speed;
 	}
 }
-
 //longest streak of veryspeed melodies (finished under 5 seconds) in one session
 function S_Streak_VerySpeed(){
 	var sz = finalGameInfo.allMelodies.length;
@@ -225,7 +212,6 @@ function S_Streak_VerySpeed(){
 			count = 0;
 	}
 }
-
 //longest streak of VerySpeed melodies overall
 function O_Streak_VerySpeed(){
 	if(checkNull()){
@@ -240,7 +226,6 @@ function O_Streak_VerySpeed(){
 		OVERALL.streak_VerySpeed = SESSION.streak_VerySpeed;
 	}
 }
-
 //longest streak of playonce melodies in one session
 function S_Streak_PlayOnce(){
 	var sz = finalGameInfo.allMelodies.length;
@@ -255,7 +240,6 @@ function S_Streak_PlayOnce(){
 			count = 0;
 	}
 }
-
 //longest streak of PlayOnce melodies overall
 function O_Streak_PlayOnce(){
 	if(checkNull()){
@@ -270,7 +254,6 @@ function O_Streak_PlayOnce(){
 		OVERALL.streak_PlayOnce = SESSION.streak_PlayOnce;
 	}	
 }
-
 //average number of times a melody is played per melody in one session
 function S_Average_MelodyPlay(){
 	var sz = finalGameInfo.allMelodies.length;
@@ -279,7 +262,6 @@ function S_Average_MelodyPlay(){
 	}
 	average_melodyplay = average_melodyplay / sz;
 }
-
 //the most times a melody was played per melody in one session 
 function S_Most_MelodyPlay(){
 	var sz = finalGameInfo.allMelodies.length;
@@ -289,7 +271,6 @@ function S_Most_MelodyPlay(){
 		}
 	}
 }
-
 //the most times a melody was played overall
 function O_Most_MelodyPlay(){
 	if(checkNull()){
@@ -304,7 +285,6 @@ function O_Most_MelodyPlay(){
 		OVERALL.most_melodyplay = SESSION.most_melodyplay;
 	}
 }
-
 //most seconds taken to solve a melody in one session
 function S_Most_SecondsTaken(){
 	var sz = finalGameInfo.allMelodies.length;
@@ -313,7 +293,6 @@ function S_Most_SecondsTaken(){
 		SESSION.most_secondstaken = finalGameInfo.allMelodies[i].timetaken.Sec;
 	}
 }
-
 //longest streak of days played
 function O_Streak_Days(){
 	if(checkNull()){
@@ -339,8 +318,7 @@ function O_Streak_Days(){
 	
 	
 }
-
-//returns accuracy in one session
+//accuracy in one session
 function S_Accuracy(){
 	var sz = finalGameInfo.allMelodies.length;
 	for(i = 0; i < sz; i++){
@@ -349,8 +327,130 @@ function S_Accuracy(){
 	SESSION.accuracy = SESSION.accuracy / sz;
 	
 }
-
+//longest time taken to solve a melody
+function O_Most_SecondsTaken(){
+	if(checkNull()){
+		if(storage.most_secondstaken < SESSION.most_secondstaken){
+			OVERALL.most_secondstaken = SESSION.most_secondstaken;
+		}
+		else{
+			OVERALL.most_secondstaken = storage.most_secondstaken;
+		}
+	}
+	else{
+		OVERALL.most_secondstaken = SESSION.most_secondstaken;
+	}
+}
+//total score of one session
+function S_Total_Score(){
+	SESSION.total_score = finalGameInfo.gamescore;
+}
+//total number of NoError melodies in one session
+function S_Total_NoError(){
+	var sz = finalGameInfo.allMelodies.length;
+	for(i = 0; i < sz; i++){
+		if(finalGameInfo.allMelodies[i].bonus.bonus_NoError == true){
+			SESSION.total_NoError++;
+		}
+	}
+}
+//total number of PlayOnce melodies in one session
+function S_Total_PlayOnce(){
+	var sz = finalGameInfo.allMelodies.length;
+	for(i = 0; i < sz; i++){
+		if(finalGameInfo.allMelodies[i].bonus.bonus_PlayOnce == true){
+			SESSION.total_PlayOnce++;
+		}
+	}
+}
+//total number of Speed melodies in one session
+function S_Total_Speed(){
+	var sz = finalGameInfo.allMelodies.length;
+	for(i = 0; i < sz; i++){
+		if(finalGameInfo.allMelodies[i].bonus.bonus_Speed == true){
+			SESSION.total_Speed++;
+		}
+	}
+}
+//total number of VerySpeed melodies in one session
+function S_Total_VerySpeed(){
+	var sz = finalGameInfo.allMelodies.length;
+	for(i = 0; i < sz; i++){
+		if(finalGameInfo.allMelodies[i].bonus.bonus_VerySpeed == true){
+			SESSION.total_VerySpeed++;
+		}
+	}
+}
+//total number of times melodies were played in one session
+function S_Total_MelodyPlay(){
+	var sz = finalGameInfo.allMelodies.length;
+	for(i = 0, i < sz; i++){
+		SESSION.total_melodyplay += finalGameInfo.allMelodies[i].melodiesPlayed;
+	}
+}
+//total score overall
+function O_Total_Score(){
+	if(checkNull()){
+		OVERALL.total_score = storage.total_score + SESSION.total_score;
+	}
+	else{
+		OVERALL.total_score = SESSION.total_score;
+	}
+}
+//total number of NoError melodies overall
+function O_Total_NoError(){
+	if(checkNull()){
+		OVERALL.total_NoError = storage.total_NoError + SESSION.total_NoError;
+	}
+	else{
+		OVERALL.total_NoError = SESSION.total_NoError;
+	}
+}
+//total number of PlayOnce melodies overall
+function O_Total_PlayOnce(){
+	if(checkNull()){
+		OVERALL.total_PlayOnce = storage.total_PlayOnce + SESSION.total_PlayOnce;
+	}
+	else{
+		OVERALL.total_PlayOnce = SESSION.total_PlayOnce;
+	}
+}
+//total number of Speed melodies overall
+function O_Total_Speed(){
+	if(checkNull()){
+		OVERALL.total_Speed = storage.total_Speed + SESSION.total_Speed;
+	}
+	else{
+		OVERALL.total_Speed = SESSION.total_Speed;
+	}
+}
+//total number of VerySpeed melodies overall
+function O_Total_VerySpeed(){
+	if(checkNull()){
+		OVERALL.total_VerySpeed = storage.total_VerySpeed + SESSION.total_VerySpeed;
+	}
+	else{
+		OVERALL.total_VerySpeed = SESSION.total_VerySpeed;
+	}
+}
+//total number of sessions overall
+function O_Total_SessionsPlayed(){
+	if(checkNull()){
+		OVERALL.total_sessionsplayed = storage.total_sessionsplayed + 1;
+	}
+	else{
+		OVERALL.total_sessionsplayed = 1;
+	}
+	
+}
+//calls all functions to update the data
 function callAll(){
+	S_Total_MelodyPlay();
+	S_Total_NoError();
+	S_Total_PlayOnce();
+	S_Total_Speed();
+	S_Total_VerySpeed();
+	S_Total_Score();
 	S_Total_SuccessfulMelodies();
 	S_Streak_NoError();
 	S_Streak_PlayOnce();
@@ -361,6 +461,7 @@ function callAll(){
 	S_Most_SecondsTaken();
 	S_Accuracy();
 	
+	O_Most_SecondsTaken();
 	O_Total_SuccessfulMelodies();
 	O_Streak_NoError();
 	O_Streak_PlayOnce();
@@ -371,33 +472,31 @@ function callAll(){
 	O_Best_Score();
 	O_Average_Score();
 	O_Streak_Days();
+	O_Total_Score();
+	O_Total_NoError();
+	O_Total_PlayOnce();
+	O_Total_Speed();
+	O_Total_VerySpeed();
+	O_Total_SessionsPlayed();
 	
+	OVERALL.updateSessions();
 	
 }
+
 function init() {
+	if(typeof(Storage) !== "undefined") {
+		var finalGameInfo = JSON.parse(localStorage.getItem("stats"));
+		if(checkNull()){
+			var storage = JSON.parse(localStorage.getItem("storedstats"));
+		}
+		callAll();
+		localStorage.setItem("storedstats", JSON.stringify(OVERALL));
+	} 
+	else {
+		console.log("no web storage support");
+	}
+	
+	//TO CLEAR local storage
 	//localStorage.clear();
-	document.getElementById("test").innerHTML = 12 / 5;
-	
-	
-/*	
-	should there be a save button to save progress and open a new  page to call this
-//check browser for localStorage and sessionStorage support
-if(typeof(Storage) !== "undefined") {
-    document.getElementById("test").innerHTML = "localStorage and sessionStorage support available";
-} else {
-    document.getElementById("test").innerHTML = "no web storage support";
-}
-*/
-//localStorage.clear();
-	//calls all function to store in local storage; possibly go in the if function
-//OVERALL.updateSessions();
-	//var finalGameInfo = JSON.parse(localStorage.getItem("stats"));
-	//if(checkNull == true){
-		//var storage = JSON.parse(localStorage.getItem("storedstats"));
-	//}
-	//localStorage.setItem("storedstats", JSON.stringify(OVERALL));
-	//printDate();
-	//successfulMelodies();
-	//document.getElementById("test").innerHTML = "numb of successes: " + SESSION.successfulmelodies;
 }
 
