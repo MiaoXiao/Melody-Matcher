@@ -7,7 +7,7 @@
   </head>
   
   <body onload="initOnce()";>
-    <div id="notes" class="note" style="-webkit-perspective: 800; perspective: 800; margin: 100px 0 0 50px">
+    <div id="notes" class="piano" style="-webkit-perspective: 800; perspective: 800; margin: 100px 0 0 50px">
         
     <button onclick="onButtonClick('C3');" class="playSound key key-natural">C</button>
 	
@@ -85,9 +85,10 @@
 	
 	</div>
     
-    <div id="display">
+    
+    <br><center><button id="test" onclick="letsgo();"> TEST </button></center>
+    <div id="display" class="controls">
 		<br>
-        <center><button id="test" onclick="test();"> TEST </button></center><br>
 		<center> <button id="playmelodybtn" onclick="playMelody();" class="playSound btn-block">Play Current Melody</button> </center>
 		<br>
 		<center> <button id="restartbtn" onclick="initStart();" class="playSound btn-block">Restart</button> </center>
@@ -99,7 +100,7 @@
     </div>
   </body>
   
-  <div id="settings">
+  <div class="settings">
     Volume:<br><input onchange="change_vol(this.value)" type="range" id="volume" value="90">
   </div>
 

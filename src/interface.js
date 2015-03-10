@@ -12,7 +12,8 @@ function dif_selected() {
 
 //start the game by switching html pages (should be removed)
 function letsgo() {
-    document.location.href = "testgameManager.html";
+    document.getElementById("notes").classList.add('test');
+    document.getElementById("display").classList.add('test');
 }
 
 //change the volume
@@ -23,9 +24,4 @@ function change_vol(vol_amount) {
 //get thd current volums
 function get_vol() {
     return parseFloat(localStorage.getItem("volume"))/100.0;
-}
-
-function test() {
-    document.getElementById("notes").classList.add('test');
-    //boxOne.classList.add('horizTranslate');
 }

@@ -26,7 +26,13 @@ body {
   /*text-align: center;*/
 }
 
-#settings {
+/*define fade in animation*/
+@-webkit-keyframes fadi {
+    from   { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.settings {
     font-size: 12px;
     position: fixed;
     bottom: 0;
@@ -39,17 +45,24 @@ body {
     padding: 20px 0px 30px 0px;
 }
 
-#controls {
+.controls {
     font-size: 18px;
     text-align: center;
     padding: 30px 0px 0px 0px;
+    opacity: 0;
 }
 
-.note {
+.controls.test {
+    -webkit-animation-timing-function: linear;
+    -webkit-animation: fadi 3s;
+    opacity: 1;
+}
+
+.piano { /*on start*/
     -webkit-transform: rotate3d(1, 0, 1, 90deg) translateZ(750px) translateX(-100px) translateY(-50px);
 }
 
-.note.test {
+.piano.test {
     -webkit-transition: -webkit-transform 1s ease-in-out;
     -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
 }
