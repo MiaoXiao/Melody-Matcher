@@ -266,19 +266,19 @@ function loadSounds(instrument) {
 	
 	//library of sounds
 	var sounds = [
-		//1st octave 
-		{src: "0_C2.ogg", id: "C2"},
-		{src: "1_Db2.ogg", id: "Db2"},
-		{src: "2_D2.ogg", id: "D2"},
-		{src: "3_Eb2.ogg", id: "Eb2"},
-		{src: "4_E2.ogg", id: "E2"},
-		{src: "5_F2.ogg", id: "F2"},
-		{src: "6_Gb2.ogg", id: "Gb2"},
-		{src: "7_G2.ogg", id: "G2"},
-		{src: "8_Ab2.ogg", id: "Ab2"},
-		{src: "9_A2.ogg", id: "A2"},
-		{src: "10_Bb2.ogg", id: "Bb2"},
-		{src: "11_B2.ogg", id: "B2"},
+//		//1st octave 
+//		{src: "0_C2.ogg", id: "C2"},
+//		{src: "1_Db2.ogg", id: "Db2"},
+//		{src: "2_D2.ogg", id: "D2"},
+//		{src: "3_Eb2.ogg", id: "Eb2"},
+//		{src: "4_E2.ogg", id: "E2"},
+//		{src: "5_F2.ogg", id: "F2"},
+//		{src: "6_Gb2.ogg", id: "Gb2"},
+//		{src: "7_G2.ogg", id: "G2"},
+//		{src: "8_Ab2.ogg", id: "Ab2"},
+//		{src: "9_A2.ogg", id: "A2"},
+//		{src: "10_Bb2.ogg", id: "Bb2"},
+//		{src: "11_B2.ogg", id: "B2"},
 		//2nd octave
 		{src: "12_C3.ogg", id: "C3"},
 		{src: "13_Db3.ogg", id: "Db3"},
@@ -320,19 +320,19 @@ function loadSounds(instrument) {
 		{src: "47_B5.ogg", id: "B5"},
 		//5th octave
 		{src: "48_C6.ogg", id: "C6"},
-		{src: "49_Db6.ogg", id: "Db6"},
-		{src: "50_D6.ogg", id: "D6"},
-		{src: "51_Eb6.ogg", id: "Eb6"},
-		{src: "52_E6.ogg", id: "E6"},
-		{src: "53_F6.ogg", id: "F6"},
-		{src: "54_Gb6.ogg", id: "Gb6"},
-		{src: "55_G6.ogg", id: "G6"},
-		{src: "56_Ab6.ogg", id: "Ab6"},
-		{src: "57_A6.ogg", id: "A6"},
-		{src: "58_Bb6.ogg", id: "Bb6"},
-		{src: "59_B6.ogg", id: "B6"},
-		
-		{src: "60_C7.ogg", id: "C7"},
+//		{src: "49_Db6.ogg", id: "Db6"},
+//		{src: "50_D6.ogg", id: "D6"},
+//		{src: "51_Eb6.ogg", id: "Eb6"},
+//		{src: "52_E6.ogg", id: "E6"},
+//		{src: "53_F6.ogg", id: "F6"},
+//		{src: "54_Gb6.ogg", id: "Gb6"},
+//		{src: "55_G6.ogg", id: "G6"},
+//		{src: "56_Ab6.ogg", id: "Ab6"},
+//		{src: "57_A6.ogg", id: "A6"},
+//		{src: "58_Bb6.ogg", id: "Bb6"},
+//		{src: "59_B6.ogg", id: "B6"},
+//		
+//		{src: "60_C7.ogg", id: "C7"},
 	];
 	createjs.Sound.alternateExtensions = ["mp3"];
 	
