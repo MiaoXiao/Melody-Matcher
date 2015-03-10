@@ -7,7 +7,7 @@
   </head>
   
   <body onload="initOnce()";>
-    <div id="notes">
+    <div id="notes" class="note" style="-webkit-perspective: 800; perspective: 800; margin: 100px 0 0 50px">
         
     <button onclick="onButtonClick('C3');" class="playSound key key-natural">C</button>
 	
@@ -87,6 +87,7 @@
     
     <div id="display">
 		<br>
+        <center><button id="test" onclick="test();"> TEST </button></center><br>
 		<center> <button id="playmelodybtn" onclick="playMelody();" class="playSound btn-block">Play Current Melody</button> </center>
 		<br>
 		<center> <button id="restartbtn" onclick="initStart();" class="playSound btn-block">Restart</button> </center>

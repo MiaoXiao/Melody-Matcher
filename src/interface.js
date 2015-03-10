@@ -24,3 +24,8 @@ function change_vol(vol_amount) {
 function get_vol() {
     return parseFloat(localStorage.getItem("volume"))/100.0;
 }
+
+function test() {
+    document.getElementById("notes").classList.add('test');
+    //boxOne.classList.add('horizTranslate');
+}

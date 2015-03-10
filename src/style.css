@@ -45,6 +45,16 @@ body {
     padding: 30px 0px 0px 0px;
 }
 
+.note {
+    -webkit-transform: rotate3d(1, 0, 1, 90deg) translateZ(750px) translateX(-100px) translateY(-50px);
+}
+
+.note.test {
+    -webkit-transition: -webkit-transform 1s ease-in-out;
+    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
+}
+
+
 .key-natural {
   background: #ffffff;
   background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
@@ -66,13 +76,12 @@ body {
   background-image: linear-gradient(to bottom, #ffffff, #c4c4c4);
   
 /*  position: absolute;*/
-/*  */
-/*  width: 100%;*/
-/*  height: 100%;*/
 /*  -webkit-perspective: 1000px;*/
 /*  -webkit-transform-style: preserve-3d;*/
 /*  -webkit-transform: rotateY(360deg)*/
 /*  -webkit-transition: 1s;*/
+
+
 }
 
 .key-flat {
