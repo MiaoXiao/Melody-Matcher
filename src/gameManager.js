@@ -93,12 +93,13 @@ var MELODYINFO = {
 	checkDifficulty: function() {
 		//get next difficulty (lastdifficulty + 1)
 		var newDifficulty = parseInt(sessionStorage.getItem("difficulty")) + 1;
-		
+		console.log(newDifficulty);
 		//every multiple of 5 levels, increase RANGE.
 		if (newDifficulty % 5 == 0) {
 			if (this.range != GAMEINFO.scale.length)
 			{
 				this.range++;
+				//window.alert("increase range");
 			}
 		}
 		//every multiple of 10 levels, increase numnotes
@@ -107,8 +108,8 @@ var MELODYINFO = {
 		}
 		//increase speed by a factor of 0.05, as long as the speed isint already 0.05
 		if (newDifficulty % 10 == 0) {
-			if (speed > 0.05) {
-				speed -= 0.05;
+			if (this.speed > 0.1) {
+				this.speed -= 0.1;
 			}
 		}
 		
@@ -145,7 +146,7 @@ var MELODYINFO = {
 		//reset time it took to solve the melody
 		this.timeTaken.Sec = 0;
 		this.timeTaken.Dec = 0;
-		//reset melodies playe
+		//reset times melody was played for one meldy
 		this.melodiesPlayed = 0;
 		//reset bonuses
 		var x;
@@ -156,13 +157,12 @@ var MELODYINFO = {
 		for (x in this.score) {
 			this.score[x] = 0;
 		}
-        
-        //Restart background animation
+		//Restart background animation
         var elm = document.getElementById("main");
         elm.classList.remove("play");
         elm.offsetWidth = elm.offsetWidth;
         elm.classList.add("play");
-        
+		
 	}
 	
 };
@@ -201,7 +201,8 @@ var GAMEINFO = {
 		document.getElementById("playmelodybtn").disabled = true;
 		//save information ( this last melody is NOT successful)
 		localStorage.setItem("stats", JSON.stringify(GAMEINFO));
-		sessionStorage.setItem("difficulty", "0")
+		//sessionStorage.setItem("difficulty", 1)
+		sessionStorage.setItem("display", "gameover");
 		
 	}
 };
@@ -251,12 +252,10 @@ var TIMEMANAGER = {
 
 //Hold the full chromatic
 var CHROMATIC = [
-	"C2", "Db2", "D2", "Eb2", "E2", "F2", "Gb2", "G2", "Ab2", "A2", "Bb2", "B2", 
 	"C3", "Db3", "D3", "Eb3", "E3", "F3", "Gb3", "G3", "Ab3", "A3", "Bb3", "B3", 
 	"C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4", "A4", "Bb4", "B4", 
 	"C5", "Db5", "D5", "Eb5", "E5", "F5", "Gb5", "G5", "Ab5", "A5", "Bb5", "B5",
-	"C6", "Db6", "D6", "Eb6", "E6", "F6", "Gb6", "G6", "Ab6", "A6", "Bb6", "B6",
-	"C7"
+	"C6"
 ];
 
 //load all sounds that will be used
@@ -365,75 +364,76 @@ function chooseScale(scale) {
 		case "C#maj":
 		case "Dbmaj":
 			start = 1;
-			GAMEINFO.multi += .25;
 			break;
 		case "Dmaj":
 			start = 2;
-			GAMEINFO.scale.push('Db2');
+			//GAMEINFO.scale.push('Db2');
 			break;
 		case "Ebmaj":
 			start = 3;
-			GAMEINFO.scale.push('C2');
-			GAMEINFO.scale.push('D2');
+			//GAMEINFO.scale.push('C2');
+			//GAMEINFO.scale.push('D2');
 			break;
 		case "Emaj":
 			start = 4;
-			GAMEINFO.scale.push('Db2');
-			GAMEINFO.scale.push('Eb2');
+			//GAMEINFO.scale.push('Db2');
+			//GAMEINFO.scale.push('Eb2');
 			break;
 		case "Fmaj":
 			start = 5;
-			GAMEINFO.scale.push('C2');
-			GAMEINFO.scale.push('D2');
-			GAMEINFO.scale.push('E2');
+			//GAMEINFO.scale.push('C2');
+			//GAMEINFO.scale.push('D2');
+			//GAMEINFO.scale.push('E2');
 			break;
 		case "F#maj":
 		case "Gbmaj":
 			start = 6;
-			GAMEINFO.scale.push('Db2');
-			GAMEINFO.scale.push('Eb2');
-			GAMEINFO.scale.push('F2');
+			//GAMEINFO.scale.push('Db2');
+			//GAMEINFO.scale.push('Eb2');
+			//GAMEINFO.scale.push('F2');
 			break;
 		case "Gmaj":
 			start = 7;
-			GAMEINFO.scale.push('D2');
-			GAMEINFO.scale.push('E2');
-			GAMEINFO.scale.push('Gb2');
+			//GAMEINFO.scale.push('D2');
+			//GAMEINFO.scale.push('E2');
+			//GAMEINFO.scale.push('Gb2');
 			break;
 		case "Abmaj":
 			start = 8;
-			GAMEINFO.scale.push('C2');
-			GAMEINFO.scale.push('Db2');
-			GAMEINFO.scale.push('Eb2');
-			GAMEINFO.scale.push('F2');
-			GAMEINFO.scale.push('G2');
+			//GAMEINFO.scale.push('C2');
+			//GAMEINFO.scale.push('Db2');
+			//GAMEINFO.scale.push('Eb2');
+			//GAMEINFO.scale.push('F2');
+			//GAMEINFO.scale.push('G2');
 			break;
 		case "Amaj":
 			start = 9;
-			GAMEINFO.scale.push('Db2');
-			GAMEINFO.scale.push('D2');
-			GAMEINFO.scale.push('E2');
-			GAMEINFO.scale.push('Gb2');
-			GAMEINFO.scale.push('Ab2');
+			//GAMEINFO.scale.push('Db2');
+			//GAMEINFO.scale.push('D2');
+			//GAMEINFO.scale.push('E2');
+			//GAMEINFO.scale.push('Gb2');
+			//GAMEINFO.scale.push('Ab2');
 			break;
 		case "Bbmaj":
 			start = 10;
+			/*
 			GAMEINFO.scale.push('C2');
 			GAMEINFO.scale.push('D2');
 			GAMEINFO.scale.push('Eb2');
 			GAMEINFO.scale.push('F2');
 			GAMEINFO.scale.push('G2');
-			GAMEINFO.scale.push('A2');
+			GAMEINFO.scale.push('A2');*/
 			break;
 		case "Bmaj":
 		case "Cbmaj":
 			start = 11;
+			/*
 			GAMEINFO.scale.push('B2');
 			GAMEINFO.scale.push('Db2');
 			GAMEINFO.scale.push('Eb2');
 			GAMEINFO.scale.push('E2');
 			GAMEINFO.scale.push('Gb2');
-			GAMEINFO.scale.push('Bb2');
+			GAMEINFO.scale.push('Bb2');*/
 			break;
 	}
 	
@@ -442,9 +442,7 @@ function chooseScale(scale) {
 		0, 2, 4, 5, 7, 9, 11, 
 		12, 14, 16, 17, 19, 21, 23, 
 		24, 26, 28, 29, 31, 33, 35,
-		36, 38, 40, 41, 43, 45, 47,
-		48, 50, 52, 53, 55, 57, 59,
-		60
+		36
 		];
 	
 	//create scale
@@ -466,6 +464,7 @@ function chooseScale(scale) {
 //play melody using answerkey array
 //melody can only play, if it is not already playing
 function playMelody() {
+	sessionStorage.setItem("display", "playmlelody");
 	MELODYINFO.melodiesPlayed++;
 	//if this is the second time playing the melody, play once bonus off
 	if (MELODYINFO.melodiesPlayed == 2) MELODYINFO.bonus.bonus_PlayOnce = false;
@@ -475,7 +474,7 @@ function playMelody() {
 		//if the sound was just played, disable the button for the duration of the melody
 		if (i + 1 == MELODYINFO.anskey.length) {
 			document.getElementById("playmelodybtn").disabled = true;
-			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false}, (i +  1) * (MELODYINFO.speed * 1000));
+			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; sessionStorage.setItem("display", "wait");}, (i +  1) * (MELODYINFO.speed * 1000));
 		}
 	}
 }
@@ -531,7 +530,7 @@ function generateMelody() {
 	//get actual range of melody
 	MELODYINFO.actualrange = high - low;
 	//window.alert("Actual Range: " + MELODYINFO.actualrange);
-	//window.alert("Full Melody: " + MELODYINFO.anskey);
+	window.alert("Full Melody: " + MELODYINFO.anskey);
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
@@ -553,7 +552,7 @@ function getnextMelody() {
 	//update gameinfo
 	GAMEINFO.updateGameInfo();
 	
-	//save information
+	//save updated game info
 	localStorage.setItem("stats", JSON.stringify(GAMEINFO));
 	//USE: TO GET LATEST GAME INFORMATION
 	//var finalGameInfo = JSON.parse(localStorage.getItem("stats"));
@@ -617,15 +616,14 @@ function level_to_name(level) {
 function onButtonClick(note) {
 	playSound(note);
 	//only check melody if game is not over
-	if (!GAMEINFO.gameover) checkMelody(note);
+	if (!GAMEINFO.gameover) checkMelody(note); sessionStorage.setItem("display", "start");
 }
 
 //pointer to time function
 var updateTimeRef;
 //init game data, when game is restarted
 function initStart() {
-	sessionStorage.setItem("display", "restart");
-	
+	sessionStorage.setItem("display", "wait");
 	clearInterval(updateTimeRef);
 	
 	//enable game again
@@ -654,7 +652,11 @@ function initStart() {
 
 //run only once when web page is loaded
 function initOnce() {
-	sessionStorage.setItem("display", "start");
+	//set display
+	sessionStorage.setItem("display", "gameover");
+
+	//set level
+	sessionStorage.setItem("difficulty", 1);
 	
 	//make sure playmelody is disabled
 	document.getElementById("playmelodybtn").disabled = true;
