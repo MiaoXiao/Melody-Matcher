@@ -15,6 +15,7 @@ function letsgo() {
     document.getElementById("notes").classList.add('in');
     document.getElementById("display").classList.add('in');
     document.getElementById("start_screen").classList.add('out');
+    document.getElementById("main").classList.add('start');
 }
 
 //change the volume
