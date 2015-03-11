@@ -30,9 +30,24 @@
     to      { background-color: papayawhip; }
 }
 
+@-webkit-keyframes play_game {
+    0%  {background-color: papayawhip}
+    5%  {background-color: yellowgreen}
+    33%  {background-color: gold}
+    66%  {background-color: coral}
+    100%  {background-color: tomato}
+}
+
 .body.start {
     -webkit-animation-timing-function: ease-in;
     -webkit-animation: start_back 3s;
+    background-color: papayawhip;
+}
+
+.body.play {
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation-duration: 60s;
+    -webkit-animation: play_game 60s;
     background-color: papayawhip;
 }
 

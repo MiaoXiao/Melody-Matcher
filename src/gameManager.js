@@ -156,6 +156,13 @@ var MELODYINFO = {
 		for (x in this.score) {
 			this.score[x] = 0;
 		}
+        
+        //Restart background animation
+        var elm = document.getElementById("main");
+        elm.classList.remove("play");
+        elm.offsetWidth = elm.offsetWidth;
+        elm.classList.add("play");
+        
 	}
 	
 };
