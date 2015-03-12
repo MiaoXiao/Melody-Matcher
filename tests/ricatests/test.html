@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TEST!</title>
+		<!-- Function Declaration with Javascript -->
+		<!-- function FUNCTIONAME() {} -->
+		<script>
+		function myFunction() {
+			//change id "demo" to "Paragraph changes"
+			document.getElementById("demo").innerHTML = "Paragraph changed.";
+			//debug messeges with f12
+			console.log(5 + 6);
+		}
+		function changeVar(vara, varb) {
+			//Any variable you declare with var!
+			var x = 1;
+			var y = 4;
+			var z = x + y + (6 * 3);
+			//structures
+			var person = {
+				firstName: "John",
+				lastName: "Doe", 
+				age: 50, 
+				eyeColor: "blue"
+			};
+			//person.firstName, person.lastName, person.age
+			return x + y + z;
+		}
+		</script>
+	</head>
+
+	<body>
+		<h1>This is a Heading</h1>
+		<p>This is a paragraph.</p>
+		<!--You can give ids for paragraphs or headers -->
+		<!-- id = "name" -->
+		<p id="demo">A Paragraph.</p>
+		<!--Declare buttons and behavior on click. -->
+		<!-- <button type = "" onclick = "JAVASCRIPT HERE"> BUTTON TEXT </button> -->
+		<button type="button" onclick="myFunction()">Try it</button>
+	</body>
+
+</html>
+
+<!-- Include javascript from an external file
+<!-- <script src="myScript.js"></script> -->
