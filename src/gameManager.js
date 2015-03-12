@@ -570,7 +570,7 @@ function getnextMelody() {
 //check to see if melody is correct so far
 //note is a string (ex. C4)
 //updates current messege
-function checkMelody(note) {
+function checkMelody(note, key_button) {
 	//shortcut variables from melodyinfo
 	var cur_scale = GAMEINFO.scale;
 	var cur_anskey = MELODYINFO.anskey;
@@ -578,7 +578,8 @@ function checkMelody(note) {
 	
 	//if correct and game is active
 	if (cur_scale[cur_anskey[cur_anspos]] == note) {
-		cur_anspos++;
+        cur_anspos++;
+        highlight_note(key_button, true);
 		//check if melody has been completed
 		if (cur_anspos >= cur_anskey.length) {
 			getnextMelody();
@@ -589,7 +590,8 @@ function checkMelody(note) {
 		}
 	}
 	else { //wrong note
-		sessionStorage.setItem("display", "incorrect");
+        sessionStorage.setItem("display", "incorrect");
+        highlight_note(key_button, false);
 		MELODYINFO.wrongNotes++;
 		MELODYINFO.anspos = 0;
 		//no error bonus lost
@@ -613,10 +615,10 @@ function level_to_name(level) {
 }*/
 
 //run these functions every key press
-function onButtonClick(note) {
+function onButtonClick(note, key_button) {
 	playSound(note);
 	//only check melody if game is not over
-	if (!GAMEINFO.gameover) checkMelody(note); sessionStorage.setItem("display", "start");
+	if (!GAMEINFO.gameover) checkMelody(note, key_button); sessionStorage.setItem("display", "start");
 }
 
 //pointer to time function

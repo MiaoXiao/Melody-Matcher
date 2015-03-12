@@ -27,3 +27,16 @@ function change_vol(vol_amount) {
 function get_vol() {
     return parseFloat(localStorage.getItem("volume"))/100.0;
 }
+
+function highlight_note(key, correct) {
+    console.log(correct);
+    if(correct) {
+        key.classList.remove("correct");
+        key.offsetWidth = key.offsetWidth;
+        key.classList.add("correct");
+    } else {
+        key.classList.remove("incorrect");
+        key.offsetWidth = key.offsetWidth;
+        key.classList.add("incorrect");
+    }
+}
