@@ -1,3 +1,11 @@
+//DIFFERENT DISPLAYS (game status)
+//gameover: game is lost or game has not been started
+//wait: game is in session and is waiting for player input
+//correct: correct note
+//incorect: incorrect note
+//finish: melody completed
+//playmelody: user clicked play melody. will last until the melody is finished playing
+
 //stores information about current melody
 var MELODYINFO = {
 	//melody speed
@@ -93,7 +101,7 @@ var MELODYINFO = {
 	checkDifficulty: function() {
 		//get next difficulty (lastdifficulty + 1)
 		var newDifficulty = parseInt(sessionStorage.getItem("difficulty")) + 1;
-		console.log(newDifficulty);
+		console.log("Level: " + newDifficulty);
 		//every multiple of 5 levels, increase RANGE.
 		if (newDifficulty % 5 == 0) {
 			if (this.range != GAMEINFO.scale.length)
@@ -448,7 +456,7 @@ function chooseScale(scale) {
 	//create scale
 	for (var i = 0; i < major.length; i++) {
 			var note = start + major[i];
-			if (note > 60) i = major.length;
+			if (note > 36) i = major.length;
 			else GAMEINFO.scale.push(CHROMATIC[note]);
 	}
     
@@ -458,13 +466,13 @@ function chooseScale(scale) {
 	}
 	
     //For testing
-    //window.alert(GAMEINFO.scale);
+    console.log(GAMEINFO.scale);
 }
 
 //play melody using answerkey array
 //melody can only play, if it is not already playing
 function playMelody() {
-	sessionStorage.setItem("display", "playmlelody");
+	sessionStorage.setItem("display", "playmelody");
 	MELODYINFO.melodiesPlayed++;
 	//if this is the second time playing the melody, play once bonus off
 	if (MELODYINFO.melodiesPlayed == 2) MELODYINFO.bonus.bonus_PlayOnce = false;
@@ -507,13 +515,14 @@ function generateMelody() {
 	//fills answer key with random iterators between range and 0
 	for (var i = 0; i < MELODYINFO.numNotes; i++) {
 		randNum = Math.floor((Math.random() * MELODYINFO.range) + starting);
+		if (randNum >= GAMEINFO.scale.length) randNum = GAMEINFO.scale.length - 1;
 		//if the random number is the same as the last one, dec or inc by 1
 		if (i != 0 && randNum == MELODYINFO.anskey[i - 1]) {
-			if (randNum == 0) {
-				randNum += 1;
+			if (randNum < 0) {
+				randNum = 0;
 			}
-			else if (randNum == GAMEINFO.scale.length) {
-				randNum -= 1;
+			else if (randNum >= GAMEINFO.scale.length) {
+				randNum = GAMEINFO.scale.length - 1;
 			}
 			else if (Math.floor((Math.random() * 1) + 0)) {
 				randNum += 1;
@@ -540,9 +549,6 @@ function playSound(note) {
 
 //run all these functions after every correct melody
 function getnextMelody() {
-	//window.alert("Getting next melody");
-	sessionStorage.setItem("display", "finish");
-	
 	//refill time
 	TIMEMANAGER.resetTime();
 	
@@ -576,12 +582,18 @@ function checkMelody(note, key_button) {
 	var cur_anskey = MELODYINFO.anskey;
 	var cur_anspos = MELODYINFO.anspos;
 	
-	//if correct and game is active
-	if (cur_scale[cur_anskey[cur_anspos]] == note) {
+	//if first note, it is technically correct, but reset anspos to 1 (not done yet)
+	if (note == cur_anskey[0]) {
+		MELODYINFO.anspos = 1;
+		sessionStorage.setItem("display", "correct");
+	}
+	else if (cur_scale[cur_anskey[cur_anspos]] == note) { //if correct and game is active
         cur_anspos++;
         highlight_note(key_button, true);
 		//check if melody has been completed
 		if (cur_anspos >= cur_anskey.length) {
+			//window.alert("Getting next melody");
+			sessionStorage.setItem("display", "finish");
 			getnextMelody();
 		}
 		else { //correct note otherwise
@@ -618,7 +630,7 @@ function level_to_name(level) {
 function onButtonClick(note, key_button) {
 	playSound(note);
 	//only check melody if game is not over
-	if (!GAMEINFO.gameover) checkMelody(note, key_button); sessionStorage.setItem("display", "start");
+	if (!GAMEINFO.gameover) checkMelody(note, key_button); sessionStorage.setItem("display", "wait");
 }
 
 //pointer to time function
