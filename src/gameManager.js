@@ -530,7 +530,7 @@ function generateMelody() {
 	//get actual range of melody
 	MELODYINFO.actualrange = high - low;
 	//window.alert("Actual Range: " + MELODYINFO.actualrange);
-	window.alert("Full Melody: " + MELODYINFO.anskey);
+	//window.alert("Full Melody: " + MELODYINFO.anskey);
 }
 
 //play a sound given an id (ex C4, G4, Bb4)

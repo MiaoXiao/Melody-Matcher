@@ -29,7 +29,6 @@ function get_vol() {
 }
 
 function highlight_note(key, correct) {
-    console.log(correct);
     if(correct) {
         key.classList.remove("correct");
         key.offsetWidth = key.offsetWidth;
