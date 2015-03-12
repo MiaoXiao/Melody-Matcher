@@ -1,5 +1,7 @@
 # CS100-Music-Game-
 
+[PLAY NOW](http://miaoxiao.github.io/CS100-Music-Game-/)
+
 ## Team members: 
 * Rica Feng (rfeng001@ucr.edu)
 * Sherina Bala (sbala003@ucr.edu)
