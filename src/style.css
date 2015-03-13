@@ -25,7 +25,17 @@
     to      { opacity: 1; }
 }
 
+@-moz-keyframes fadi {
+    from    { opacity: 0; }
+    to      { opacity: 1; }
+}
+
 @-webkit-keyframes start_back {
+    from    { background-color: darksalmon; }
+    to      { background-color: papayawhip; }
+}
+
+@-moz-keyframes start_back {
     from    { background-color: darksalmon; }
     to      { background-color: papayawhip; }
 }
@@ -37,9 +47,18 @@
     100%  {background-color: tomato}
 }
 
+@-moz-keyframes play_game {
+    0%  {background-color: papayawhip}
+    5%  {background-color: yellowgreen}
+    75%  {background-color: gold}
+    100%  {background-color: tomato}
+}
+
 .body.start {
     -webkit-animation-timing-function: ease-in;
     -webkit-animation: start_back 3s;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation: start_back 3s;
     background-color: papayawhip;
 }
 
@@ -47,6 +66,9 @@
     -webkit-animation-timing-function: ease-in;
     -webkit-animation-duration: 60s;
     -webkit-animation: play_game 60s;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation-duration: 60s;
+    -moz-animation: play_game 60s;
     background-color: papayawhip;
 }
 
@@ -68,6 +90,7 @@
     background-image: -o-linear-gradient(top, #eba7a7, #b82b2b);
     background-image: linear-gradient(to bottom, #eba7a7, #b82b2b);
     -webkit-border-radius: 60;
+    -moz-border-radius: 60;
     font-family: Arial;
     color: #ffffff;
     font-size: 57px;
@@ -93,11 +116,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
 }
 
 .startup.out {
     -webkit-transition: -webkit-transform 2s ease-in-out;
     -webkit-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
+    -moz-transition: -moz-transform 2s ease-in-out;
+    -moz-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
 }
 
 /* GAME */
@@ -111,7 +137,9 @@
 
 .controls.in {
     -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
     -webkit-animation: fadi 3s;
+    -moz-animation: fadi 3s;
     opacity: 1;
 }
 
@@ -120,12 +148,15 @@
     text-align: center;
     padding: 20px 0px 30px 0px;
     -webkit-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
+    -moz-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
     
 }
 
 .piano.in {
     -webkit-transition: -webkit-transform 2s ease-in-out;
     -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
+    -moz-transition: -moz-transform 2s ease-in-out;
+    -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
 }
 
 /* KEYS */
@@ -194,7 +225,39 @@
         background-image: linear-gradient(to bottom, #ffffff, #dedede);}
 }
 
+@-moz-keyframes incorrect {
+    0%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #ffa3a8;}
+    100%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
 @-webkit-keyframes correct {
+    0%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #a1ffb1;}
+    100%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
+@-moz-keyframes correct {
     0%  {background: #ffffff;
         background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
         background-image: -moz-linear-gradient(top, #ffffff, #dedede);
@@ -226,9 +289,13 @@
 .key.correct {
     -webkit-animation-timing-function: ease-in;
     -webkit-animation: correct 2s;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation: correct 2s;
 }
 
 .key.incorrect {
     -webkit-animation-timing-function: ease-in;
     -webkit-animation: incorrect 2s;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation: incorrect 2s;
 }
