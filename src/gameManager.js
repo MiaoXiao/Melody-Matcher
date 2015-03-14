@@ -181,7 +181,7 @@ var GAMEINFO = {
 	//current gamemode
 	gameMode: "standard",
 	//whether the game is over or not
-	gameover: 0,
+	gameover: 1,
 	//array of all melodies so far
 	allMelodies: [],
 	//entire game score
