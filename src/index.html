@@ -1,0 +1,112 @@
+<html>
+  <head>
+		<title> Play Sounds </title>
+		<script src="https://code.createjs.com/createjs-2014.12.12.min.js"></script>
+		<script src="interface.js"></script>
+		<script src="gameManager.js"></script>
+  </head>
+  
+  <body id="main" class="body" onload="initOnce()";>
+    <div id="notes" class="piano" style="-webkit-perspective: 800; perspective: 800; margin: 100px 0 0 50px">
+        
+    <button onclick="onButtonClick('C3', this);" class="playSound key key-natural">C</button>
+	
+    <button onclick="onButtonClick('Db3', this);" class="playSound key key-flat">Db</button>
+	
+    <button onclick="onButtonClick('D3', this);" class="playSound key key-natural">D</button>
+	
+    <button onclick="onButtonClick('Eb3', this);" class="playSound key key-flat">Eb</button>
+	
+    <button onclick="onButtonClick('E3', this);" class="playSound key key-natural">E</button>
+	
+    <button onclick="onButtonClick('F3', this);" class="playSound key key-natural">F</button>
+	
+    <button onclick="onButtonClick('Gb3', this);" class="playSound key key-flat">Gb</button>
+	
+    <button onclick="onButtonClick('G3', this);" class="playSound key key-natural">G</button>
+	
+    <button onclick="onButtonClick('Ab3', this);" class="playSound key key-flat">Ab</button>
+	
+    <button onclick="onButtonClick('A3', this);" class="playSound key key-natural">A</button>
+	
+    <button onclick="onButtonClick('Bb3', this);" class="playSound key key-flat">Bb</button>
+	
+    <button onclick="onButtonClick('B3', this);" class="playSound key key-natural">B</button>
+	
+    <button onclick="onButtonClick('C4', this);" class="playSound key key-natural">C</button>
+	
+    <button onclick="onButtonClick('Db4', this);" class="playSound key key-flat">Db</button>
+	
+    <button onclick="onButtonClick('D4', this);" class="playSound key key-natural">D</button>
+	
+    <button onclick="onButtonClick('Eb4', this);" class="playSound key key-flat">Eb</button>
+	
+    <button onclick="onButtonClick('E4', this);" class="playSound key key-natural">E</button>
+    
+    <button onclick="onButtonClick('F4', this);" class="playSound key key-natural">F</button>
+	
+    <button onclick="onButtonClick('Gb4', this);" class="playSound key key-flat">Gb</button>
+	
+    <button onclick="onButtonClick('G4', this);" class="playSound key key-natural">G</button>
+	
+    <button onclick="onButtonClick('Ab4', this);" class="playSound key key-flat">Ab</button>
+	
+    <button onclick="onButtonClick('A4', this);" class="playSound key key-natural">A</button>
+	
+    <button onclick="onButtonClick('Bb4', this);" class="playSound key key-flat">Bb</button>
+	
+    <button onclick="onButtonClick('B4', this);" class="playSound key key-natural">B</button>
+	
+    <button onclick="onButtonClick('C5', this);" class="playSound key key-natural">C</button>
+    
+    <button onclick="onButtonClick('Db5', this);" class="playSound key key-flat">Db</button>
+	
+    <button onclick="onButtonClick('D5', this);" class="playSound key key-natural">D</button>
+	
+    <button onclick="onButtonClick('Eb5', this);" class="playSound key key-flat">Eb</button>
+	
+    <button onclick="onButtonClick('E5', this);" class="playSound key key-natural">E</button>
+	
+    <button onclick="onButtonClick('F5', this);" class="playSound key key-natural">F</button>
+	
+    <button onclick="onButtonClick('Gb5', this);" class="playSound key key-flat">Gb</button>
+	
+    <button onclick="onButtonClick('G5', this);" class="playSound key key-natural">G</button>
+	
+    <button onclick="onButtonClick('Ab5', this);" class="playSound key key-flat">Ab</button>
+	
+    <button onclick="onButtonClick('A5', this);" class="playSound key key-natural">A</button>
+	
+    <button onclick="onButtonClick('Bb5', this);" class="playSound key key-flat">Bb</button>
+	
+    <button onclick="onButtonClick('B5', this);" class="playSound key key-natural">B</button>
+
+    <button onclick="onButtonClick('C6', this);" class="playSound key key-natural">C</button>
+	
+	</div>
+    
+    <div id="display" class="controls">
+		<br>
+		<button id="playmelodybtn" onclick="playMelody();" class="playSound btn-block">Play Current Melody</button>
+        
+        <p>Score: </p><p id = "score"></p>
+		<button id="restartbtn" onclick="initStart();" class="playSound btn-block">Restart</button>
+		<br>
+		<p>Time: </p><p id = "time"></p>
+		<br>
+    </div>
+  </body>
+  
+  <div id="start_screen" class="startup">
+    <button id="begin" onclick="letsgo();" class="btn-start">Play!</button>
+  </div>
+  
+  <div class="settings">
+    Volume:<br><input onchange="change_vol(this.value)" type="range" id="volume" value="90">
+  </div>
+
+  <link href="style.css" rel="stylesheet"> </link>
+	<footer>
+		
+	</footer>
+</html>
