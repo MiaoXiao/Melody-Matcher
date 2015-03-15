@@ -11,6 +11,15 @@ function letsgo() {
     document.getElementById("display").classList.add('in');
     document.getElementById("start_screen").classList.add('out');
     document.getElementById("main").classList.add('start');
+    
+    var key = document.getElementById("key_type");
+    var key_val = key.options[key.selectedIndex].value;
+    
+    var scale = document.getElementById("scale_type");
+    var scale_val = scale.options[scale.selectedIndex].value;
+    
+    console.log(key_val+scale_val);
+    chooseScale(key_val+scale_val);
 }
 
 //change the volume
