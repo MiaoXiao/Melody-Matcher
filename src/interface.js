@@ -1,13 +1,8 @@
 //select difficulty based on radial button
-function dif_selected() {
-    //Enable the start button if it wasn't already
-    document.getElementById("btn01").disabled = false;
+function dif_selected(difficulty) {
     //Grab the radio form and loop through it looking for the selected btn
-    var rdio = document.getElementById("dif_radio");
-    for (var i = 0; i < rdio.length ;i++) {
-        //Set difficulty accordingly
-        if(rdio.elements[i].checked) sessionStorage.setItem("difficulty", i*10);
-    }
+    sessionStorage.setItem("difficulty", parseInt(difficulty));
+    console.log(sessionStorage.getItem("difficulty"));
 }
 
 //start the game by switching html pages (should be removed)

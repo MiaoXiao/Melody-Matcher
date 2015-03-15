@@ -100,9 +100,9 @@
   <div id="start_screen" class="startup">
     <p>Select a difficulty</p>
     <form id="dif_radio" action="">
-    <input onclick="dif_selected()" type="radio" name="difficulty" value="easy">Easy<br>
-    <input onclick="dif_selected()" type="radio" name="difficulty" value="medium">Medium<br>
-    <input onclick="dif_selected()" type="radio" name="difficulty" value="hard">Hard<br>
+    <input onclick="dif_selected(0)" type="radio" name="difficulty" value="easy" checked>Easy<br>
+    <input onclick="dif_selected(10)" type="radio" name="difficulty" value="medium">Medium<br>
+    <input onclick="dif_selected(20)" type="radio" name="difficulty" value="hard">Hard<br>
     </form>
     <button id="begin" onclick="letsgo();" class="btn-start">Play!</button>
   </div>
