@@ -2,7 +2,6 @@
 function dif_selected(difficulty) {
     //Grab the radio form and loop through it looking for the selected btn
     sessionStorage.setItem("difficulty", parseInt(difficulty));
-    console.log(sessionStorage.getItem("difficulty"));
 }
 
 //start the game by switching html pages (should be removed)
@@ -18,7 +17,6 @@ function letsgo() {
     var scale = document.getElementById("scale_type");
     var scale_val = scale.options[scale.selectedIndex].value;
     
-    console.log(key_val+scale_val);
     chooseScale(key_val+scale_val);
 }
 
