@@ -161,6 +161,133 @@
 
 /* KEYS */
 
+@-webkit-keyframes nat_incorrect {
+    0%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #ffa3a8;}
+    100%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
+@-moz-keyframes nat_incorrect {
+    0%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #ffa3a8;}
+    100%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
+@-webkit-keyframes nat_correct {
+    0%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #a1ffb1;}
+    100%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
+@-moz-keyframes nat_correct {
+    0%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #a1ffb1;}
+    100%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
+@-webkit-keyframes flat_incorrect {
+    0%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #000000, #787878);
+        background-image: -moz-linear-gradient(top, #000000, #787878);
+        background-image: -ms-linear-gradient(top, #000000, #787878);
+        background-image: -o-linear-gradient(top, #000000, #787878);
+        background-image: linear-gradient(to bottom, #000000, #787878);}
+    5%  {background: #ff5c65;}
+    100%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #000000, #787878);
+        background-image: -moz-linear-gradient(top, #000000, #787878);
+        background-image: -ms-linear-gradient(top, #000000, #787878);
+        background-image: -o-linear-gradient(top, #000000, #787878);
+        background-image: linear-gradient(to bottom, #000000, #787878);}}
+
+@-moz-keyframes flat_incorrect {
+    0%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #000000, #787878);
+        background-image: -moz-linear-gradient(top, #000000, #787878);
+        background-image: -ms-linear-gradient(top, #000000, #787878);
+        background-image: -o-linear-gradient(top, #000000, #787878);
+        background-image: linear-gradient(to bottom, #000000, #787878);}
+    5%  {background: #ff5c65;}
+    100%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #000000, #787878);
+        background-image: -moz-linear-gradient(top, #000000, #787878);
+        background-image: -ms-linear-gradient(top, #000000, #787878);
+        background-image: -o-linear-gradient(top, #000000, #787878);
+        background-image: linear-gradient(to bottom, #000000, #787878);}
+}
+
+@-webkit-keyframes flat_correct {
+    0%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #000000, #787878);
+        background-image: -moz-linear-gradient(top, #000000, #787878);
+        background-image: -ms-linear-gradient(top, #000000, #787878);
+        background-image: -o-linear-gradient(top, #000000, #787878);
+        background-image: linear-gradient(to bottom, #000000, #787878);}
+    5%  {background: #33cc33;}
+    100%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #000000, #787878);
+        background-image: -moz-linear-gradient(top, #000000, #787878);
+        background-image: -ms-linear-gradient(top, #000000, #787878);
+        background-image: -o-linear-gradient(top, #000000, #787878);
+        background-image: linear-gradient(to bottom, #000000, #787878);}
+}
+
+@-moz-keyframes flat_correct {
+    0%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #000000, #787878);
+        background-image: -moz-linear-gradient(top, #000000, #787878);
+        background-image: -ms-linear-gradient(top, #000000, #787878);
+        background-image: -o-linear-gradient(top, #000000, #787878);
+        background-image: linear-gradient(to bottom, #000000, #787878);}
+    5%  {background: #33cc33;}
+    100%  {background: #000000;
+        background-image: -webkit-linear-gradient(top, #000000, #787878);
+        background-image: -moz-linear-gradient(top, #000000, #787878);
+        background-image: -ms-linear-gradient(top, #000000, #787878);
+        background-image: -o-linear-gradient(top, #000000, #787878);
+        background-image: linear-gradient(to bottom, #000000, #787878);}
+}
+
 .key-natural {
   background: #ffffff;
   background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
@@ -181,6 +308,20 @@
   background-image: -ms-linear-gradient(top, #ffffff, #c4c4c4);
   background-image: -o-linear-gradient(top, #ffffff, #c4c4c4);
   background-image: linear-gradient(to bottom, #ffffff, #c4c4c4);
+}
+
+.key-natural.correct {
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation: nat_correct 2s;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation: nat_correct 2s;
+}
+
+.key-natural.incorrect {
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation: nat_incorrect 2s;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation: nat_incorrect 2s;
 }
 
 .key-flat {
@@ -209,68 +350,18 @@
   background-image: linear-gradient(to bottom, #000000, #5e5d5e);
 }
 
-@-webkit-keyframes incorrect {
-    0%  {background: #ffffff;
-        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
-        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
-        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
-        background-image: -o-linear-gradient(top, #ffffff, #dedede);
-        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
-    5%  {background: #ffa3a8;}
-    100%  {background: #ffffff;
-        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
-        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
-        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
-        background-image: -o-linear-gradient(top, #ffffff, #dedede);
-        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+.key-flat.correct {
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation: flat_correct 2s;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation: flat_correct 2s;
 }
 
-@-moz-keyframes incorrect {
-    0%  {background: #ffffff;
-        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
-        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
-        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
-        background-image: -o-linear-gradient(top, #ffffff, #dedede);
-        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
-    5%  {background: #ffa3a8;}
-    100%  {background: #ffffff;
-        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
-        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
-        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
-        background-image: -o-linear-gradient(top, #ffffff, #dedede);
-        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
-}
-
-@-webkit-keyframes correct {
-    0%  {background: #ffffff;
-        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
-        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
-        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
-        background-image: -o-linear-gradient(top, #ffffff, #dedede);
-        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
-    5%  {background: #a1ffb1;}
-    100%  {background: #ffffff;
-        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
-        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
-        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
-        background-image: -o-linear-gradient(top, #ffffff, #dedede);
-        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
-}
-
-@-moz-keyframes correct {
-    0%  {background: #ffffff;
-        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
-        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
-        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
-        background-image: -o-linear-gradient(top, #ffffff, #dedede);
-        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
-    5%  {background: #a1ffb1;}
-    100%  {background: #ffffff;
-        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
-        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
-        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
-        background-image: -o-linear-gradient(top, #ffffff, #dedede);
-        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+.key-flat.incorrect {
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation: flat_incorrect 2s;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation: flat_incorrect 2s;
 }
 
 .key {
@@ -284,18 +375,4 @@
 
 .key:hover {
   text-decoration: none;
-}
-
-.key.correct {
-    -webkit-animation-timing-function: ease-in;
-    -webkit-animation: correct 2s;
-    -moz-animation-timing-function: ease-in;
-    -moz-animation: correct 2s;
-}
-
-.key.incorrect {
-    -webkit-animation-timing-function: ease-in;
-    -webkit-animation: incorrect 2s;
-    -moz-animation-timing-function: ease-in;
-    -moz-animation: incorrect 2s;
 }
