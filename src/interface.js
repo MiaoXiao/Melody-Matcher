@@ -17,7 +17,7 @@ function letsgo() {
     var scale = document.getElementById("scale_type");
     var scale_val = scale.options[scale.selectedIndex].value;
     
-    chooseScale(key_val+scale_val);
+    chooseScale(key_val, scale_val);
 }
 
 //change the volume
