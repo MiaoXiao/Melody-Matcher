@@ -17,7 +17,7 @@ function letsgo() {
     var scale = document.getElementById("scale_type");
     var scale_val = scale.options[scale.selectedIndex].value;
     
-    chooseScale(key_val+scale_val);
+    chooseScale(key_val, scale_val);
 }
 
 //change the volume
@@ -31,13 +31,12 @@ function get_vol() {
 }
 
 function highlight_note(key, correct) {
+    key.classList.remove("correct");
+    key.classList.remove("incorrect");
+    key.offsetWidth = key.offsetWidth;
     if(correct) {
-        key.classList.remove("correct");
-        key.offsetWidth = key.offsetWidth;
         key.classList.add("correct");
     } else {
-        key.classList.remove("incorrect");
-        key.offsetWidth = key.offsetWidth;
         key.classList.add("incorrect");
     }
 }
