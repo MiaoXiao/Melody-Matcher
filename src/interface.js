@@ -31,13 +31,12 @@ function get_vol() {
 }
 
 function highlight_note(key, correct) {
+    key.classList.remove("correct");
+    key.classList.remove("incorrect");
+    key.offsetWidth = key.offsetWidth;
     if(correct) {
-        key.classList.remove("correct");
-        key.offsetWidth = key.offsetWidth;
         key.classList.add("correct");
     } else {
-        key.classList.remove("incorrect");
-        key.offsetWidth = key.offsetWidth;
         key.classList.add("incorrect");
     }
 }
