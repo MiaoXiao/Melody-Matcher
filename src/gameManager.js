@@ -21,6 +21,9 @@ var MELODYINFO = {
 	//actual distance between the lowest and highest note in a generated melody
 	actualrange: 0,
 	
+	//streak counter, how many melodies player got perfect in a row, will reset to 0 if streak is lost
+	streakCounter: 0,
+	
 	//key for melody
 	anskey: [],
 	//current position in answerkey
@@ -43,6 +46,7 @@ var MELODYINFO = {
 		bonus_Speed: true,
 		//if there is at least 1 flat
 		bonus_flats: false
+		//there is also a bonus for getting a streak (getting more than 1 melody correct in a row)
 	},
 	
 	//information on score for melody
@@ -56,7 +60,8 @@ var MELODYINFO = {
 		score_noerror: 0,
 		score_playonce: 0,
 		score_speed: 0,
-		score_flats: 0
+		score_flats: 0,
+		score_streak: 0
 	},
 
 	//calculates and updates score
@@ -65,13 +70,21 @@ var MELODYINFO = {
 		var currentLevel = parseInt(sessionStorage.getItem("difficulty"));
 		
 		//base points
-		this.score.score_base = (this.numNotes * 50) + (this.actualrange * 25);
+		this.score.score_base = (this.numNotes * 25) + (this.actualrange * 10);
 		this.score.score_final += this.score.score_base;
 		
 		//bonus for getting a melody correct without making a mistake
 		if (this.bonus.bonus_NoError) {
-			this.score.score_noerror = 20 * this.numNotes + 20 * this.actualrange;
+			this.score.score_noerror = 15 * this.numNotes + 15 * this.actualrange;
 			this.score.score_final += this.score.score_noerror;
+			//add to streak
+			this.streakCounter++;
+		}
+		else {
+			//reset streak
+			this.streakCounter = 0;
+			//reset score
+			this.score.score_streak = 0;
 		}
 		
 		//bonus for getting a melody correct in under 10 seconds
@@ -88,20 +101,27 @@ var MELODYINFO = {
 		
 		//bonus for how many flats in answer, 20 points per flat
 		for (var i = 0; i < this.anskey.length; i++) {
-			if (GAMEINFO.scale[this.anskey[i]].search('b') != -1) this.score.score_flats += 20; this.bonus.bonus_flats = true;
+			if (GAMEINFO.scale[this.anskey[i]].search('b') != -1) this.score.score_flats += 15; this.bonus.bonus_flats = true;
 		}
 		this.score.score_final += this.score.score_flats;
+		
+		//if streak is greater than 1 (melody perfect twice in a row), give 25, 50, 75... for every consecutive melody correct
+		if (this.streakCounter > 1) {
+			this.score.score_streak = (this.streakCounter - 1) * 25;
+		}
+		this.score.score_final += this.score.score_streak;
 		
 		//apply multiplier. round to nearest int
 		this.score.score_final = Math.round(this.score.score_final * GAMEINFO.multi);
 		
 		//final score for the melody
-		//window.alert("Basepoints: " +  this.score.score_base);
-		//window.alert("BonusNoError: " +  this.score.score_noerror);
-		//window.alert("PlayOnce: " +  this.score.score_playonce);
-		//window.alert("Speed: " +  this.score.score_speed);
-		//window.alert("Score: " +  this.score.score_final);
+		//console.log("Basepoints: " +  this.score.score_base);
+		//console.log("BonusNoError: " +  this.score.score_noerror);
+		//console.log("BonusPlayOnce: " +  this.score.score_playonce);
+		//console.log("BonusSpeed: " +  this.score.score_speed);
 		//console.log("BonusFlats: " +  this.score.score_flats);
+		//console.log("BonusStreak: " +  this.score.score_streak);
+		//console.log("Score: " +  this.score.score_final);
 		
 		//add to game score
 		GAMEINFO.gamescore += this.score.score_final;
@@ -159,7 +179,7 @@ var MELODYINFO = {
 		//only flat bonus default is false
 		this.bonus.bonus_flats = false;
 		
-		//reset score
+		//reset score except streak score
 		for (x in this.score) {
 			this.score[x] = 0;
 		}
