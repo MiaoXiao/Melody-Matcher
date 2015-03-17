@@ -163,12 +163,6 @@ var MELODYINFO = {
 		for (x in this.score) {
 			this.score[x] = 0;
 		}
-		
-		//Restart background animation
-        var elm = document.getElementById("main");
-        elm.classList.remove("play");
-        elm.offsetWidth = elm.offsetWidth;
-        elm.classList.add("play");
 	}
 	
 };
@@ -278,9 +272,29 @@ var TIMEMANAGER = {
 		document.getElementById("time").innerHTML = TIMEMANAGER.currentTime.Sec + ":" + TIMEMANAGER.currentTime.Dec;
 	},
 	
+    startTime: function() {
+        //Nothing to do, already started
+        if(TIMEMANAGER.timeStop == 0) return;
+        
+        //Set flag
+        TIMEMANAGER.timeStop = 0;
+        //Restart background animation
+        var elm = document.getElementById("main");
+        elm.classList.remove("play");
+        elm.classList.remove("start");
+        elm.offsetWidth = elm.offsetWidth;
+        elm.classList.add("play");
+    },
+    
 	resetTime: function() {
 		TIMEMANAGER.currentTime.Sec = TIMEMANAGER.maxTime.Sec;
 		TIMEMANAGER.currentTime.Dec = TIMEMANAGER.maxTime.Dec;
+        
+        //Reset background color
+        var elm = document.getElementById("main");
+        elm.classList.remove("play");
+        elm.classList.remove("start");
+        elm.offsetWidth = elm.offsetWidth;
 	}
 };
 
@@ -306,20 +320,7 @@ function loadSounds(instrument) {
 	
 	//library of sounds
 	var sounds = [
-//		//1st octave 
-//		{src: "0_C2.ogg", id: "C2"},
-//		{src: "1_Db2.ogg", id: "Db2"},
-//		{src: "2_D2.ogg", id: "D2"},
-//		{src: "3_Eb2.ogg", id: "Eb2"},
-//		{src: "4_E2.ogg", id: "E2"},
-//		{src: "5_F2.ogg", id: "F2"},
-//		{src: "6_Gb2.ogg", id: "Gb2"},
-//		{src: "7_G2.ogg", id: "G2"},
-//		{src: "8_Ab2.ogg", id: "Ab2"},
-//		{src: "9_A2.ogg", id: "A2"},
-//		{src: "10_Bb2.ogg", id: "Bb2"},
-//		{src: "11_B2.ogg", id: "B2"},
-		//2nd octave
+		//1nd octave
 		{src: "12_C3.ogg", id: "C3"},
 		{src: "13_Db3.ogg", id: "Db3"},
 		{src: "14_D3.ogg", id: "D3"},
@@ -332,7 +333,7 @@ function loadSounds(instrument) {
 		{src: "21_A3.ogg", id: "A3"},
 		{src: "22_Bb3.ogg", id: "Bb3"},
 		{src: "23_B3.ogg", id: "B3"},
-		//3rd octave 
+		//2rd octave
 		{src: "24_C4.ogg", id: "C4"},
 		{src: "25_Db4.ogg", id: "Db4"},
 		{src: "26_D4.ogg", id: "D4"},
@@ -345,7 +346,7 @@ function loadSounds(instrument) {
 		{src: "33_A4.ogg", id: "A4"},
 		{src: "34_Bb4.ogg", id: "Bb4"},
 		{src: "35_B4.ogg", id: "B4"},
-		//4th octave
+		//3th octave
 		{src: "36_C5.ogg", id: "C5"},
 		{src: "37_Db5.ogg", id: "Db5"},
 		{src: "38_D5.ogg", id: "D5"},
@@ -358,21 +359,8 @@ function loadSounds(instrument) {
 		{src: "45_A5.ogg", id: "A5"},
 		{src: "46_Bb5.ogg", id: "Bb5"},
 		{src: "47_B5.ogg", id: "B5"},
-		//5th octave
-		{src: "48_C6.ogg", id: "C6"},
-//		{src: "49_Db6.ogg", id: "Db6"},
-//		{src: "50_D6.ogg", id: "D6"},
-//		{src: "51_Eb6.ogg", id: "Eb6"},
-//		{src: "52_E6.ogg", id: "E6"},
-//		{src: "53_F6.ogg", id: "F6"},
-//		{src: "54_Gb6.ogg", id: "Gb6"},
-//		{src: "55_G6.ogg", id: "G6"},
-//		{src: "56_Ab6.ogg", id: "Ab6"},
-//		{src: "57_A6.ogg", id: "A6"},
-//		{src: "58_Bb6.ogg", id: "Bb6"},
-//		{src: "59_B6.ogg", id: "B6"},
-//		
-//		{src: "60_C7.ogg", id: "C7"},
+		
+		{src: "48_C6.ogg", id: "C6"}
 	];
 	createjs.Sound.alternateExtensions = ["mp3"];
 	
@@ -512,7 +500,7 @@ function playMelody() {
 		if (i + 1 == MELODYINFO.anskey.length) {
 			document.getElementById("playmelodybtn").disabled = true;
 			//after the melody is done playing, enable the play button again, change display, and start the timer again
-			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; sessionStorage.setItem("display", "wait"); TIMEMANAGER.timeStop = 0;}, 
+			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; sessionStorage.setItem("display", "wait"); TIMEMANAGER.startTime();},
 			(i +  1) * (MELODYINFO.speed * 1000));
 		}
 	}
@@ -651,7 +639,7 @@ function onButtonClick(note, key_button) {
 	if (!GAMEINFO.gameover) {
 		 sessionStorage.setItem("display", "wait");
 		//enable time if it has not been enabled yet
-		TIMEMANAGER.timeStop = 0;
+		TIMEMANAGER.startTime()
 		checkMelody(note, key_button);
 	}
 }

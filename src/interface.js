@@ -10,6 +10,7 @@ function letsgo() {
     document.getElementById("display").classList.add('in');
     document.getElementById("start_screen").classList.add('out');
     document.getElementById("main").classList.add('start');
+    document.getElementById("main").classList.add("wait");
     
     var key = document.getElementById("key_type");
     var key_val = key.options[key.selectedIndex].value;
