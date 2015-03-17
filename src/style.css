@@ -79,6 +79,15 @@
     right: 0;
 }
 
+/* SURVEY */
+#footer {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    text-align: center;
+}
+
 /* START */
 
 .btn-start {
@@ -373,12 +382,4 @@
 
 .key:hover {
   text-decoration: none;
-}
-
-#footer {
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-    text-align: center;
 }
