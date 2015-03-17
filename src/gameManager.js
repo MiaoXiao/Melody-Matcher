@@ -374,65 +374,7 @@ function loadSounds(instrument) {
 function chooseScale(key, scale) {
 	//clear scale array
 	GAMEINFO.scale.length = 0;
-	
-	var start = 0;
-	
-	//choose starting pos based on scale
-	//every extra flat is +.5 for multi
-	switch (key + scale) {
-		case "Cmaj":
-		case "Amin":
-			start = 0;
-			break;
-		case "C#maj":
-		case "Dbmaj":
-		case "Bbmin":
-			start = 1;
-			break;
-		case "Dmaj":
-		case "Bmin":
-			start = 2;
-			break;
-		case "Ebmaj":
-		case "Cmin":
-			start = 3;
-			break;
-		case "Emaj":
-		case "Dbmin":
-			start = 4;
-			break;
-		case "Fmaj":
-		case "Dmin":
-			start = 5;
-			break;
-		case "F#maj":
-		case "Gbmaj":
-		case "Ebmin":
-			start = 6;
-			break;
-		case "Gmaj":
-		case "Emin":
-			start = 7;
-			break;
-		case "Abmaj":
-		case "Fmin":
-			start = 8;
-			break;
-		case "Amaj":
-		case "Gbmin":
-			start = 9;
-			break;
-		case "Bbmaj":
-		case "Gmin":
-			start = 10;
-			break;
-		case "Bmaj":
-		case "Cbmaj":
-		case "Abmin":
-			start = 11;
-			break;
-	}
-	
+		
 	//The notes in a major scale
 	var major = [
 		0, 2, 4, 5, 7, 9, 11, 12, 
@@ -447,21 +389,90 @@ function chooseScale(key, scale) {
 		26, 27, 29, 31, 32, 34, 36
 	];
 	
+	//notes in a chromatic scale
+	var chromatic = [
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+		13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+		25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36
+	];
+	
+	//default scale is major
+	var blueprintScale = [];
+	blueprintScale = major;
+	//default start is 0
+	var start = 0;
+	
+	//if chromatic, override key
+	if (scale == "Chromatic")
+	{
+		blueprintScale = chromatic;
+	}
+	else
+	{
+		//choose starting pos based on scale
+		switch (key + scale) {
+			case "Cmaj":
+			case "Amin":
+				start = 0;
+				break;
+			case "C#maj":
+			case "Dbmaj":
+			case "Bbmin":
+				start = 1;
+				break;
+			case "Dmaj":
+			case "Bmin":
+				start = 2;
+				break;
+			case "Ebmaj":
+			case "Cmin":
+				start = 3;
+				break;
+			case "Emaj":
+			case "Dbmin":
+				start = 4;
+				break;
+			case "Fmaj":
+			case "Dmin":
+				start = 5;
+				break;
+			case "F#maj":
+			case "Gbmaj":
+			case "Ebmin":
+				start = 6;
+				break;
+			case "Gmaj":
+			case "Emin":
+				start = 7;
+				break;
+			case "Abmaj":
+			case "Fmin":
+				start = 8;
+				break;
+			case "Amaj":
+			case "Gbmin":
+				start = 9;
+				break;
+			case "Bbmaj":
+			case "Gmin":
+				start = 10;
+				break;
+			case "Bmaj":
+			case "Cbmaj":
+			case "Abmin":
+				start = 11;
+				break;
+		}
+	}
+
 	//store the second half of the scale
 	var second_half = [];
 	//store the first half of the scale
 	var first_half = [];
 	
 	//create scale
-	for(var i = 0; i < major.length; i++) {
-		var note = start + major[i];
-		//console.log(note);
-		/*
-		if((note == (CHROMATIC.length - 1)) || note == 0) {
-			//Cover edge case for the C's
-			//SCALE.push(CHROMATIC[CHROMATIC.length - 1]);
-			GAMEINFO.scale.push(CHROMATIC[0]);
-		}*/
+	for(var i = 0; i < blueprintScale.length; i++) {
+		var note = start + blueprintScale[i];
 		if(note >= CHROMATIC.length) {
 			var newNote = CHROMATIC[(note % CHROMATIC.length) + 1];
 			//if we are looping to low C, start pushing to the first_half array
@@ -473,7 +484,7 @@ function chooseScale(key, scale) {
 		else {
 			second_half.push(CHROMATIC[note]);
 			//if we just pushed the high C, and we arent on the last iteration, also include the low C
-			if (CHROMATIC[note] == 'C6' && (i != major.length - 1)) {
+			if (CHROMATIC[note] == 'C6' && (i != blueprintScale.length - 1)) {
 				first_half.push('C3');
 			}
 		}
