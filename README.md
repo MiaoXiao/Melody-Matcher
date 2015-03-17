@@ -1,6 +1,6 @@
 # Melody Matcher
 
-[PLAY HERE](http://miaoxiao.github.io/CS100-Music-Game-/)
+[PLAY HERE](http://miaoxiao.github.io/Melody-Matcher/)
 
 ## Developers: 
 * Rica Feng (rfeng001@ucr.edu)
