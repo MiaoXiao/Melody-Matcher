@@ -120,6 +120,7 @@
     background-image: linear-gradient(to bottom, #f5bfbf, #bd3838);
     text-decoration: none;
 }
+
 .startup {
     font-size: 24px;
     padding: 10px;
@@ -135,6 +136,18 @@
     -webkit-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
     -moz-transition: -moz-transform 2s ease-in-out;
     -moz-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
+}
+
+.test {
+    font-size: 24px;
+    padding: 10px;
+    position: relative;
+    top: 50%;
+    left: 35%;
+}
+
+.small_head {
+    margin: -30px 0px 50px 0px;
 }
 
 /* GAME */

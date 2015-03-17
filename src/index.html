@@ -97,8 +97,11 @@
     </div>
   </body>
   
+<!--  START SCREEN  -->
   <div id="start_screen" class="startup">
-    <p>Select a difficulty</p>
+    <h1>Welcome to Melody Matcher!</h1>
+    <h5 class="small_head">(Select a difficulty, key and scale to continue)</h5>
+    <div id="start_options" class="test">
     <form id="dif_radio" action="">
     <input onclick="dif_selected(0)" type="radio" name="difficulty" value="easy" checked>Easy<br>
     <input onclick="dif_selected(10)" type="radio" name="difficulty" value="medium">Medium<br>
@@ -127,8 +130,10 @@
     <select> <br><br>
     
     <button id="begin" onclick="letsgo();" class="btn-start">Play!</button>
+    </div>
   </div>
   
+<!--  SETTINGS  -->
   <div class="settings">
     Volume:<br><input onchange="change_vol(this.value)" type="range" id="volume" value="90">
   </div>
