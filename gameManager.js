@@ -21,6 +21,9 @@ var MELODYINFO = {
 	//actual distance between the lowest and highest note in a generated melody
 	actualrange: 0,
 	
+	//streak counter, how many melodies player got perfect in a row, will reset to 0 if streak is lost
+	streakCounter: 0,
+	
 	//key for melody
 	anskey: [],
 	//current position in answerkey
@@ -43,6 +46,7 @@ var MELODYINFO = {
 		bonus_Speed: true,
 		//if there is at least 1 flat
 		bonus_flats: false
+		//there is also a bonus for getting a streak (getting more than 1 melody correct in a row)
 	},
 	
 	//information on score for melody
@@ -56,7 +60,8 @@ var MELODYINFO = {
 		score_noerror: 0,
 		score_playonce: 0,
 		score_speed: 0,
-		score_flats: 0
+		score_flats: 0,
+		score_streak: 0
 	},
 
 	//calculates and updates score
@@ -65,13 +70,21 @@ var MELODYINFO = {
 		var currentLevel = parseInt(sessionStorage.getItem("difficulty"));
 		
 		//base points
-		this.score.score_base = (this.numNotes * 50) + (this.actualrange * 25);
+		this.score.score_base = (this.numNotes * 25) + (this.actualrange * 10);
 		this.score.score_final += this.score.score_base;
 		
 		//bonus for getting a melody correct without making a mistake
 		if (this.bonus.bonus_NoError) {
-			this.score.score_noerror = 20 * this.numNotes + 20 * this.actualrange;
+			this.score.score_noerror = 15 * this.numNotes + 15 * this.actualrange;
 			this.score.score_final += this.score.score_noerror;
+			//add to streak
+			this.streakCounter++;
+		}
+		else {
+			//reset streak
+			this.streakCounter = 0;
+			//reset score
+			this.score.score_streak = 0;
 		}
 		
 		//bonus for getting a melody correct in under 10 seconds
@@ -88,24 +101,31 @@ var MELODYINFO = {
 		
 		//bonus for how many flats in answer, 20 points per flat
 		for (var i = 0; i < this.anskey.length; i++) {
-			if (GAMEINFO.scale[this.anskey[i]].search('b') != -1) this.score.score_flats += 20; this.bonus.bonus_flats = true;
+			if (GAMEINFO.scale[this.anskey[i]].search('b') != -1) this.score.score_flats += 15; this.bonus.bonus_flats = true;
 		}
 		this.score.score_final += this.score.score_flats;
+		
+		//if streak is greater than 1 (melody perfect twice in a row), give 25, 50, 75... for every consecutive melody correct
+		if (this.streakCounter > 1) {
+			this.score.score_streak = (this.streakCounter - 1) * 25;
+		}
+		this.score.score_final += this.score.score_streak;
 		
 		//apply multiplier. round to nearest int
 		this.score.score_final = Math.round(this.score.score_final * GAMEINFO.multi);
 		
 		//final score for the melody
-		//window.alert("Basepoints: " +  this.score.score_base);
-		//window.alert("BonusNoError: " +  this.score.score_noerror);
-		//window.alert("PlayOnce: " +  this.score.score_playonce);
-		//window.alert("Speed: " +  this.score.score_speed);
-		//window.alert("Score: " +  this.score.score_final);
+		//console.log("Basepoints: " +  this.score.score_base);
+		//console.log("BonusNoError: " +  this.score.score_noerror);
+		//console.log("BonusPlayOnce: " +  this.score.score_playonce);
+		//console.log("BonusSpeed: " +  this.score.score_speed);
 		//console.log("BonusFlats: " +  this.score.score_flats);
-		
+		//console.log("BonusStreak: " +  this.score.score_streak);
+		//console.log("Score: " +  this.score.score_final);
+        
+        update_score(GAMEINFO, this.score);
 		//add to game score
 		GAMEINFO.gamescore += this.score.score_final;
-		document.getElementById("score").innerHTML = GAMEINFO.gamescore;
 		//window.alert("Game Score: " +  GAMEINFO.gamescore);
 	},
 	
@@ -159,16 +179,10 @@ var MELODYINFO = {
 		//only flat bonus default is false
 		this.bonus.bonus_flats = false;
 		
-		//reset score
+		//reset score except streak score
 		for (x in this.score) {
 			this.score[x] = 0;
 		}
-		
-		//Restart background animation
-        var elm = document.getElementById("main");
-        elm.classList.remove("play");
-        elm.offsetWidth = elm.offsetWidth;
-        elm.classList.add("play");
 	}
 	
 };
@@ -218,15 +232,15 @@ var GAMEINFO = {
 		switch (parseInt(sessionStorage.getItem("difficulty"))) {
 			case 0:
 				TIMEMANAGER.maxTime.Sec = 60;
-				GAMEINFO.multi += .2;
+				GAMEINFO.multi = 1.2;
 				break;
 			case 10:
 				TIMEMANAGER.maxTime.Sec = 40;
-				GAMEINFO.multi += .4;
+				GAMEINFO.multi = 1.4;
 				break;
 			case 20:
 				TIMEMANAGER.maxTime.Sec = 20;
-				GAMEINFO.multi += .6;
+				GAMEINFO.multi = 1.6;
 				break;
 				window.alert("Game start error: melody not initialized correctly");
 		}
@@ -275,12 +289,33 @@ var TIMEMANAGER = {
 		}
 		//store time
 		sessionStorage.setItem("time", JSON.stringify(TIMEMANAGER.currentTime));
-		document.getElementById("time").innerHTML = TIMEMANAGER.currentTime.Sec + ":" + TIMEMANAGER.currentTime.Dec;
+        var dec_time = (TIMEMANAGER.currentTime.Dec < 10) ? "0" + TIMEMANAGER.currentTime.Dec : TIMEMANAGER.currentTime.Dec;
+		document.getElementById("time").innerHTML = TIMEMANAGER.currentTime.Sec
+                                                    + ":" + dec_time;
 	},
 	
+    startTime: function() {
+        //Nothing to do, already started
+        if(TIMEMANAGER.timeStop == 0) return;
+        
+        //Set flag
+        TIMEMANAGER.timeStop = 0;
+        //Restart background animation
+        var elm = document.getElementById("main");
+        elm.classList.remove("play");
+        elm.classList.remove("start");
+        elm.offsetWidth = elm.offsetWidth;
+        elm.classList.add("play");
+    },
+    
 	resetTime: function() {
 		TIMEMANAGER.currentTime.Sec = TIMEMANAGER.maxTime.Sec;
 		TIMEMANAGER.currentTime.Dec = TIMEMANAGER.maxTime.Dec;
+        
+        //Reset background color
+        var elm = document.getElementById("main");
+        elm.classList.remove("play");
+        elm.offsetWidth = elm.offsetWidth;
 	}
 };
 
@@ -306,20 +341,7 @@ function loadSounds(instrument) {
 	
 	//library of sounds
 	var sounds = [
-//		//1st octave 
-//		{src: "0_C2.ogg", id: "C2"},
-//		{src: "1_Db2.ogg", id: "Db2"},
-//		{src: "2_D2.ogg", id: "D2"},
-//		{src: "3_Eb2.ogg", id: "Eb2"},
-//		{src: "4_E2.ogg", id: "E2"},
-//		{src: "5_F2.ogg", id: "F2"},
-//		{src: "6_Gb2.ogg", id: "Gb2"},
-//		{src: "7_G2.ogg", id: "G2"},
-//		{src: "8_Ab2.ogg", id: "Ab2"},
-//		{src: "9_A2.ogg", id: "A2"},
-//		{src: "10_Bb2.ogg", id: "Bb2"},
-//		{src: "11_B2.ogg", id: "B2"},
-		//2nd octave
+		//1nd octave
 		{src: "12_C3.ogg", id: "C3"},
 		{src: "13_Db3.ogg", id: "Db3"},
 		{src: "14_D3.ogg", id: "D3"},
@@ -332,7 +354,7 @@ function loadSounds(instrument) {
 		{src: "21_A3.ogg", id: "A3"},
 		{src: "22_Bb3.ogg", id: "Bb3"},
 		{src: "23_B3.ogg", id: "B3"},
-		//3rd octave 
+		//2rd octave
 		{src: "24_C4.ogg", id: "C4"},
 		{src: "25_Db4.ogg", id: "Db4"},
 		{src: "26_D4.ogg", id: "D4"},
@@ -345,7 +367,7 @@ function loadSounds(instrument) {
 		{src: "33_A4.ogg", id: "A4"},
 		{src: "34_Bb4.ogg", id: "Bb4"},
 		{src: "35_B4.ogg", id: "B4"},
-		//4th octave
+		//3th octave
 		{src: "36_C5.ogg", id: "C5"},
 		{src: "37_Db5.ogg", id: "Db5"},
 		{src: "38_D5.ogg", id: "D5"},
@@ -358,21 +380,8 @@ function loadSounds(instrument) {
 		{src: "45_A5.ogg", id: "A5"},
 		{src: "46_Bb5.ogg", id: "Bb5"},
 		{src: "47_B5.ogg", id: "B5"},
-		//5th octave
-		{src: "48_C6.ogg", id: "C6"},
-//		{src: "49_Db6.ogg", id: "Db6"},
-//		{src: "50_D6.ogg", id: "D6"},
-//		{src: "51_Eb6.ogg", id: "Eb6"},
-//		{src: "52_E6.ogg", id: "E6"},
-//		{src: "53_F6.ogg", id: "F6"},
-//		{src: "54_Gb6.ogg", id: "Gb6"},
-//		{src: "55_G6.ogg", id: "G6"},
-//		{src: "56_Ab6.ogg", id: "Ab6"},
-//		{src: "57_A6.ogg", id: "A6"},
-//		{src: "58_Bb6.ogg", id: "Bb6"},
-//		{src: "59_B6.ogg", id: "B6"},
-//		
-//		{src: "60_C7.ogg", id: "C7"},
+		
+		{src: "48_C6.ogg", id: "C6"}
 	];
 	createjs.Sound.alternateExtensions = ["mp3"];
 	
@@ -386,65 +395,7 @@ function loadSounds(instrument) {
 function chooseScale(key, scale) {
 	//clear scale array
 	GAMEINFO.scale.length = 0;
-	
-	var start = 0;
-	
-	//choose starting pos based on scale
-	//every extra flat is +.5 for multi
-	switch (key + scale) {
-		case "Cmaj":
-		case "Amin":
-			start = 0;
-			break;
-		case "C#maj":
-		case "Dbmaj":
-		case "Bbmin":
-			start = 1;
-			break;
-		case "Dmaj":
-		case "Bmin":
-			start = 2;
-			break;
-		case "Ebmaj":
-		case "Cmin":
-			start = 3;
-			break;
-		case "Emaj":
-		case "Dbmin":
-			start = 4;
-			break;
-		case "Fmaj":
-		case "Dmin":
-			start = 5;
-			break;
-		case "F#maj":
-		case "Gbmaj":
-		case "Ebmin":
-			start = 6;
-			break;
-		case "Gmaj":
-		case "Emin":
-			start = 7;
-			break;
-		case "Abmaj":
-		case "Fmin":
-			start = 8;
-			break;
-		case "Amaj":
-		case "Gbmin":
-			start = 9;
-			break;
-		case "Bbmaj":
-		case "Gmin":
-			start = 10;
-			break;
-		case "Bmaj":
-		case "Cbmaj":
-		case "Abmin":
-			start = 11;
-			break;
-	}
-	
+		
 	//The notes in a major scale
 	var major = [
 		0, 2, 4, 5, 7, 9, 11, 12, 
@@ -459,21 +410,90 @@ function chooseScale(key, scale) {
 		26, 27, 29, 31, 32, 34, 36
 	];
 	
+	//notes in a chromatic scale
+	var chromatic = [
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+		13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+		25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36
+	];
+	
+	//default scale is major
+	var blueprintScale = [];
+	blueprintScale = major;
+	//default start is 0
+	var start = 0;
+	
+	//if chromatic, override key
+	if (scale == "chrom")
+	{
+		blueprintScale = chromatic;
+	}
+	else
+	{
+		//choose starting pos based on scale
+		switch (key + scale) {
+			case "Cmaj":
+			case "Amin":
+				start = 0;
+				break;
+			case "C#maj":
+			case "Dbmaj":
+			case "Bbmin":
+				start = 1;
+				break;
+			case "Dmaj":
+			case "Bmin":
+				start = 2;
+				break;
+			case "Ebmaj":
+			case "Cmin":
+				start = 3;
+				break;
+			case "Emaj":
+			case "Dbmin":
+				start = 4;
+				break;
+			case "Fmaj":
+			case "Dmin":
+				start = 5;
+				break;
+			case "F#maj":
+			case "Gbmaj":
+			case "Ebmin":
+				start = 6;
+				break;
+			case "Gmaj":
+			case "Emin":
+				start = 7;
+				break;
+			case "Abmaj":
+			case "Fmin":
+				start = 8;
+				break;
+			case "Amaj":
+			case "Gbmin":
+				start = 9;
+				break;
+			case "Bbmaj":
+			case "Gmin":
+				start = 10;
+				break;
+			case "Bmaj":
+			case "Cbmaj":
+			case "Abmin":
+				start = 11;
+				break;
+		}
+	}
+
 	//store the second half of the scale
 	var second_half = [];
 	//store the first half of the scale
 	var first_half = [];
 	
 	//create scale
-	for(var i = 0; i < major.length; i++) {
-		var note = start + major[i];
-		//console.log(note);
-		/*
-		if((note == (CHROMATIC.length - 1)) || note == 0) {
-			//Cover edge case for the C's
-			//SCALE.push(CHROMATIC[CHROMATIC.length - 1]);
-			GAMEINFO.scale.push(CHROMATIC[0]);
-		}*/
+	for(var i = 0; i < blueprintScale.length; i++) {
+		var note = start + blueprintScale[i];
 		if(note >= CHROMATIC.length) {
 			var newNote = CHROMATIC[(note % CHROMATIC.length) + 1];
 			//if we are looping to low C, start pushing to the first_half array
@@ -485,7 +505,7 @@ function chooseScale(key, scale) {
 		else {
 			second_half.push(CHROMATIC[note]);
 			//if we just pushed the high C, and we arent on the last iteration, also include the low C
-			if (CHROMATIC[note] == 'C6' && (i != major.length - 1)) {
+			if (CHROMATIC[note] == 'C6' && (i != blueprintScale.length - 1)) {
 				first_half.push('C3');
 			}
 		}
@@ -512,7 +532,7 @@ function playMelody() {
 		if (i + 1 == MELODYINFO.anskey.length) {
 			document.getElementById("playmelodybtn").disabled = true;
 			//after the melody is done playing, enable the play button again, change display, and start the timer again
-			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; sessionStorage.setItem("display", "wait"); TIMEMANAGER.timeStop = 0;}, 
+			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; sessionStorage.setItem("display", "wait"); TIMEMANAGER.startTime();},
 			(i +  1) * (MELODYINFO.speed * 1000));
 		}
 	}
@@ -651,7 +671,7 @@ function onButtonClick(note, key_button) {
 	if (!GAMEINFO.gameover) {
 		 sessionStorage.setItem("display", "wait");
 		//enable time if it has not been enabled yet
-		TIMEMANAGER.timeStop = 0;
+		TIMEMANAGER.startTime()
 		checkMelody(note, key_button);
 	}
 }
@@ -660,14 +680,14 @@ function onButtonClick(note, key_button) {
 var updateTimeRef;
 //init game data, when game is restarted
 function initStart() {
+    //display score as 0
+    reset_score(GAMEINFO.gamescore);
+    
 	sessionStorage.setItem("display", "wait");
 	clearInterval(updateTimeRef);
 	
 	//enable game again
 	GAMEINFO.resetGameInfo();
-	
-	//display score as 0
-	document.getElementById("score").innerHTML = GAMEINFO.gamescore;
 	
 	//reset melody
 	MELODYINFO.resetMelodyInfo();
@@ -693,7 +713,7 @@ function initOnce() {
 	sessionStorage.setItem("display", "gameover");
 
 	//set level
-	//sessionStorage.setItem("difficulty", 1);
+    sessionStorage.setItem("difficulty", 0);
 	
 	//make sure playmelody is disabled
 	document.getElementById("playmelodybtn").disabled = true;

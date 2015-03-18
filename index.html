@@ -1,13 +1,15 @@
 <html>
   <head>
-		<title> Play Sounds </title>
+		<title> Melody Matcher </title>
 		<script src="https://code.createjs.com/createjs-2014.12.12.min.js"></script>
 		<script src="interface.js"></script>
 		<script src="gameManager.js"></script>
   </head>
   
   <body id="main" class="body" onload="initOnce()";>
-    <div id="notes" class="piano" style="-webkit-perspective: 800; perspective: 800; margin: 100px 0 0 50px">
+<!--  PIANO  -->
+    <div id="notes" class="piano">
+    <h1>Melody Matcher (v1.0)</h1>
         
     <button onclick="onButtonClick('C3', this);" class="playSound key key-natural">C</button>
 	
@@ -85,20 +87,33 @@
 	
 	</div>
     
+<!--  CONTROLS AND SCORE  -->
     <div id="display" class="controls">
-		<br>
-		<button id="playmelodybtn" onclick="playMelody();" class="playSound btn-block">Play Current Melody</button>
+		
+        <div class="score">
+          <span>Score: <span>
+          <span id="score"></span>
+          <span id="update" class="score_update"></span>
+        </div>
         
-        <p>Score: </p><p id = "score"></p>
-		<button id="restartbtn" onclick="initStart();" class="playSound btn-block">Restart</button>
-		<br>
-		<p>Time: </p><p id = "time"></p>
-		<br>
+        <div class="time">
+          <span>Time: </span><span id="time"></span>
+        </div>
+        
+        <div class="buttons">
+          <button id="playmelodybtn" onclick="playMelody();" class="playSound btn">Play Current Melody</button>
+          <br>
+          <button id="restartbtn" onclick="initStart();" class="playSound btn">Restart</button>
+        </div>
+
     </div>
   </body>
   
+<!--  START SCREEN  -->
   <div id="start_screen" class="startup">
-    <p>Select a difficulty</p>
+    <h1 style="text-align: center;">Welcome to<br>Melody Matcher!</h1>
+    <h5 class="small_head">(Select a difficulty, key and scale to continue)</h5>
+    <div id="start_options" class="start_settings">
     <form id="dif_radio" action="">
     <input onclick="dif_selected(0)" type="radio" name="difficulty" value="easy" checked>Easy<br>
     <input onclick="dif_selected(10)" type="radio" name="difficulty" value="medium">Medium<br>
@@ -120,20 +135,21 @@
         <option value="Ab">Ab</option>
     </select>
     
-    <select id="scale_type">
+    <select id="scale_type" onchange="scale_selected(this.options[this.selectedIndex].value)">
         <option value="maj">Major</option>
         <option value="min">Minor</option>
+		<option value="chrom">Chromatic</option>
     <select> <br><br>
     
     <button id="begin" onclick="letsgo();" class="btn-start">Play!</button>
+    </div>
   </div>
   
+<!--  SETTINGS  -->
   <div class="settings">
     Volume:<br><input onchange="change_vol(this.value)" type="range" id="volume" value="90">
   </div>
 
   <link href="style.css" rel="stylesheet"> </link>
-	<footer>
-		
-	</footer>
+	<div id = "footer"> <a href="http://goo.gl/forms/GDE7ntVlVN">Feedback Survey</a> </div>
 </html>
