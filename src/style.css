@@ -168,6 +168,30 @@
     opacity: 1;
 }
 
+@-webkit-keyframes update {
+    0%    { opacity: 0; }
+    33%  { opacity: 1; }
+    100%  { opacity: 0; }
+}
+
+@-moz-keyframes update {
+    0%    { opacity: 0; }
+    33%  { opacity: 1; }
+    100%  { opacity: 0; }
+}
+
+.score_update {
+    color: green;
+    opacity: 0;
+}
+
+.score_update.animate {
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -webkit-animation: update 3s;
+    -moz-animation: update 3s;
+}
+
 .piano { /*on start*/
     font-size: 12px;
     text-align: center;

@@ -19,6 +19,9 @@ function letsgo() {
     var scale_val = scale.options[scale.selectedIndex].value;
     
     chooseScale(key_val, scale_val);
+    
+    //Throw players straight into a game
+    initStart();
 }
 
 //change the volume
@@ -73,7 +76,23 @@ function reset_score(current_score) {
     animate_numbers(document.getElementById("score"), current_score, 0, 500, 100);
 }
 
-function update_score(gameinfo) {
-    document.getElementById("score").innerHTML = gameinfo.gamescore;
+function update_score(gameinfo, scoreinfo) {
+    var score_spot = document.getElementById("score");
+    var current_score = gameinfo.gamescore;
+    var final_score = current_score + scoreinfo.score_final;
+    animate_numbers(score_spot, current_score, final_score, 1000, 100);
+    
+    var update_spot = document.getElementById("update");
+    update_spot.innerHTML = "+ " + Math.round(gameinfo.multi) + " * (" +
+                            scoreinfo.score_base + " + " +
+                            scoreinfo.score_noerror + " + " +
+                            scoreinfo.score_playonce + " + " +
+                            scoreinfo.score_speed + " + " +
+                            scoreinfo.score_flats + " + " +
+                            scoreinfo.score_streak + ")";
+    update_spot.classList.remove("animate");
+    update_spot.offsetWidth = update_spot.offsetWidth;
+    update_spot.classList.add("animate");
+    setTimeout(function() { update_spot.innerHTML = ""; }, 3000);
 }
 

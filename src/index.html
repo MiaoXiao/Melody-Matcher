@@ -7,7 +7,7 @@
   </head>
   
   <body id="main" class="body" onload="initOnce()";>
-<!--    PIANO    -->
+<!--  PIANO  -->
     <div id="notes" class="piano">
     <h1>Melody Matcher (v1.0)</h1>
         
@@ -87,12 +87,16 @@
 	
 	</div>
     
+<!--  CONTROLS AND SCORE  -->
     <div id="display" class="controls">
 		<br>
 		<button id="playmelodybtn" onclick="playMelody();" class="playSound btn-block">Play Current Melody</button>
         
-        <p>Score: </p><p id="score"></p>
-		<button id="restartbtn" onclick="initStart();" class="playSound btn-block">Restart</button>
+        <p>Score: </p>
+        <span id="score"></span>
+        <span id="update" class="score_update"></span><br><br>
+		
+        <button id="restartbtn" onclick="initStart();" class="playSound btn-block">Restart</button>
 		<br>
 		<p>Time: </p><p id="time"></p>
 		<br>

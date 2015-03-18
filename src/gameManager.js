@@ -122,10 +122,10 @@ var MELODYINFO = {
 		//console.log("BonusFlats: " +  this.score.score_flats);
 		//console.log("BonusStreak: " +  this.score.score_streak);
 		//console.log("Score: " +  this.score.score_final);
-		
+        
+        update_score(GAMEINFO, this.score);
 		//add to game score
 		GAMEINFO.gamescore += this.score.score_final;
-        update_score(GAMEINFO);
 		//window.alert("Game Score: " +  GAMEINFO.gamescore);
 	},
 	
@@ -712,7 +712,7 @@ function initOnce() {
 	sessionStorage.setItem("display", "gameover");
 
 	//set level
-	//sessionStorage.setItem("difficulty", 1);
+    sessionStorage.setItem("difficulty", 0);
 	
 	//make sure playmelody is disabled
 	document.getElementById("playmelodybtn").disabled = true;
