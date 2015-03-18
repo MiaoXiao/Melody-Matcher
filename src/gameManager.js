@@ -125,7 +125,7 @@ var MELODYINFO = {
 		
 		//add to game score
 		GAMEINFO.gamescore += this.score.score_final;
-		document.getElementById("score").innerHTML = GAMEINFO.gamescore;
+        update_score(GAMEINFO);
 		//window.alert("Game Score: " +  GAMEINFO.gamescore);
 	},
 	
@@ -679,14 +679,14 @@ function onButtonClick(note, key_button) {
 var updateTimeRef;
 //init game data, when game is restarted
 function initStart() {
+    //display score as 0
+    reset_score(GAMEINFO.gamescore);
+    
 	sessionStorage.setItem("display", "wait");
 	clearInterval(updateTimeRef);
 	
 	//enable game again
 	GAMEINFO.resetGameInfo();
-	
-	//display score as 0
-	document.getElementById("score").innerHTML = GAMEINFO.gamescore;
 	
 	//reset melody
 	MELODYINFO.resetMelodyInfo();

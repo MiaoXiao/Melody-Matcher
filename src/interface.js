@@ -32,8 +32,6 @@ function get_vol() {
 }
 
 function scale_selected(scale) {
-    console.log("Got one");
-    console.log(scale);
     if(scale == "chrom") {
         document.getElementById("key_type").disabled = true;
     } else {
@@ -51,3 +49,31 @@ function highlight_note(key, correct) {
         key.classList.add("incorrect");
     }
 }
+
+//handler
+function animate_numbers(elm, from, to, time, steps) {
+    animate_numbers_(elm, from, to, time, steps, from);
+}
+
+//Actual recursive func
+function animate_numbers_(elm, from, to, time, steps, curr) {
+    //Ints only
+    elm.innerHTML = parseInt(curr);
+    if(Math.abs(curr - to) < 1) {
+        elm.innerHTML = to;
+        return;
+    }
+    
+    setTimeout(function(){
+               animate_numbers_(elm, from, to, time, steps, curr + (to-from)/steps);
+               }, time / steps);
+}
+
+function reset_score(current_score) {
+    animate_numbers(document.getElementById("score"), current_score, 0, 500, 100);
+}
+
+function update_score(gameinfo) {
+    document.getElementById("score").innerHTML = gameinfo.gamescore;
+}
+
