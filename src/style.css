@@ -139,12 +139,12 @@
     -moz-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
 }
 
-.test {
+.start_settings {
     font-size: 24px;
     padding: 10px;
     position: relative;
-    top: 50%;
-    left: 35%;
+    width: 100%;
+    text-align: center; 
 }
 
 .small_head {
