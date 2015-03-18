@@ -3,6 +3,7 @@
   font-size: 16px;
   background-color: darksalmon;
   padding: 3px;
+  margin: 100px 0 0 50px
   /*Alternate way to center everythign
   margin-left: auto;
   margin-right: auto;
@@ -62,6 +63,10 @@
     background-color: papayawhip;
 }
 
+.body.wait {
+    background-color: papayawhip;
+}
+
 .body.play {
     -webkit-animation-timing-function: ease-in;
     -webkit-animation-duration: 60s;
@@ -77,6 +82,15 @@
     position: fixed;
     bottom: 0;
     right: 0;
+}
+
+/* SURVEY */
+#footer {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    text-align: center;
 }
 
 /* START */
@@ -107,6 +121,7 @@
     background-image: linear-gradient(to bottom, #f5bfbf, #bd3838);
     text-decoration: none;
 }
+
 .startup {
     font-size: 24px;
     padding: 10px;
@@ -122,6 +137,18 @@
     -webkit-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
     -moz-transition: -moz-transform 2s ease-in-out;
     -moz-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
+}
+
+.start_settings {
+    font-size: 24px;
+    padding: 10px;
+    position: relative;
+    width: 100%;
+    text-align: center; 
+}
+
+.small_head {
+    margin: -30px 0px 50px 0px;
 }
 
 /* GAME */
@@ -373,4 +400,45 @@
 
 .key:hover {
   text-decoration: none;
+}
+
+
+/* Changes dimensions based on device?
+source:  http://www.studiopress.com/design/website-respond-mobile-devices.htm
+other help for mobile support: http://www.studiopress.com/design/flexible-grid.htm
+
+testing websites on a computer: http://mobiletest.me/ 
+*/
+ 
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+/* Styles */
+}
+ 
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+/* Styles */
+}
+ 
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width : 1224px) {
+/* Styles */
+}
+ 
+/* Large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+/* Styles */
+}
+ 
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+/* Styles */
 }

@@ -10,6 +10,7 @@ function letsgo() {
     document.getElementById("display").classList.add('in');
     document.getElementById("start_screen").classList.add('out');
     document.getElementById("main").classList.add('start');
+    document.getElementById("main").classList.add("wait");
     
     var key = document.getElementById("key_type");
     var key_val = key.options[key.selectedIndex].value;
@@ -28,6 +29,16 @@ function change_vol(vol_amount) {
 //get thd current volums
 function get_vol() {
     return parseFloat(localStorage.getItem("volume"))/100.0;
+}
+
+function scale_selected(scale) {
+    console.log("Got one");
+    console.log(scale);
+    if(scale == "chrom") {
+        document.getElementById("key_type").disabled = true;
+    } else {
+        document.getElementById("key_type").disabled = false;
+    }
 }
 
 function highlight_note(key, correct) {
