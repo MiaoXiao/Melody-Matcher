@@ -7,6 +7,7 @@
   </head>
   
   <body id="main" class="body" onload="initOnce()";>
+<!--    PIANO    -->
     <div id="notes" class="piano">
     <h1>Melody Matcher (v1.0)</h1>
         
@@ -124,10 +125,10 @@
         <option value="Ab">Ab</option>
     </select>
     
-    <select id="scale_type">
+    <select id="scale_type" onchange="scale_selected(this.options[this.selectedIndex].value)">
         <option value="maj">Major</option>
         <option value="min">Minor</option>
-		<option value="Chromatic">Chromatic</option>
+		<option value="chrom">Chromatic</option>
     <select> <br><br>
     
     <button id="begin" onclick="letsgo();" class="btn-start">Play!</button>

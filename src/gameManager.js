@@ -423,7 +423,7 @@ function chooseScale(key, scale) {
 	var start = 0;
 	
 	//if chromatic, override key
-	if (scale == "Chromatic")
+	if (scale == "chrom")
 	{
 		blueprintScale = chromatic;
 	}

@@ -31,6 +31,16 @@ function get_vol() {
     return parseFloat(localStorage.getItem("volume"))/100.0;
 }
 
+function scale_selected(scale) {
+    console.log("Got one");
+    console.log(scale);
+    if(scale == "chrom") {
+        document.getElementById("key_type").disabled = true;
+    } else {
+        document.getElementById("key_type").disabled = false;
+    }
+}
+
 function highlight_note(key, correct) {
     key.classList.remove("correct");
     key.classList.remove("incorrect");
