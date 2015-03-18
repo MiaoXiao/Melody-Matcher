@@ -232,15 +232,15 @@ var GAMEINFO = {
 		switch (parseInt(sessionStorage.getItem("difficulty"))) {
 			case 0:
 				TIMEMANAGER.maxTime.Sec = 60;
-				GAMEINFO.multi += .2;
+				GAMEINFO.multi = 1.2;
 				break;
 			case 10:
 				TIMEMANAGER.maxTime.Sec = 40;
-				GAMEINFO.multi += .4;
+				GAMEINFO.multi = 1.4;
 				break;
 			case 20:
 				TIMEMANAGER.maxTime.Sec = 20;
-				GAMEINFO.multi += .6;
+				GAMEINFO.multi = 1.6;
 				break;
 				window.alert("Game start error: melody not initialized correctly");
 		}
