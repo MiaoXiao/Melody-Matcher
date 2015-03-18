@@ -1,3 +1,6 @@
+//Call on page load
+window.onload = letsgo;
+
 //select difficulty based on radial button
 function dif_selected(difficulty) {
     //Grab the radio form and loop through it looking for the selected btn
@@ -6,19 +9,16 @@ function dif_selected(difficulty) {
 
 //start the game by switching html pages (should be removed)
 function letsgo() {
-    document.getElementById("notes").classList.add('in');
     document.getElementById("display").classList.add('in');
-    document.getElementById("start_screen").classList.add('out');
-    document.getElementById("main").classList.add('start');
-    document.getElementById("main").classList.add("wait");
+    setTimeout(function(){ document.getElementById("notes").classList.add('in'); }, 20);
     
-    var key = document.getElementById("key_type");
-    var key_val = key.options[key.selectedIndex].value;
-    
-    var scale = document.getElementById("scale_type");
-    var scale_val = scale.options[scale.selectedIndex].value;
-    
-    chooseScale(key_val, scale_val);
+//    var key = document.getElementById("key_type");
+//    var key_val = key.options[key.selectedIndex].value;
+//    
+//    var scale = document.getElementById("scale_type");
+//    var scale_val = scale.options[scale.selectedIndex].value;
+//    
+    chooseScale("C", "maj");
     
     //Throw players straight into a game
     initStart();
@@ -97,4 +97,3 @@ function update_score(gameinfo, scoreinfo) {
     update_spot.classList.add("animate");
     setTimeout(function() { update_spot.innerHTML = ""; }, 5000);
 }
-

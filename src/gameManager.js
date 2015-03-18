@@ -733,7 +733,7 @@ function initStart() {
 }
 
 //run only once when web page is loaded
-function initOnce() {
+function initOnce() {    
 	//set display
 	sessionStorage.setItem("display", "gameover");
 

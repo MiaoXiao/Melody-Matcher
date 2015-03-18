@@ -109,42 +109,6 @@
     </div>
   </body>
   
-<!--  START SCREEN  -->
-  <div id="start_screen" class="startup">
-    <h1 style="text-align: center;">Welcome to<br>Melody Matcher!</h1>
-    <h5 class="small_head">(Select a difficulty, key and scale to continue)</h5>
-    <div id="start_options" class="start_settings">
-    <form id="dif_radio" action="">
-    <input onclick="dif_selected(0)" type="radio" name="difficulty" value="easy" checked>Easy<br>
-    <input onclick="dif_selected(10)" type="radio" name="difficulty" value="medium">Medium<br>
-    <input onclick="dif_selected(20)" type="radio" name="difficulty" value="hard">Hard<br>
-    </form>
-    
-    <select id="key_type">
-        <option value="A">A</option>
-        <option value="Bb">Bb</option>
-        <option value="B">B</option>
-        <option value="C" selected>C</option>
-        <option value="Db">Db</option>
-        <option value="D">D</option>
-        <option value="Eb">Eb</option>
-        <option value="E">E</option>
-        <option value="F">F</option>
-        <option value="Gb">Gb</option>
-        <option value="G">G</option>
-        <option value="Ab">Ab</option>
-    </select>
-    
-    <select id="scale_type" onchange="scale_selected(this.options[this.selectedIndex].value)">
-        <option value="maj">Major</option>
-        <option value="min">Minor</option>
-		<option value="chrom">Chromatic</option>
-    <select> <br><br>
-    
-    <button id="begin" onclick="letsgo();" class="btn-start">Play!</button>
-    </div>
-  </div>
-  
 <!--  SETTINGS  -->
   <div class="settings">
     Volume:<br><input onchange="change_vol(this.value)" type="range" id="volume" value="90">
