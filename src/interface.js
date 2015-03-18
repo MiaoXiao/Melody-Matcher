@@ -73,6 +73,8 @@ function animate_numbers_(elm, from, to, time, steps, curr) {
 }
 
 function reset_score(current_score) {
+    
+    console.log(document.getElementById("notes").offsetWidth);
     animate_numbers(document.getElementById("score"), current_score, 0, 500, 100);
 }
 
@@ -83,7 +85,7 @@ function update_score(gameinfo, scoreinfo) {
     animate_numbers(score_spot, current_score, final_score, 1000, 100);
     
     var update_spot = document.getElementById("update");
-    update_spot.innerHTML = "+ " + Math.round(gameinfo.multi) + " * (" +
+    update_spot.innerHTML = "+ " + Math.round(gameinfo.multi * 10) / 10 + " * (" +
                             scoreinfo.score_base + " + " +
                             scoreinfo.score_noerror + " + " +
                             scoreinfo.score_playonce + " + " +
@@ -93,6 +95,6 @@ function update_score(gameinfo, scoreinfo) {
     update_spot.classList.remove("animate");
     update_spot.offsetWidth = update_spot.offsetWidth;
     update_spot.classList.add("animate");
-    setTimeout(function() { update_spot.innerHTML = ""; }, 3000);
+    setTimeout(function() { update_spot.innerHTML = ""; }, 5000);
 }
 

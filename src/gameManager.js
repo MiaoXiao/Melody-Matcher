@@ -289,7 +289,9 @@ var TIMEMANAGER = {
 		}
 		//store time
 		sessionStorage.setItem("time", JSON.stringify(TIMEMANAGER.currentTime));
-		document.getElementById("time").innerHTML = TIMEMANAGER.currentTime.Sec + ":" + TIMEMANAGER.currentTime.Dec;
+        var dec_time = (TIMEMANAGER.currentTime.Dec < 10) ? "0" + TIMEMANAGER.currentTime.Dec : TIMEMANAGER.currentTime.Dec;
+		document.getElementById("time").innerHTML = TIMEMANAGER.currentTime.Sec
+                                                    + ":" + dec_time;
 	},
 	
     startTime: function() {
@@ -313,7 +315,6 @@ var TIMEMANAGER = {
         //Reset background color
         var elm = document.getElementById("main");
         elm.classList.remove("play");
-        elm.classList.remove("start");
         elm.offsetWidth = elm.offsetWidth;
 	}
 };

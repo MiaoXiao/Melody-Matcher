@@ -86,10 +86,10 @@
 
 /* SURVEY */
 #footer {
-    bottom: 0;
-    left: 0;
     position: fixed;
+    bottom: 0;
     right: 0;
+    left: 0;
     text-align: center;
 }
 
@@ -154,9 +154,9 @@
 /* GAME */
 
 .controls { /*on start*/
-    font-size: 18px;
-    text-align: center;
-    padding: 30px 0px 0px 0px;
+/*    display: inline;*/
+    font-size: 24px;
+    padding: 0px 0px 0px 0px;
     opacity: 0;
 }
 
@@ -166,6 +166,26 @@
     -webkit-animation: fadi 3s;
     -moz-animation: fadi 3s;
     opacity: 1;
+}
+
+.score {
+    position: relative;
+    height: 50;
+    left: -webkit-calc(50% - 380px);
+    left: -moz-calc(50% - 380px);
+}
+
+.time {
+    position: relative;
+    width: 175;
+    top: -50;
+    left: -webkit-calc(50% + 380px - 175px);
+}
+
+.buttons {
+    position: relative;
+    top: -20;
+    text-align: center;
 }
 
 @-webkit-keyframes update {
@@ -188,17 +208,19 @@
 .score_update.animate {
     -webkit-animation-timing-function: linear;
     -moz-animation-timing-function: linear;
-    -webkit-animation: update 3s;
-    -moz-animation: update 3s;
+    -webkit-animation: update 5s;
+    -moz-animation: update 5s;
 }
 
 .piano { /*on start*/
+    position: relative;
     font-size: 12px;
-    text-align: center;
-    padding: 20px 0px 30px 0px;
+    width: 750px;
+    left: -moz-calc(50% - 380px);
+    left: -webkit-calc(50% - 380px);
+    padding: 0px 0px 10px 0px;
     -webkit-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
     -moz-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
-    
 }
 
 .piano.in {
@@ -206,6 +228,13 @@
     -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
     -moz-transition: -moz-transform 2s ease-in-out;
     -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
+}
+
+.btn {
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    font-size: 16px;
+    margin: 0px 0px 10px 0px;
 }
 
 /* KEYS */
