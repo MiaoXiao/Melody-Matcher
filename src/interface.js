@@ -10,18 +10,13 @@ function dif_selected(difficulty) {
 //start the game by switching html pages (should be removed)
 function letsgo() {
     document.getElementById("display").classList.add('in');
+    //Add minor delay so animation will show
     setTimeout(function(){ document.getElementById("notes").classList.add('in'); }, 20);
     
-//    var key = document.getElementById("key_type");
-//    var key_val = key.options[key.selectedIndex].value;
-//    
-//    var scale = document.getElementById("scale_type");
-//    var scale_val = scale.options[scale.selectedIndex].value;
-//    
     chooseScale("C", "maj");
     
-    //Throw players straight into a game
-    initStart();
+    //Throw players straight into a game (after short delay)
+    setTimeout(function(){ initStart(); }, 50);
 }
 
 //change the volume
@@ -96,4 +91,16 @@ function update_score(gameinfo, scoreinfo) {
     update_spot.offsetWidth = update_spot.offsetWidth;
     update_spot.classList.add("animate");
     setTimeout(function() { update_spot.innerHTML = ""; }, 5000);
+}
+
+function settings_in() {
+    //    var key = document.getElementById("key_type");
+    //    var key_val = key.options[key.selectedIndex].value;
+    //
+    //    var scale = document.getElementById("scale_type");
+    //    var scale_val = scale.options[scale.selectedIndex].value;
+    
+    document.getElementById("settings_but").disabled = true;
+    document.getElementById("settings").classList.add('in');
+    document.getElementById("film").classList.add('in');
 }

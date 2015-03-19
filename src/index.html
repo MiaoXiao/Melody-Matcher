@@ -108,10 +108,54 @@
 
     </div>
   </body>
-  
+
 <!--  SETTINGS  -->
-  <div class="settings">
-    Volume:<br><input onchange="change_vol(this.value)" type="range" id="volume" value="90">
+  <div id="film" class="film"></div>
+  <button id="settings_but" onclick="settings_in();" class="settings_btn btn">Settings</button>
+
+  <div id="settings" class="settings">
+    <h2 class="settings_head">Settings:</h2>
+    <div class="settings_vals">
+      
+      <h4 class="settings_sub">Difficulty:</h4>
+      <div class="difficulty">
+        <form id="dif_radio" action="">
+          <input onclick="dif_selected(0)" type="radio" name="difficulty" value="easy" checked>Easy<br>
+          <input onclick="dif_selected(10)" type="radio" name="difficulty" value="medium">Medium<br>
+          <input onclick="dif_selected(20)" type="radio" name="difficulty" value="hard">Hard<br>
+        </form>
+      </div>
+      
+      <h4 class="settings_sub">Key and Scale:</h4>
+      <div class="key_scale">
+        <select id="key_type">
+          <option value="A">A</option>
+          <option value="Bb">Bb</option>
+          <option value="B">B</option>
+          <option value="C" selected>C</option>
+          <option value="Db">Db</option>
+          <option value="D">D</option>
+          <option value="Eb">Eb</option>
+          <option value="E">E</option>
+          <option value="F">F</option>
+          <option value="Gb">Gb</option>
+          <option value="G">G</option>
+          <option value="Ab">Ab</option>
+        </select>
+          
+        <select id="scale_type" onchange="scale_selected(this.options[this.selectedIndex].value)">
+          <option value="maj">Major</option>
+          <option value="min">Minor</option>
+          <option value="chrom">Chromatic</option>
+        <select> <br><br>
+      </div>
+      
+      <h4 class="settings_sub">Volume:</h4>
+      <div class="volume">
+        <input onchange="change_vol(this.value)" type="range" id="volume" value="90">
+      </div>
+    </div>
+    
   </div>
 
   <link href="style.css" rel="stylesheet"> </link>

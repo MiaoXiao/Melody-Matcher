@@ -547,6 +547,7 @@ function chooseScale(key, scale) {
 //melody can only play, if it is not already playing
 function playMelody() {
 	sessionStorage.setItem("display", "playmelody");
+    document.getElementById("settings_but").disabled = true;
 	MELODYINFO.melodiesPlayed++;
 	//if this is the second time playing the melody, play once bonus off
 	if (MELODYINFO.melodiesPlayed == 2) MELODYINFO.bonus.bonus_PlayOnce = false;
@@ -567,6 +568,7 @@ function playMelody() {
 function generateMelody() {
 	//pause time, it will start when the player clicks playmelody
 	TIMEMANAGER.timeStop = 1;
+    document.getElementById("settings_but").disabled = false;
 	//check that range is within bounds
 	if (MELODYINFO.range < 1 || MELODYINFO.range > GAMEINFO.scale.length) {
 		window.alert("ERROR: RANGE not between 1 and length of scale");
@@ -733,7 +735,7 @@ function initStart() {
 }
 
 //run only once when web page is loaded
-function initOnce() {    
+function initOnce() {
 	//set display
 	sessionStorage.setItem("display", "gameover");
 
