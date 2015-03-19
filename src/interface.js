@@ -108,7 +108,7 @@ function settings_in() {
     document.getElementById("film").classList.add('in');
 }
 
-function settings_out() {    
+function settings_out() {
     document.getElementById("settings_but").disabled = false;
     
     document.getElementById("settings").classList.remove('out');
@@ -122,10 +122,11 @@ function settings_out() {
     //Wait until after end finishes to move the z-index back
     setTimeout(function() { document.getElementById("film").classList.remove('in'); }, 1000);
     
+    var key = document.getElementById("key_type");
+    var key_val = key.options[key.selectedIndex].value;
     
-    //    var key = document.getElementById("key_type");
-    //    var key_val = key.options[key.selectedIndex].value;
-    //
-    //    var scale = document.getElementById("scale_type");
-    //    var scale_val = scale.options[scale.selectedIndex].value;
+    var scale = document.getElementById("scale_type");
+    var scale_val = scale.options[scale.selectedIndex].value;
+    
+    chooseScale(key_val, scale_val);
 }
