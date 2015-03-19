@@ -108,7 +108,7 @@ function settings_in() {
     document.getElementById("film").classList.add('in');
 }
 
-function settings_out() {
+function settings_out() {    
     document.getElementById("settings_but").disabled = false;
     
     document.getElementById("settings").classList.remove('out');
