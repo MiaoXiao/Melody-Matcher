@@ -1,3 +1,6 @@
+//Call on page load
+window.onload = letsgo;
+
 //select difficulty based on radial button
 function dif_selected(difficulty) {
     //Grab the radio form and loop through it looking for the selected btn
@@ -6,22 +9,14 @@ function dif_selected(difficulty) {
 
 //start the game by switching html pages (should be removed)
 function letsgo() {
-    document.getElementById("notes").classList.add('in');
     document.getElementById("display").classList.add('in');
-    document.getElementById("start_screen").classList.add('out');
-    document.getElementById("main").classList.add('start');
-    document.getElementById("main").classList.add("wait");
+    //Add minor delay so animation will show
+    setTimeout(function(){ document.getElementById("notes").classList.add('in'); }, 20);
     
-    var key = document.getElementById("key_type");
-    var key_val = key.options[key.selectedIndex].value;
+    chooseScale("C", "maj");
     
-    var scale = document.getElementById("scale_type");
-    var scale_val = scale.options[scale.selectedIndex].value;
-    
-    chooseScale(key_val, scale_val);
-    
-    //Throw players straight into a game
-    initStart();
+    //Throw players straight into a game (after short delay)
+    setTimeout(function(){ initStart(); }, 50);
 }
 
 //change the volume
@@ -98,3 +93,40 @@ function update_score(gameinfo, scoreinfo) {
     setTimeout(function() { update_spot.innerHTML = ""; }, 5000);
 }
 
+function settings_in() {
+    document.getElementById("settings_but").disabled = true;
+    
+    document.getElementById("settings").classList.remove('in');
+    document.getElementById("settings").classList.remove('out');
+    document.getElementById("film").classList.remove('in');
+    document.getElementById("film").classList.remove('out');
+    
+    document.getElementById("film").offsetWidth = document.getElementById("film").offsetWidth;
+    document.getElementById("settings").offsetWidth = document.getElementById("settings").offsetWidth;
+    
+    document.getElementById("settings").classList.add('in');
+    document.getElementById("film").classList.add('in');
+}
+
+function settings_out() {
+    document.getElementById("settings_but").disabled = false;
+    
+    document.getElementById("settings").classList.remove('out');
+    
+    document.getElementById("film").offsetWidth = document.getElementById("film").offsetWidth;
+    document.getElementById("settings").offsetWidth = document.getElementById("settings").offsetWidth;
+    
+    document.getElementById("settings").classList.add('out');
+    document.getElementById("film").classList.add('out');
+    
+    //Wait until after end finishes to move the z-index back
+    setTimeout(function() { document.getElementById("film").classList.remove('in'); }, 1000);
+    
+    var key = document.getElementById("key_type");
+    var key_val = key.options[key.selectedIndex].value;
+    
+    var scale = document.getElementById("scale_type");
+    var scale_val = scale.options[scale.selectedIndex].value;
+    
+    chooseScale(key_val, scale_val);
+}

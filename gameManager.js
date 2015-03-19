@@ -10,6 +10,10 @@
 //level: current level. resets to 1 at the start of a game
 //difficulty: how many seconds you get per melody
 
+//Different game modes?
+//standard: normal gameplay, easy, med, or hard timed with score
+//freemode: player can manually choose speed, numnotes, and range of melody. player can manually set time for that melody
+
 //stores information about current melody
 var MELODYINFO = {
 	//melody speed
@@ -63,7 +67,22 @@ var MELODYINFO = {
 		score_flats: 0,
 		score_streak: 0
 	},
-
+	
+	//change speed (between .1 and 2) (.1 is very fast, 2 is very slow)
+	changeSpeed: function(newspeed) {
+		this.speed = newspeed;
+	},
+	
+	//change number of notes (between 1 and a large number)
+	changeNumNotes: function(newnumnotes) {
+		this.numNotes = newnumnotes;
+	},
+	
+	//change range (between 0 and gameinfo.scale.length - 1)
+	changeRange: function(newrange) {
+		this.range = newrange;
+	},
+	
 	//calculates and updates score
 	calculateScore: function() {
 		//get the current level
@@ -99,7 +118,7 @@ var MELODYINFO = {
 			this.score.score_final += this.score.score_playonce;
 		}
 		
-		//bonus for how many flats in answer, 20 points per flat
+		//bonus for how many flats in answer, 15 points per flat
 		for (var i = 0; i < this.anskey.length; i++) {
 			if (GAMEINFO.scale[this.anskey[i]].search('b') != -1) this.score.score_flats += 15; this.bonus.bonus_flats = true;
 		}
@@ -136,8 +155,8 @@ var MELODYINFO = {
 		//get next level (lastlevel + 1)
 		var newLevel = parseInt(sessionStorage.getItem("level")) + 1;
 		console.log("Level: " + newLevel);
-		//every multiple of 5 levels, increase RANGE.
-		if (newLevel % 5 == 0) {
+		//every multiple of 5 levels, increase RANGE. Unless new range will be greater than size of scale
+		if (newLevel % 5 == 0 && GAMEINFO.scale.length >= this.range + 1) {
 			if (this.range != GAMEINFO.scale.length)
 			{
 				this.range++;
@@ -148,14 +167,12 @@ var MELODYINFO = {
 		if (newLevel % 10 == 0) {
 			this.numNotes++;
 		}
-		//increase speed by a factor of 0.05, as long as the speed isint already 0.05
-		if (newLevel % 10 == 0) {
-			if (this.speed > 0.1) {
+		//increase speed by a factor of 0.1, as long as the speed isint already 0.1
+		if (newLevel % 10 == 0 && this.speed > 0.1) {
 				this.speed -= 0.1;
-			}
 		}
 		
-		//set new difficulty
+		//set new level
 		sessionStorage.setItem("level", newLevel);
 	},
 	
@@ -190,7 +207,7 @@ var MELODYINFO = {
 //information about the entire game so far
 //most of this data will not change in a single game
 var GAMEINFO = {
-	//current gamemode
+	//current gamemode 
 	gameMode: "standard",
 	//whether the game is over or not
 	gameover: 1,
@@ -232,11 +249,11 @@ var GAMEINFO = {
 		switch (parseInt(sessionStorage.getItem("difficulty"))) {
 			case 0:
 				TIMEMANAGER.maxTime.Sec = 60;
-				GAMEINFO.multi = 1.2;
+				GAMEINFO.multi = 1.0;
 				break;
 			case 10:
 				TIMEMANAGER.maxTime.Sec = 40;
-				GAMEINFO.multi = 1.4;
+				GAMEINFO.multi = 1.3;
 				break;
 			case 20:
 				TIMEMANAGER.maxTime.Sec = 20;
@@ -294,6 +311,7 @@ var TIMEMANAGER = {
                                                     + ":" + dec_time;
 	},
 	
+	//start the timer
     startTime: function() {
         //Nothing to do, already started
         if(TIMEMANAGER.timeStop == 0) return;
@@ -308,6 +326,7 @@ var TIMEMANAGER = {
         elm.classList.add("play");
     },
     
+	//reset timer back to maxTime
 	resetTime: function() {
 		TIMEMANAGER.currentTime.Sec = TIMEMANAGER.maxTime.Sec;
 		TIMEMANAGER.currentTime.Dec = TIMEMANAGER.maxTime.Dec;
@@ -316,6 +335,12 @@ var TIMEMANAGER = {
         var elm = document.getElementById("main");
         elm.classList.remove("play");
         elm.offsetWidth = elm.offsetWidth;
+	},
+
+	//choose a new max time (pass in seconds)
+	changeMaxTime: function(newseconds) {
+		TIMEMANAGER.maxTime.Sec = newseconds;
+		TIMEMANAGER.maxTime.Dec = 0;
 	}
 };
 
@@ -522,6 +547,7 @@ function chooseScale(key, scale) {
 //melody can only play, if it is not already playing
 function playMelody() {
 	sessionStorage.setItem("display", "playmelody");
+    document.getElementById("settings_but").disabled = true;
 	MELODYINFO.melodiesPlayed++;
 	//if this is the second time playing the melody, play once bonus off
 	if (MELODYINFO.melodiesPlayed == 2) MELODYINFO.bonus.bonus_PlayOnce = false;
@@ -542,6 +568,7 @@ function playMelody() {
 function generateMelody() {
 	//pause time, it will start when the player clicks playmelody
 	TIMEMANAGER.timeStop = 1;
+    document.getElementById("settings_but").disabled = false;
 	//check that range is within bounds
 	if (MELODYINFO.range < 1 || MELODYINFO.range > GAMEINFO.scale.length) {
 		window.alert("ERROR: RANGE not between 1 and length of scale");
@@ -556,15 +583,15 @@ function generateMelody() {
 	//clear array
 	MELODYINFO.anskey.length = 0;
 	
-	//lcheck this var in order to get lowest note
+	//check this var in order to get lowest note
 	var low = GAMEINFO.scale.length - 1;
 	//check this var in order to get highest note
 	var high = 0;
 	
 	//holds random number between 0 and range
 	var randNum;
-	//starting position of notes
-	var starting = Math.floor(Math.random() * (GAMEINFO.scale.length - 1));
+	//get starting position of melody which is between 0 and the length of scale - the possible range
+	var starting = Math.floor(Math.random() * ((GAMEINFO.scale.length - 1) - (MELODYINFO.range)));
 	//fills answer key with random iterators between range and 0
 	for (var i = 0; i < MELODYINFO.numNotes; i++) {
 		randNum = Math.floor((Math.random() * MELODYINFO.range) + starting);
@@ -592,7 +619,7 @@ function generateMelody() {
 	//get actual range of melody
 	MELODYINFO.actualrange = high - low;
 	//window.alert("Actual Range: " + MELODYINFO.actualrange);
-	//window.alert("Full Melody: " + MELODYINFO.anskey);
+	console.log("Full Melody: " + MELODYINFO.anskey);
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
@@ -695,7 +722,7 @@ function initStart() {
 	//make sure melody can be played
 	document.getElementById("playmelodybtn").disabled = false;
 	
-	//set difficutly back to default
+	//set difficulty back to default
 	GAMEINFO.resetDifficulty();
 	
 	//set time
