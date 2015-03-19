@@ -112,14 +112,17 @@ function settings_out() {
     document.getElementById("settings_but").disabled = false;
     
     document.getElementById("settings").classList.remove('out');
-    document.getElementById("film").classList.remove('in');
-    document.getElementById("film").classList.remove('out');
     
     document.getElementById("film").offsetWidth = document.getElementById("film").offsetWidth;
     document.getElementById("settings").offsetWidth = document.getElementById("settings").offsetWidth;
     
     document.getElementById("settings").classList.add('out');
     document.getElementById("film").classList.add('out');
+    
+    //Wait until after end finishes to move the z-index back
+    setTimeout(function() { document.getElementById("film").classList.remove('in'); }, 1000);
+    
+    
     //    var key = document.getElementById("key_type");
     //    var key_val = key.options[key.selectedIndex].value;
     //

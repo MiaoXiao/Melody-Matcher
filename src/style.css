@@ -89,6 +89,7 @@
     left: 0px;
     overflow:hidden;
     opacity: 0;
+    z-index: -1;
 }
 
 .film.in {
@@ -99,6 +100,7 @@
     -moz-animation-duration: 1s;
     -moz-animation: filmin 1s;
     opacity: .5;
+    z-index: 1;
 }
 
 .film.out {
@@ -152,6 +154,8 @@
     left: -moz-calc(50% - 87px);
     top: -webkit-calc(50% - 140px);
     top: -moz-calc(50% - 140px);
+    
+    z-index: 2;
     
 /*    To start out of screen    */
     -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-500px);
