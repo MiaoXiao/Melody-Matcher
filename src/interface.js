@@ -94,13 +94,35 @@ function update_score(gameinfo, scoreinfo) {
 }
 
 function settings_in() {
+    document.getElementById("settings_but").disabled = true;
+    
+    document.getElementById("settings").classList.remove('in');
+    document.getElementById("settings").classList.remove('out');
+    document.getElementById("film").classList.remove('in');
+    document.getElementById("film").classList.remove('out');
+    
+    document.getElementById("film").offsetWidth = document.getElementById("film").offsetWidth;
+    document.getElementById("settings").offsetWidth = document.getElementById("settings").offsetWidth;
+    
+    document.getElementById("settings").classList.add('in');
+    document.getElementById("film").classList.add('in');
+}
+
+function settings_out() {
+    document.getElementById("settings_but").disabled = false;
+    
+    document.getElementById("settings").classList.remove('out');
+    document.getElementById("film").classList.remove('in');
+    document.getElementById("film").classList.remove('out');
+    
+    document.getElementById("film").offsetWidth = document.getElementById("film").offsetWidth;
+    document.getElementById("settings").offsetWidth = document.getElementById("settings").offsetWidth;
+    
+    document.getElementById("settings").classList.add('out');
+    document.getElementById("film").classList.add('out');
     //    var key = document.getElementById("key_type");
     //    var key_val = key.options[key.selectedIndex].value;
     //
     //    var scale = document.getElementById("scale_type");
     //    var scale_val = scale.options[scale.selectedIndex].value;
-    
-    document.getElementById("settings_but").disabled = true;
-    document.getElementById("settings").classList.add('in');
-    document.getElementById("film").classList.add('in');
 }

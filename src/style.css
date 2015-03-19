@@ -134,11 +134,15 @@
     margin: 0px 0px 0px 15px;
 }
 
+.okay_but {
+    width: 90%;
+}
+
 .settings {
     position: fixed;
     font-size: 14px;
     width: 175px;
-    height: 235px;
+    height: 280px;
     background: burlywood;
     border-radius: 5px;
     border: 2px solid;
@@ -146,8 +150,8 @@
 
     left: -webkit-calc(50% - 87px);
     left: -moz-calc(50% - 87px);
-    top: -webkit-calc(50% - 117px);
-    top: -moz-calc(50% - 117px);
+    top: -webkit-calc(50% - 140px);
+    top: -moz-calc(50% - 140px);
     
 /*    To start out of screen    */
     -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-500px);
@@ -155,10 +159,17 @@
 }
 
 .settings.in {
-    -webkit-transition: -webkit-transform 1s ease-in-out;
+    -webkit-transition: -webkit-transform .75s ease-in-out;
     -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
     -moz-transition: -moz-transform 1s ease-in-out;
     -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
+}
+
+.settings.out {
+    -webkit-transition: -webkit-transform .75s ease-in-out;
+    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-500px);
+    -moz-transition: -moz-transform .75s ease-in-out;
+    -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-500px);
 }
 
 .settings_btn {
