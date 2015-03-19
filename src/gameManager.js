@@ -259,7 +259,7 @@ var GAMEINFO = {
 				TIMEMANAGER.maxTime.Sec = 20;
 				GAMEINFO.multi = 1.6;
 				break;
-				window.alert("Game start error: melody not initialized correctly");
+				window.alert("Game start error: time not set");
 		}
 		//reset level
 		sessionStorage.setItem("level", 1);
@@ -417,10 +417,13 @@ function loadSounds(instrument) {
 }
 
 //choose a specific scale
-function chooseScale(key, scale) {
+function chooseScale() {
+	var key = sessionStorage.getItem("current_key");
+	var scale = sessionStorage.getItem("current_scale");
+	
 	//clear scale array
 	GAMEINFO.scale.length = 0;
-		
+	
 	//The notes in a major scale
 	var major = [
 		0, 2, 4, 5, 7, 9, 11, 12, 
@@ -710,8 +713,8 @@ function initStart() {
     //display score as 0
     reset_score(GAMEINFO.gamescore);
     
+	//set new display
 	sessionStorage.setItem("display", "wait");
-	clearInterval(updateTimeRef);
 	
 	//enable game again
 	GAMEINFO.resetGameInfo();
@@ -719,15 +722,24 @@ function initStart() {
 	//reset melody
 	MELODYINFO.resetMelodyInfo();
 	
+	//reset speed, numb notes, range back to default
+	MELODYINFO.speed = 1.0;
+	MELODYINFO.numNotes = 2;
+	MELODYINFO.range= 3;
+	
 	//make sure melody can be played
 	document.getElementById("playmelodybtn").disabled = false;
 	
 	//set difficulty back to default
 	GAMEINFO.resetDifficulty();
 	
+	//set scale
+	chooseScale();
+	
 	//set time
 	TIMEMANAGER.resetTime();
-	//start timer
+	//start timer again
+	clearInterval(updateTimeRef);
 	updateTimeRef = window.setInterval(TIMEMANAGER.updateTime, 10);
 	window.setInterval(function(){ if (GAMEINFO.gameover) clearInterval(updateTimeRef)}, 10);
 	

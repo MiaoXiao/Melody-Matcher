@@ -1,6 +1,13 @@
 <html>
+
   <head>
 		<title> Melody Matcher </title>
+		
+		<!-- Github Fork Me Ribbon-->
+		<a href="https://github.com/MiaoXiao/Melody-Matcher"><img style="position: absolute; top: 0; left: 0; border: 0;"
+		src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67"
+		alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+		
 		<script src="https://code.createjs.com/createjs-2014.12.12.min.js"></script>
 		<script src="interface.js"></script>
 		<script src="gameManager.js"></script>
@@ -9,7 +16,7 @@
   <body id="main" class="body" onload="initOnce()";>
 <!--  PIANO  -->
     <div id="notes" class="piano">
-    <h1>Melody Matcher (v1.0)</h1>
+    <h1>Melody Matcher</h1>
         
     <button onclick="onButtonClick('C3', this);" class="playSound key key-natural">C</button>
 	
@@ -113,10 +120,13 @@
   <div id="film" class="film" onclick="settings_out()"></div>
   <button id="settings_but" onclick="settings_in();" class="settings_btn btn">Settings</button>
 
+ 
+  
   <div id="settings" class="settings">
     <h2 class="settings_head">Settings:</h2>
+	<!--<h5 class ="settings_head">*Any changes will only apply upon restarting the game.</h5>-->
     <div class="settings_vals">
-      
+	  
       <h4 class="settings_sub">Difficulty:</h4>
       <div class="difficulty">
         <form id="dif_radio" action="">

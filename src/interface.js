@@ -13,7 +13,10 @@ function letsgo() {
     //Add minor delay so animation will show
     setTimeout(function(){ document.getElementById("notes").classList.add('in'); }, 20);
     
-    chooseScale("C", "maj");
+	//set default key and scale
+	sessionStorage.setItem("current_key", "C");
+	sessionStorage.setItem("current_scale", "maj");
+    chooseScale();
     
     //Throw players straight into a game (after short delay)
     setTimeout(function(){ initStart(); }, 50);
@@ -123,10 +126,10 @@ function settings_out() {
     setTimeout(function() { document.getElementById("film").classList.remove('in'); }, 1000);
     
     var key = document.getElementById("key_type");
-    var key_val = key.options[key.selectedIndex].value;
-    
+    //var key_val = key.options[key.selectedIndex].value;
+    sessionStorage.setItem("current_key", key.options[key.selectedIndex].value);
+	
     var scale = document.getElementById("scale_type");
-    var scale_val = scale.options[scale.selectedIndex].value;
-    
-    chooseScale(key_val, scale_val);
+    //var scale_val = scale.options[scale.selectedIndex].value;
+	sessionStorage.setItem("current_scale", scale.options[scale.selectedIndex].value);
 }
