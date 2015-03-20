@@ -184,8 +184,11 @@
 
 /* DIRECTIONS */
 p.directions {
-    margin: 0cm 4cm 3cm 4cm;
+    margin: 0cm 9cm 18cm 9cm;
 	align-self: center;
+	border-style: solid;
+	border-width: 1px;
+	padding: 20px;
 }
 
 /* SURVEY */
@@ -281,7 +284,7 @@ p.directions {
 .time {
     position: relative;
     width: 170px;
-    top: -50px;
+    top: -28px;
     left: -webkit-calc(50% + 375px - 170px);
 }
 
