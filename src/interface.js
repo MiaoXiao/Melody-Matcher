@@ -7,6 +7,19 @@ function dif_selected(difficulty) {
     sessionStorage.setItem("difficulty", parseInt(difficulty));
 }
 
+/*
+//update keyboard tooltip checkbox
+function update_keyboard_tooltips() {
+    var tooltip = document.getElementById("keyboard_tooltip");
+	if(tooltip.checked) { //if box is checked
+		document.getElementById("C3").innerHTML = '\0000';
+	}
+	else { //if box is not checked
+		console.log("notchecked!");
+		document.getElementById("C3").innerHTML = 'Q';
+	}
+}*/
+
 //start the game by switching html pages (should be removed)
 function letsgo() {
     document.getElementById("display").classList.add('in');
@@ -18,6 +31,11 @@ function letsgo() {
 	sessionStorage.setItem("current_scale", "maj");
     chooseScale();
     
+	/*
+	document.getElementById("keyboard_tooltip").checked = true;
+	//show keyboard toolstips
+	update_keyboard_tooltips();*/
+	
     //Throw players straight into a game (after short delay)
     setTimeout(function(){ initStart(); }, 50);
 }
@@ -27,7 +45,7 @@ function change_vol(vol_amount) {
     localStorage.setItem("volume", vol_amount);
 }
 
-//get thd current volums
+//get the current volume
 function get_vol() {
     return parseFloat(localStorage.getItem("volume"))/100.0;
 }
@@ -71,7 +89,6 @@ function animate_numbers_(elm, from, to, time, steps, curr) {
 }
 
 function reset_score(current_score) {
-    
     console.log(document.getElementById("notes").offsetWidth);
     animate_numbers(document.getElementById("score"), current_score, 0, 500, 100);
 }

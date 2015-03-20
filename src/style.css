@@ -320,11 +320,10 @@ p.directions {
 
 .piano { /*on start*/
     position: relative;
+	left: 150px;
     font-size: 12px;
-    width: 750px;
-    left: -moz-calc(50% - 375px);
-    left: -webkit-calc(50% - 375px);
-    padding: 0px 0px 10px 0px;
+    width: 990px;
+    padding: 0px 100px 10px 0px;
     -webkit-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
     -moz-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
 }

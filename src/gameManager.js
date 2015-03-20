@@ -242,7 +242,7 @@ var GAMEINFO = {
 		sessionStorage.setItem("display", "gameover");
 	},
 	
-	//set starting difficulty, which is just based on time
+	//set starting difficulty, which is just based on time and numNotes. easy starts with 2, med 3, hard 4
 	//also reset level back to 1
 	resetDifficulty: function() {
 		TIMEMANAGER.maxTime.Dec = 0;
@@ -250,14 +250,17 @@ var GAMEINFO = {
 			case 0:
 				TIMEMANAGER.maxTime.Sec = 60;
 				GAMEINFO.multi = 1.0;
+				MELODYINFO.numNotes = 2;
 				break;
 			case 10:
 				TIMEMANAGER.maxTime.Sec = 40;
 				GAMEINFO.multi = 1.3;
+				MELODYINFO.numNotes = 3;
 				break;
 			case 20:
 				TIMEMANAGER.maxTime.Sec = 20;
 				GAMEINFO.multi = 1.6;
+				MELODYINFO.numNotes = 4;
 				break;
 				window.alert("Game start error: time not set");
 		}
@@ -412,7 +415,7 @@ function loadSounds(instrument) {
 	
 	//loop through sounds array
 	for (var i = 0; i < sounds.length; i++) {
-		createjs.Sound.registerSound(audioPath + sounds[i].src, sounds[i].id, 25);
+		createjs.Sound.registerSound(audioPath + sounds[i].src, sounds[i].id, 50);
 	}
 }
 
@@ -562,8 +565,9 @@ function playMelody() {
 			//if the sound was just played, disable the button for the duration of the melody
 			if (i + 1 == MELODYINFO.anskey.length) {
 				document.getElementById("playmelodybtn").disabled = true;
+				document.getElementById("restartbtn").disabled = true;
 				//after the melody is done playing, enable the play button again, change display, and start the timer again
-				setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; sessionStorage.setItem("display", "wait"); TIMEMANAGER.startTime(); stopKey = 1;},
+				setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; document.getElementById("restartbtn").disabled = false; sessionStorage.setItem("display", "wait"); TIMEMANAGER.startTime(); stopKey = 1;},
 				(i +  1) * (MELODYINFO.speed * 1000));
 			}
 		}
