@@ -182,6 +182,12 @@
     right: 5;
 }
 
+/* DIRECTIONS */
+p.directions {
+    margin: 0cm 4cm 3cm 4cm;
+	align-self: center;
+}
+
 /* SURVEY */
 #footer {
     position: fixed;
