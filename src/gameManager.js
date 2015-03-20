@@ -626,6 +626,11 @@ function generateMelody() {
 	MELODYINFO.actualrange = high - low;
 	//window.alert("Actual Range: " + MELODYINFO.actualrange);
 	console.log("Full Melody: " + MELODYINFO.anskey);
+	
+	//highlight first note (not done)
+	//var firstNote = GAMEINFO.scale[MELODYINFO.anskey[0]];
+	//highlight_note(document.getElementById(firstNote), 0);
+	//console.log(document.getElementById(MELODYINFO.anskey[0]));
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
@@ -698,7 +703,9 @@ function checkMelody(note, key_button) {
 }*/
 
 //run these functions every key press
-function onButtonClick(note, key_button) {
+function onButtonClick(note) {
+	//save key element
+	var key_button = document.getElementById(note);
 	playSound(note);
 	//console.log(key_button);
 	//only check melody if game is not over, also start the timer if it did not start yet
@@ -750,6 +757,8 @@ function initStart() {
 	generateMelody();
 }
 
+//do not let player press play melody key if melody is already playing
+var stopKey = 1;
 //run only once when web page is loaded
 function initOnce() {
 	//set display
@@ -768,13 +777,8 @@ function initOnce() {
 	//display score as 0
 	//document.getElementById("score").innerHTML = GAMEINFO.gamescore;
 	
-	GAMEINFO.resetDifficulty();
-}
-
-//do not let player pres play melody key if melody is already playing
-var stopKey = 1;
-//register keyboard input
-document.addEventListener('keydown', function(event) {
+	//register keyboard input
+	document.addEventListener('keydown', function(event) {
 	var keyboardKey = 'NA';
 	//get keyboard key
 	switch(event.keyCode) {
@@ -876,3 +880,7 @@ document.addEventListener('keydown', function(event) {
 	}
 	
 }, true);
+	
+	GAMEINFO.resetDifficulty();
+}
+
