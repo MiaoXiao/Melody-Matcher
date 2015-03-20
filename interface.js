@@ -7,14 +7,35 @@ function dif_selected(difficulty) {
     sessionStorage.setItem("difficulty", parseInt(difficulty));
 }
 
+/*
+//update keyboard tooltip checkbox
+function update_keyboard_tooltips() {
+    var tooltip = document.getElementById("keyboard_tooltip");
+	if(tooltip.checked) { //if box is checked
+		document.getElementById("C3").innerHTML = '\0000';
+	}
+	else { //if box is not checked
+		console.log("notchecked!");
+		document.getElementById("C3").innerHTML = 'Q';
+	}
+}*/
+
 //start the game by switching html pages (should be removed)
 function letsgo() {
     document.getElementById("display").classList.add('in');
     //Add minor delay so animation will show
     setTimeout(function(){ document.getElementById("notes").classList.add('in'); }, 20);
     
-    chooseScale("C", "maj");
+	//set default key and scale
+	sessionStorage.setItem("current_key", "C");
+	sessionStorage.setItem("current_scale", "maj");
+    chooseScale();
     
+	/*
+	document.getElementById("keyboard_tooltip").checked = true;
+	//show keyboard toolstips
+	update_keyboard_tooltips();*/
+	
     //Throw players straight into a game (after short delay)
     setTimeout(function(){ initStart(); }, 50);
 }
@@ -24,7 +45,7 @@ function change_vol(vol_amount) {
     localStorage.setItem("volume", vol_amount);
 }
 
-//get thd current volums
+//get the current volume
 function get_vol() {
     return parseFloat(localStorage.getItem("volume"))/100.0;
 }
@@ -68,7 +89,6 @@ function animate_numbers_(elm, from, to, time, steps, curr) {
 }
 
 function reset_score(current_score) {
-    
     console.log(document.getElementById("notes").offsetWidth);
     animate_numbers(document.getElementById("score"), current_score, 0, 500, 100);
 }
@@ -123,10 +143,10 @@ function settings_out() {
     setTimeout(function() { document.getElementById("film").classList.remove('in'); }, 1000);
     
     var key = document.getElementById("key_type");
-    var key_val = key.options[key.selectedIndex].value;
-    
+    //var key_val = key.options[key.selectedIndex].value;
+    sessionStorage.setItem("current_key", key.options[key.selectedIndex].value);
+	
     var scale = document.getElementById("scale_type");
-    var scale_val = scale.options[scale.selectedIndex].value;
-    
-    chooseScale(key_val, scale_val);
+    //var scale_val = scale.options[scale.selectedIndex].value;
+	sessionStorage.setItem("current_scale", scale.options[scale.selectedIndex].value);
 }

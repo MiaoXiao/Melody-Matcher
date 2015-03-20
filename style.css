@@ -158,7 +158,7 @@
     z-index: 2;
     
 /*    To start out of screen    */
-    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
+	-webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
     -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
 }
 
@@ -180,6 +180,15 @@
     position: fixed;
     top: 5;
     right: 5;
+}
+
+/* DIRECTIONS */
+p.directions {
+    margin: 0cm 4cm 3cm 4cm;
+	align-self: center;
+	border-style: solid;
+	border-width: 1px;
+	padding: 20px;
 }
 
 /* SURVEY */
@@ -275,7 +284,7 @@
 .time {
     position: relative;
     width: 170px;
-    top: -50px;
+    top: -28px;
     left: -webkit-calc(50% + 375px - 170px);
 }
 
@@ -311,11 +320,10 @@
 
 .piano { /*on start*/
     position: relative;
+	left: 150px;
     font-size: 12px;
-    width: 750px;
-    left: -moz-calc(50% - 375px);
-    left: -webkit-calc(50% - 375px);
-    padding: 0px 0px 10px 0px;
+    width: 990px;
+    padding: 0px 100px 10px 0px;
     -webkit-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
     -moz-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
 }
@@ -463,6 +471,39 @@
         background-image: linear-gradient(to bottom, #000000, #787878);}
 }
 
+@-webkit-keyframes nat_incorrect {
+    0%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #ffa3a8;}
+    100%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
+@-moz-keyframes nat_incorrect {
+    0%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #ffa3a8;}
+    100%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
+
 .key-natural {
   background: #ffffff;
   background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
@@ -556,7 +597,6 @@
 /* Changes dimensions based on device?
 source:  http://www.studiopress.com/design/website-respond-mobile-devices.htm
 other help for mobile support: http://www.studiopress.com/design/flexible-grid.htm
-
 testing websites on a computer: http://mobiletest.me/ 
 */
  
