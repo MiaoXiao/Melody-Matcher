@@ -158,8 +158,8 @@
     z-index: 2;
     
 /*    To start out of screen    */
-    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-500px);
-    -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-500px);
+    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
+    -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
 }
 
 .settings.in {
@@ -171,9 +171,9 @@
 
 .settings.out {
     -webkit-transition: -webkit-transform .75s ease-in-out;
-    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-500px);
+    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
     -moz-transition: -moz-transform .75s ease-in-out;
-    -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-500px);
+    -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
 }
 
 .settings_btn {
