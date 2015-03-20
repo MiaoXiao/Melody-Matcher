@@ -865,7 +865,7 @@ function initOnce() {
 		case 191: keyboardKey = 'C6'; // / - C6
 			break;
 			
-		case 13: keyboardKey =  'playmelody'; // Enter - Play Melody
+		case 18: keyboardKey =  'playmelody'; // Alt - Play Melody
 			break;
 		case 27: keyboardKey = 'restart'; //Esc - Restart
 			break;
@@ -879,7 +879,7 @@ function initOnce() {
 			break;
 		case 'restart': initStart();
 			break;
-		default: onButtonClick(keyboardKey  /*???*/);
+		default: onButtonClick(keyboardKey);
 			break;
 	}
 	
