@@ -549,20 +549,23 @@ function chooseScale() {
 //play melody using answerkey array
 //melody can only play, if it is not already playing
 function playMelody() {
-	sessionStorage.setItem("display", "playmelody");
-    document.getElementById("settings_but").disabled = true;
-	MELODYINFO.melodiesPlayed++;
-	//if this is the second time playing the melody, play once bonus off
-	if (MELODYINFO.melodiesPlayed == 2) MELODYINFO.bonus.bonus_PlayOnce = false;
-	for (var i = 0; i < MELODYINFO.anskey.length; i++) {
-		//delay * (speed * 1000) will give a delay that is consistent
-        createjs.Sound.play(GAMEINFO.scale[MELODYINFO.anskey[i]], "none", i * (MELODYINFO.speed * 1000), 0, 0, get_vol());
-		//if the sound was just played, disable the button for the duration of the melody
-		if (i + 1 == MELODYINFO.anskey.length) {
-			document.getElementById("playmelodybtn").disabled = true;
-			//after the melody is done playing, enable the play button again, change display, and start the timer again
-			setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; sessionStorage.setItem("display", "wait"); TIMEMANAGER.startTime();},
-			(i +  1) * (MELODYINFO.speed * 1000));
+	if (stopKey) {
+		stopKey = 0;
+		sessionStorage.setItem("display", "playmelody");
+		document.getElementById("settings_but").disabled = true;
+		MELODYINFO.melodiesPlayed++;
+		//if this is the second time playing the melody, play once bonus off
+		if (MELODYINFO.melodiesPlayed == 2) MELODYINFO.bonus.bonus_PlayOnce = false;
+		for (var i = 0; i < MELODYINFO.anskey.length; i++) {
+			//delay * (speed * 1000) will give a delay that is consistent
+			createjs.Sound.play(GAMEINFO.scale[MELODYINFO.anskey[i]], "none", i * (MELODYINFO.speed * 1000), 0, 0, get_vol());
+			//if the sound was just played, disable the button for the duration of the melody
+			if (i + 1 == MELODYINFO.anskey.length) {
+				document.getElementById("playmelodybtn").disabled = true;
+				//after the melody is done playing, enable the play button again, change display, and start the timer again
+				setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; sessionStorage.setItem("display", "wait"); TIMEMANAGER.startTime(); stopKey = 1;},
+				(i +  1) * (MELODYINFO.speed * 1000));
+			}
 		}
 	}
 }
@@ -697,6 +700,7 @@ function checkMelody(note, key_button) {
 //run these functions every key press
 function onButtonClick(note, key_button) {
 	playSound(note);
+	//console.log(key_button);
 	//only check melody if game is not over, also start the timer if it did not start yet
 	if (!GAMEINFO.gameover) {
 		 sessionStorage.setItem("display", "wait");
@@ -766,3 +770,109 @@ function initOnce() {
 	
 	GAMEINFO.resetDifficulty();
 }
+
+//do not let player pres play melody key if melody is already playing
+var stopKey = 1;
+//register keyboard input
+document.addEventListener('keydown', function(event) {
+	var keyboardKey = 'NA';
+	//get keyboard key
+	switch(event.keyCode) {
+		//Computer Keyboard Key - Musical Keyboard Key
+		case 81: keyboardKey = 'C3'; //Q - C3 
+			break;
+		case 50: keyboardKey = 'Db3'; //2 - Db3
+			break;
+		case 87: keyboardKey = 'D3'; //W - D3
+			break;
+		case 51: keyboardKey = 'Eb3'; //3 - Eb3
+			break;
+		case 69: keyboardKey = 'E3'; //E - E3
+			break;
+		case 82: keyboardKey = 'F3'; //R - F3
+			break;
+		case 53: keyboardKey = 'Gb3'; //5 - Gb3
+			break;
+		case 84: keyboardKey = 'G3'; //T - G3
+			break;
+		case 54: keyboardKey = 'Ab3'; //6 - Ab3
+			break;
+		case 89: keyboardKey = 'A3'; //Y - A3
+			break;
+		case 55: keyboardKey = 'Bb3'; //7 - Bb3
+			break;
+		case 85: keyboardKey = 'B3'; //U - B3
+			break;
+		case 73: keyboardKey = 'C4'; //I - C4
+			break;
+		case 57: keyboardKey = 'Db4'; //9 - Db4
+			break;
+		case 79: keyboardKey = 'D4'; //O - D4
+			break;
+		case 48: keyboardKey = 'Eb4'; //0 - Eb4
+			break;
+		case 80: keyboardKey = 'E4'; //P - E4
+			break;
+		case 219: keyboardKey = 'F4'; //[ - F4
+			break;
+		case 187: keyboardKey = 'Gb4'; //= - Gb4
+			break;
+		case 221: keyboardKey = 'G4'; //] - G4
+			break;
+			
+		case 8: // Backspace - Ab4
+		case 65: // A - Ab4
+						keyboardKey = 'Ab4'; 
+			break;
+		case 90: keyboardKey = 'A4'; //Z - A4
+			break;
+		case 83: keyboardKey = 'Bb4'; //S - Bb4
+			break;
+		case 88: keyboardKey = 'B4'; //X - B4
+			break;
+		case 67: keyboardKey = 'C5'; //C - C4
+			break;
+		case 70: keyboardKey = 'Db5'; //F - Db5
+			break;
+		case 86: keyboardKey = 'D5'; //V - D5
+			break;
+		case 71: keyboardKey = 'Eb5'; //G - Eb5
+			break;
+		case 66: keyboardKey = 'E5'; //B - E5
+			break;
+		case 78: keyboardKey = 'F5'; //N - F5
+			break;
+		case 74: keyboardKey = 'Gb5'; //J - Gb5
+			break;
+		case 77: keyboardKey = 'G5'; //M - G5
+			break;
+		case 75: keyboardKey = 'Ab5'; //K - Ab5
+			break;
+		case 188: keyboardKey = 'A5'; //, - A5
+			break;
+		case 76: keyboardKey = 'Bb5'; //L - Bb5
+			break;
+		case 190: keyboardKey = 'B5'; //. - B5
+			break;
+		case 191: keyboardKey = 'C6'; // / - C6
+			break;
+			
+		case 13: keyboardKey =  'playmelody'; // Enter - Play Melody
+			break;
+		case 27: keyboardKey = 'restart'; //Esc - Restart
+			break;
+	}
+	
+	//depending on keyboard key, do something
+	switch(keyboardKey) {
+		case 'NA':
+			break;
+		case 'playmelody': if (stopKey) console.log(keyboardKey); playMelody();
+			break;
+		case 'restart': initStart();
+			break;
+		default: onButtonClick(keyboardKey  /*???*/);
+			break;
+	}
+	
+}, true);

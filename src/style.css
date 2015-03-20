@@ -158,7 +158,7 @@
     z-index: 2;
     
 /*    To start out of screen    */
-    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
+	-webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
     -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
 }
 
@@ -184,7 +184,7 @@
 
 /* DIRECTIONS */
 p.directions {
-    margin: 0cm 9cm 18cm 9cm;
+    margin: 0cm 4cm 3cm 4cm;
 	align-self: center;
 	border-style: solid;
 	border-width: 1px;
@@ -565,7 +565,6 @@ p.directions {
 /* Changes dimensions based on device?
 source:  http://www.studiopress.com/design/website-respond-mobile-devices.htm
 other help for mobile support: http://www.studiopress.com/design/flexible-grid.htm
-
 testing websites on a computer: http://mobiletest.me/ 
 */
  
