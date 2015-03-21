@@ -649,9 +649,11 @@ function generateMelody() {
 	console.log("Full Melody: " + MELODYINFO.anskey);
 	
 	//highlight first note (not done)
-	var firstNote = GAMEINFO.scale[MELODYINFO.anskey[0]];
-	highlight_note(document.getElementById(firstNote));
-	console.log(firstNote);
+	if (parseInt(sessionStorage.getItem("difficulty")) == 0) {
+		var firstNote = GAMEINFO.scale[MELODYINFO.anskey[0]];
+		highlight_note(document.getElementById(firstNote));
+		console.log(firstNote);
+	}
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
