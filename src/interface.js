@@ -71,9 +71,9 @@ function highlight_note(key, correct) {
 
 var last_high = null;
 
-function highlight_note(elm) {
-    if(last_high !== null) last_high.classList.remove("highlight");
-    elm.classList.add("highlight");
+function hint(elm) {
+    if(last_high !== null) last_high.classList.remove("hint");
+    elm.classList.add("hint");
     last_high = elm;
 }
 

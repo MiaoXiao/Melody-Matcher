@@ -651,7 +651,7 @@ function generateMelody() {
 	//highlight first note (not done)
 	if (parseInt(sessionStorage.getItem("difficulty")) == 0) {
 		var firstNote = GAMEINFO.scale[MELODYINFO.anskey[0]];
-		highlight_note(document.getElementById(firstNote));
+		hint(document.getElementById(firstNote));
 		console.log(firstNote);
 	}
 }
