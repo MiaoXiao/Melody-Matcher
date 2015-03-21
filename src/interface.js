@@ -26,12 +26,12 @@ function letsgo() {
 
 //change the volume
 function change_vol(vol_amount) {
-    localStorage.setItem("volume", vol_amount);
+    sessionStorage.setItem("volume", vol_amount);
 }
 
 //get the current volume
 function get_vol() {
-    return parseFloat(localStorage.getItem("volume"))/100.0;
+    return parseFloat(sessionStorage.getItem("volume"))/100.0;
 }
 
 function scale_selected(scale) {
