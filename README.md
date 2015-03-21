@@ -4,7 +4,7 @@ Melody Matcher is a web game that tests your ability to playback randomly genera
 Correctly replicating melodies will earn you points; the harder the melody, the more points you get!
 However, you only have a certain amount of time to complete each melody, or else the game is over.
 The timer is reset after every completed melody.
-This game will help players better distinguish between different tones and sounds, it doesn't matter if you're a casual music listener or an experienced musician!
+Melody Matcher can help players better distinguish between different tones and sounds, it doesn't matter if you're a casual music listener or an experienced musician!
 
 [Play the game now!](http://miaoxiao.github.io/Melody-Matcher/)
 
