@@ -69,6 +69,14 @@ function highlight_note(key, correct) {
     }
 }
 
+var last_high = null;
+
+function highlight_note(elm) {
+    if(last_high !== null) last_high.classList.remove("highlight");
+    elm.classList.add("highlight");
+    last_high = elm;
+}
+
 //handler
 function animate_numbers(elm, from, to, time, steps) {
     animate_numbers_(elm, from, to, time, steps, from);

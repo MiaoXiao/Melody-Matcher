@@ -598,6 +598,19 @@ padding:5px 10px;
   text-decoration: none;
 }
 
+.key-flat.highlight {
+  background-color: cornflowerblue;
+}
+
+.key-natural.highlight {
+  background: #000000;
+  background-image: -webkit-linear-gradient(top, #000000, #dedede);
+  background-image: -moz-linear-gradient(top, #000000, #dedede);
+  background-image: -ms-linear-gradient(top, #000000, #dedede);
+  background-image: -o-linear-gradient(top, #000000, #dedede);
+  background-image: linear-gradient(to bottom, #000000, #dedede);
+}
+
 .key:hover {
   text-decoration: none;
 }
