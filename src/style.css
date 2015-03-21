@@ -200,63 +200,6 @@ p.directions {
     text-align: center;
 }
 
-/* START */
-.btn-start {
-    text-align: center;
-    background: #eba7a7;
-    background-image: -webkit-linear-gradient(top, #eba7a7, #b82b2b);
-    background-image: -moz-linear-gradient(top, #eba7a7, #b82b2b);
-    background-image: -ms-linear-gradient(top, #eba7a7, #b82b2b);
-    background-image: -o-linear-gradient(top, #eba7a7, #b82b2b);
-    background-image: linear-gradient(to bottom, #eba7a7, #b82b2b);
-    -webkit-border-radius: 60;
-    -moz-border-radius: 60;
-    font-family: Arial;
-    color: #ffffff;
-    font-size: 57px;
-    padding: 5px 20px 5px 20px;
-    text-decoration: none;
-}
-
-.btn-start:hover {
-    background: #f5bfbf;
-    background-image: -webkit-linear-gradient(top, #f5bfbf, #bd3838);
-    background-image: -moz-linear-gradient(top, #f5bfbf, #bd3838);
-    background-image: -ms-linear-gradient(top, #f5bfbf, #bd3838);
-    background-image: -o-linear-gradient(top, #f5bfbf, #bd3838);
-    background-image: linear-gradient(to bottom, #f5bfbf, #bd3838);
-    text-decoration: none;
-}
-
-.startup {
-    font-size: 24px;
-    padding: 10px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-}
-
-.startup.out {
-    -webkit-transition: -webkit-transform 2s ease-in-out;
-    -webkit-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
-    -moz-transition: -moz-transform 2s ease-in-out;
-    -moz-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
-}
-
-.start_settings {
-    font-size: 24px;
-    padding: 10px;
-    position: relative;
-    width: 100%;
-    text-align: center; 
-}
-
-.small_head {
-    margin: -30px 0px 50px 0px;
-}
-
 /* GAME */
 
 .controls { /*on start*/

@@ -1,3 +1,5 @@
+sessionStorage.setItem("volume", 90);
+
 //Call on page load
 window.onload = letsgo;
 
@@ -10,19 +12,6 @@ function dif_selected(difficulty) {
 	new_difficulty = difficulty;
 }
 
-/*
-//update keyboard tooltip checkbox
-function update_keyboard_tooltips() {
-    var tooltip = document.getElementById("keyboard_tooltip");
-	if(tooltip.checked) { //if box is checked
-		document.getElementById("C3").innerHTML = '\0000';
-	}
-	else { //if box is not checked
-		console.log("notchecked!");
-		document.getElementById("C3").innerHTML = 'Q';
-	}
-}*/
-
 //start the game by switching html pages (should be removed)
 function letsgo() {
     document.getElementById("display").classList.add('in');
@@ -33,11 +22,6 @@ function letsgo() {
 	sessionStorage.setItem("current_key", "C");
 	sessionStorage.setItem("current_scale", "maj");
     chooseScale();
-    
-	/*
-	document.getElementById("keyboard_tooltip").checked = true;
-	//show keyboard toolstips
-	update_keyboard_tooltips();*/
 	
     //Throw players straight into a game (after short delay)
     setTimeout(function(){ initStart(); }, 50);
@@ -64,6 +48,7 @@ function scale_selected(scale) {
 function highlight_note(key, correct) {
     key.classList.remove("correct");
     key.classList.remove("incorrect");
+    key.classList.remove("hint");
     key.offsetWidth = key.offsetWidth;
     if(correct) {
         key.classList.add("correct");
