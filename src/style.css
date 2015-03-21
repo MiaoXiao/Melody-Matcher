@@ -278,15 +278,6 @@ p.directions {
     left: -moz-calc(50% - 375px);
     left: -webkit-calc(50% - 375px);
     padding: 0px 0px 10px 0px;
-    -webkit-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
-    -moz-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
-}
-
-.piano.in {
-    -webkit-transition: -webkit-transform 2s ease-in-out;
-    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
-    -moz-transition: -moz-transform 2s ease-in-out;
-    -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
 }
 
 .btn {

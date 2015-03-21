@@ -14,10 +14,7 @@ function dif_selected(difficulty) {
 
 //start the game by switching html pages (should be removed)
 function letsgo() {
-    document.getElementById("display").classList.add('in');
-    //Add minor delay so animation will show
-    setTimeout(function(){ document.getElementById("notes").classList.add('in'); }, 20);
-    
+    document.getElementById("display").classList.add('in');    
 	//set default key and scale
 	sessionStorage.setItem("current_key", "C");
 	sessionStorage.setItem("current_scale", "maj");
