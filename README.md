@@ -11,7 +11,8 @@ Melody Matcher can help players better distinguish between different tones and s
 [Play the game now!](http://miaoxiao.github.io/Melody-Matcher/)
 
 ## Choosing a Difficulty
-The player can choose out of 3 starting difficulties; Easy, Medium, Hard. 
+In the <i>Settings<i> tab, the player can change their scale and key, as well as their difficulty.
+These settings will take effect upon the next <i>Restart<i>.
 The chosen difficulty affects how much time you get per melody, the number of notes in your first melody, and your score multiplier.
 Note that on Easy difficulty, the first note of every melody will be highlighted in blue for you.
 
@@ -22,16 +23,16 @@ Note that on Easy difficulty, the first note of every melody will be highlighted
 ##Points
 Points are awarded by adding up a base score, any bonus scores, and then scaling it with a multiplier. The base score is calculated as follows:
 
-Base Score = (numNotes * 25) + (range * 10)
+<i>Base Score = (numNotes * 25) + (range * 10)<i>
 
 Bonus points are awarded by satisfying certain requirements.
 The calculated score for each bonus is also given.
 
-* Clicking 'Play Melody' once or less<br>(numNotes * 10)
-* Completing the melody without any errors<br>(numNotes * 15 + range * 15)
-* Completing the melody in less than 10 seconds <br>(numNotes * 10)
-* Completing a melody with at least one flat <br>(numFlats * 15)
-* Getting the No Error bonus consecutively. The higher the streak, the more points you get for each consecutive melody.<br> (streakCounter * 25)
+* Clicking 'Play Melody' once or less<br><i>(numNotes * 10)<i>
+* Completing the melody without any errors<br><i>(numNotes * 15 + range * 15)<i>
+* Completing the melody in less than 10 seconds <br><i>(numNotes * 10)<i>
+* Completing a melody with at least one flat <br><i>(numFlats * 15)<i>
+* Getting the No Error bonus consecutively. The higher the streak, the more points you get for each consecutive melody.<br> <i>(streakCounter * 25)<i>
 
 ## Libraries and Other Info
 Melody Matcher uses [SoundJS](http://www.createjs.com/SoundJS) for managing and playing back sounds.
