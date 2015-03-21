@@ -285,7 +285,16 @@ p.directions {
     position: relative;
     width: 170px;
     top: -28px;
-    left: -webkit-calc(50% + 375px - 170px);
+    left: -webkit-calc(50% + 438px - 170px);
+    left: -moz-calc(50% + 438px - 170px);
+}
+
+.level {
+    position: relative;
+    width: 170px;
+    top: -206px;
+    left: -webkit-calc(50% + 438px - 170px);
+    left: -moz-calc(50% + 438px - 170px);
 }
 
 .buttons {
@@ -319,11 +328,13 @@ p.directions {
 }
 
 .piano { /*on start*/
+    width: 775px;
+    height: 150px;
     position: relative;
-	left: 150px;
     font-size: 12px;
-    width: 990px;
-    padding: 0px 100px 10px 0px;
+    left: -moz-calc(50% - 375px);
+    left: -webkit-calc(50% - 375px);
+    padding: 0px 0px 10px 0px;
     -webkit-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
     -moz-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
 }
@@ -505,10 +516,10 @@ p.directions {
 
 
 .key-natural {
-display:inline-block;
-min-width: 40px;
-width: 40px;
-padding:5px 10px;
+  display:inline-block;
+  min-width: 40px;
+  width: 40px;
+  padding:5px 10px;
   background: #ffffff;
   background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
   background-image: -moz-linear-gradient(top, #ffffff, #dedede);
@@ -531,26 +542,26 @@ padding:5px 10px;
 }
 
 .key-natural.correct {
-    -webkit-animation-timing-function: ease-in;
-    -webkit-animation: nat_correct 2s;
-    -moz-animation-timing-function: ease-in;
-    -moz-animation: nat_correct 2s;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation: nat_correct 2s;
+  -moz-animation-timing-function: ease-in;
+  -moz-animation: nat_correct 2s;
 }
 
 .key-natural.incorrect {
-    -webkit-animation-timing-function: ease-in;
-    -webkit-animation: nat_incorrect 2s;
-    -moz-animation-timing-function: ease-in;
-    -moz-animation: nat_incorrect 2s;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation: nat_incorrect 2s;
+  -moz-animation-timing-function: ease-in;
+  -moz-animation: nat_incorrect 2s;
 }
 
 .key-flat {
 
-display:inline-block;
-min-width: 30px;
-width: 30px;
-padding:5px 10px;
-  background: #000000;
+  display:inline-block;
+  min-width: 30px;
+  width: 30px;
+  padding:5px 10px;
+  
   background: #000000;
   color: #ffffff;
   background-image: -webkit-linear-gradient(top, #000000, #787878);
