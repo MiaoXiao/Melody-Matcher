@@ -6,6 +6,8 @@ However, you only have a certain amount of time to complete each melody, or else
 The timer is reset after every completed melody.
 Melody Matcher can help players better distinguish between different tones and sounds, it doesn't matter if you're a casual music listener or an experienced musician!
 
+![demo](/src/img/demo.png)
+
 [Play the game now!](http://miaoxiao.github.io/Melody-Matcher/)
 
 ## Choosing a Difficulty
