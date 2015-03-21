@@ -244,6 +244,8 @@ p.directions {
     position: relative;
     top: -20;
     text-align: center;
+	margin-right: 200px;
+	margin-left: 200px;
 }
 
 @-webkit-keyframes update {

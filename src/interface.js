@@ -82,7 +82,7 @@ function animate_numbers_(elm, from, to, time, steps, curr) {
 }
 
 function reset_score(current_score) {
-    console.log(document.getElementById("notes").offsetWidth);
+    //console.log(document.getElementById("notes").offsetWidth);
     animate_numbers(document.getElementById("score"), current_score, 0, 500, 100);
 }
 
@@ -106,7 +106,10 @@ function update_score(gameinfo, scoreinfo) {
     setTimeout(function() { update_spot.innerHTML = ""; }, 5000);
 }
 
+//if you are in settings or not
+var settingsStatus = false;
 function settings_in() {
+	settingsStatus = true;
     document.getElementById("settings_but").disabled = true;
     
     document.getElementById("settings").classList.remove('in');
@@ -122,6 +125,7 @@ function settings_in() {
 }
 
 function settings_out() {
+	settingsStatus = false;
     document.getElementById("settings_but").disabled = false;
     
     document.getElementById("settings").classList.remove('out');
