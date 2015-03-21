@@ -11,10 +11,12 @@ Melody Matcher can help players better distinguish between different tones and s
 [Play the game now!](http://miaoxiao.github.io/Melody-Matcher/)
 
 ## Choosing a Difficulty
-In the Settings tab, the player can change their scale and key, as well as their difficulty.
-These settings will take effect upon the next Restart.
+In the 'Settings' tab, the player can change their scale and key, as well as their difficulty.
+These settings will take effect upon the next 'Restart'.
 The chosen difficulty affects how much time you get per melody, the number of notes in your first melody, and your score multiplier.
 Note that on Easy difficulty, the first note of every melody will be highlighted in blue for you.
+
+![settings](/src/images/settings.png)
 
 * Easy - 60 seconds - 2 notes -1.0 multiplier
 * Medium - 40 seconds - 3 notes - 1.4 multiplier
