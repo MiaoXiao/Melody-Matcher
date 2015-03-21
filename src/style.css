@@ -178,8 +178,8 @@
 
 .settings_btn {
     position: fixed;
-    top: 5;
-    right: 5;
+    top: 0;
+    right: 0;
 }
 
 /* DIRECTIONS */
@@ -505,6 +505,10 @@ p.directions {
 
 
 .key-natural {
+display:inline-block;
+min-width: 40px;
+width: 40px;
+padding:5px 10px;
   background: #ffffff;
   background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
   background-image: -moz-linear-gradient(top, #ffffff, #dedede);
@@ -541,6 +545,11 @@ p.directions {
 }
 
 .key-flat {
+
+display:inline-block;
+min-width: 30px;
+width: 30px;
+padding:5px 10px;
   background: #000000;
   background: #000000;
   color: #ffffff;
