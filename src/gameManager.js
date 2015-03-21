@@ -549,29 +549,46 @@ function chooseScale() {
     console.log(GAMEINFO.scale);
 }
 
+//do not let player press play melody key if melody is already playing
+var stopKey = true;
+
 //play melody using answerkey array
 //melody can only play, if it is not already playing
 function playMelody() {
+	console.log("In Play Melody");
 	if (stopKey) {
-		stopKey = 0;
+		console.log("Start Playing");
+		stopKey = false;
 		sessionStorage.setItem("display", "playmelody");
 		document.getElementById("settings_but").disabled = true;
 		MELODYINFO.melodiesPlayed++;
 		//if this is the second time playing the melody, play once bonus off
 		if (MELODYINFO.melodiesPlayed == 2) MELODYINFO.bonus.bonus_PlayOnce = false;
-		for (var i = 0; i < MELODYINFO.anskey.length; i++) {
+		var melodyLength = MELODYINFO.anskey.length;
+		for (var i = 0; i < melodyLength; i++) {
 			//delay * (speed * 1000) will give a delay that is consistent
 			createjs.Sound.play(GAMEINFO.scale[MELODYINFO.anskey[i]], "none", i * (MELODYINFO.speed * 1000), 0, 0, get_vol());
 			//if the sound was just played, disable the button for the duration of the melody
-			if (i + 1 == MELODYINFO.anskey.length) {
+			if (i + 1 == melodyLength) {
+				//disable buttons
 				document.getElementById("playmelodybtn").disabled = true;
 				document.getElementById("restartbtn").disabled = true;
 				//after the melody is done playing, enable the play button again, change display, and start the timer again
-				setTimeout(function() {document.getElementById("playmelodybtn").disabled = false; document.getElementById("restartbtn").disabled = false; sessionStorage.setItem("display", "wait"); TIMEMANAGER.startTime(); stopKey = 1;},
-				(i +  1) * (MELODYINFO.speed * 1000));
+				setTimeout(function() {
+					sessionStorage.setItem("display", "wait");
+					//renable buttons
+					document.getElementById("playmelodybtn").disabled = false;
+					document.getElementById("restartbtn").disabled = false;
+					//start time again 
+					TIMEMANAGER.startTime();
+					//enable alt key again
+					stopKey = true;
+					}, (i + 1) * (MELODYINFO.speed * 1000));
 			}
 		}
+		console.log("Done Playing");
 	}
+	console.log("Exiting Play Melody");
 }
 
 //creates a random melody by filling answerkey array
@@ -761,8 +778,8 @@ function initStart() {
 	generateMelody();
 }
 
-//do not let player press play melody key if melody is already playing
-var stopKey = 1;
+
+
 //run only once when web page is loaded
 function initOnce() {
 	//set display
@@ -785,6 +802,7 @@ function initOnce() {
 	document.addEventListener('keydown', function(event) {
 	var keyboardKey = 'NA';
 	//get keyboard key
+	console.log(event.keyCode);
 	switch(event.keyCode) {
 		//Computer Keyboard Key - Musical Keyboard Key
 		case 81: keyboardKey = 'C3'; //Q - C3 
@@ -865,7 +883,7 @@ function initOnce() {
 		case 191: keyboardKey = 'C6'; // / - C6
 			break;
 			
-		case 18: keyboardKey =  'playmelody'; // Alt - Play Melody
+		case 49: keyboardKey =  'playmelody'; // 1 - Play Melody
 			break;
 		case 27: keyboardKey = 'restart'; //Esc - Restart
 			break;
@@ -875,15 +893,15 @@ function initOnce() {
 	switch(keyboardKey) {
 		case 'NA':
 			break;
-		case 'playmelody': if (stopKey) console.log(keyboardKey); playMelody();
+		case 'playmelody': if (stopKey) playMelody();
 			break;
 		case 'restart': initStart();
 			break;
 		default: onButtonClick(keyboardKey);
 			break;
 	}
-	
-}, true);
+	console.log(keyboardKey); 
+});
 	
 	GAMEINFO.resetDifficulty();
 }
