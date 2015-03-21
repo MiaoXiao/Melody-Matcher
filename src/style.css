@@ -184,11 +184,11 @@
 
 /* DIRECTIONS */
 p.directions {
-    margin: 0cm 4cm 3cm 4cm;
+    margin: 0cm 4cm 3m 4cm;
 	align-self: center;
 	border-style: solid;
 	border-width: 1px;
-	padding: 20px;
+	padding: 15px;
 }
 
 /* SURVEY */
@@ -596,6 +596,12 @@ padding:5px 10px;
   font-family: Arial;
   font-size: 20px;
   text-decoration: none;
+  -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .key-flat.hint {

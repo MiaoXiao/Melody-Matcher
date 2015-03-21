@@ -251,16 +251,19 @@ var GAMEINFO = {
 				TIMEMANAGER.maxTime.Sec = 60;
 				GAMEINFO.multi = 1.0;
 				MELODYINFO.numNotes = 2;
+				MELODYINFO.range = 3;
 				break;
 			case 10:
 				TIMEMANAGER.maxTime.Sec = 40;
-				GAMEINFO.multi = 1.3;
+				GAMEINFO.multi = 1.4;
 				MELODYINFO.numNotes = 3;
+				MELODYINFO.range = 4;
 				break;
 			case 20:
 				TIMEMANAGER.maxTime.Sec = 20;
-				GAMEINFO.multi = 1.6;
+				GAMEINFO.multi = 1.8;
 				MELODYINFO.numNotes = 4;
+				MELODYINFO.range = 5;
 				break;
 				window.alert("Game start error: time not set");
 		}
@@ -617,8 +620,8 @@ function generateMelody() {
 	
 	//holds random number between 0 and range
 	var randNum;
-	//get starting position of melody which is between 0 and the length of scale - the possible range
-	var starting = Math.floor(Math.random() * ((GAMEINFO.scale.length - 1) - (MELODYINFO.range)));
+	//get starting position of melody which is between 1 and the length of scale - the possible range
+	var starting = Math.floor(Math.random() * ((GAMEINFO.scale.length - 1) - (MELODYINFO.range)) + 1);
 	//fills answer key with random iterators between range and 0
 	for (var i = 0; i < MELODYINFO.numNotes; i++) {
 		randNum = Math.floor((Math.random() * MELODYINFO.range) + starting);
@@ -744,6 +747,10 @@ function onButtonClick(note) {
 var updateTimeRef;
 //init game data, when game is restarted
 function initStart() {
+	//set new difficulty
+	sessionStorage.setItem("difficulty", parseInt(new_difficulty));
+	//remove any hints if necessary
+	if(last_high !== null) last_high.classList.remove("hint");
     //display score as 0
     reset_score(GAMEINFO.gamescore);
     
@@ -848,7 +855,6 @@ function initOnce() {
 		case 221: keyboardKey = 'G4'; //] - G4
 			break;
 			
-		case 8: // Backspace - Ab4
 		case 65: // A - Ab4
 						keyboardKey = 'Ab4'; 
 			break;
