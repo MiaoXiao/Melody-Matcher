@@ -797,6 +797,9 @@ function initStart() {
 
 //run only once when web page is loaded
 function initOnce() {
+    //Call in gui
+    letsgo();
+    
 	//set display
 	sessionStorage.setItem("display", "gameover");
 

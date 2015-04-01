@@ -1,8 +1,5 @@
 sessionStorage.setItem("volume", 90);
 
-//Call on page load
-window.onload = letsgo;
-
 //save last radial position
 var new_difficulty = 0;
 //select difficulty based on radial button
@@ -14,7 +11,7 @@ function dif_selected(difficulty) {
 
 //start the game by switching html pages (should be removed)
 function letsgo() {
-    document.getElementById("display").classList.add('in');    
+    document.getElementById("display").classList.add('in');
 	//set default key and scale
 	sessionStorage.setItem("current_key", "C");
 	sessionStorage.setItem("current_scale", "maj");
