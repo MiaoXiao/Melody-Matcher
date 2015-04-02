@@ -23,6 +23,13 @@
   /*text-align: center;*/
 }
 
+/*hide element if screen is too small*/
+@media only screen and (max-width: 975px) {
+    #ribbon {
+        display: none;
+    }
+}
+
 /*define fade in animation*/
 @-webkit-keyframes fadi {
     from    { opacity: 0; }
@@ -165,7 +172,7 @@
 .settings.in {
     -webkit-transition: -webkit-transform .75s ease-in-out;
     -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
-    -moz-transition: -moz-transform 1s ease-in-out;
+    -moz-transition: -moz-transform .75s ease-in-out;
     -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
 }
 
@@ -492,7 +499,6 @@ p.directions {
 }
 
 .key-flat {
-
   display:inline-block;
   min-width: 30px;
   width: 30px;
