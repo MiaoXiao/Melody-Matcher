@@ -124,9 +124,16 @@ var MELODYINFO = {
 		}
 		this.score.score_final += this.score.score_flats;
 		
-		//if streak is greater than 1 (melody perfect twice in a row), give 25, 50, 75... for every consecutive melody correct
+		//if streak is greater than 1 (melody perfect twice in a row), give 100, 200, 300, 400, 500 ... for every consecutive melody correct
 		if (this.streakCounter > 1) {
-			this.score.score_streak = (this.streakCounter - 1) * 25;
+			var temp = (this.streakCounter - 1) * 100;
+			//streak stops when the bonus is 400
+			if (temp <= 500) {
+				this.score.score_streak = temp;
+			}
+			else {
+				this.score.score_streak = 500;
+			}
 		}
 		this.score.score_final += this.score.score_streak;
 		
@@ -594,6 +601,16 @@ function playMelody() {
 	//console.log("Exiting Play Melody");
 }
 
+//highlights first note in blue if difficulty is easy
+function showHint() {
+	//highlight first note (not done)
+	if (parseInt(sessionStorage.getItem("difficulty")) == 0) {
+			var firstNote = GAMEINFO.scale[MELODYINFO.anskey[0]];
+			hint(document.getElementById(firstNote));
+			//console.log(firstNote);
+	}
+}
+
 //creates a random melody by filling answerkey array
 function generateMelody() {
 	//pause time, it will start when the player clicks playmelody
@@ -651,12 +668,7 @@ function generateMelody() {
 	//window.alert("Actual Range: " + MELODYINFO.actualrange);
 	//console.log("Full Melody: " + MELODYINFO.anskey);
 	
-	//highlight first note (not done)
-	if (parseInt(sessionStorage.getItem("difficulty")) == 0) {
-		var firstNote = GAMEINFO.scale[MELODYINFO.anskey[0]];
-		hint(document.getElementById(firstNote));
-		//console.log(firstNote);
-	}
+	showHint();
 }
 
 //play a sound given an id (ex C4, G4, Bb4)
@@ -743,6 +755,7 @@ function onButtonClick(note) {
 		//enable time if it has not been enabled yet
 		TIMEMANAGER.startTime()
 		checkMelody(note, key_button);
+		showHint();
 	}
 }
 

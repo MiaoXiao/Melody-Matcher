@@ -34,7 +34,7 @@ The calculated score for each bonus is also given.
 * Completing the melody without any errors<br><i>(numNotes * 15 + range * 15)<i>
 * Completing the melody in less than 10 seconds <br><i>(numNotes * 10)<i>
 * Completing a melody with at least one flat <br><i>(numFlats * 15)<i>
-* Getting the No Error bonus consecutively. The higher the streak, the more points you get for each consecutive melody.<br> <i>(streakCounter * 25)<i>
+* Getting the No Error bonus consecutively. The higher the streak, the more points you get for each consecutive melody, up to 500 bonus points.<br> <i>(streakCounter * 100)<i>
 
 ## Libraries and Other Info
 Melody Matcher uses [SoundJS](http://www.createjs.com/SoundJS) for managing and playing back sounds.
