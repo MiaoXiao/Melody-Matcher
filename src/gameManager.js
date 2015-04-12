@@ -377,6 +377,7 @@ function loadSounds(instrument) {
 	//audio path
 	var audioPath = "./sounds/" + instrument + "/";
 	
+    
 	//document.getElementById("display").innerText = "Loading...";
 	
 	//queue all sounds

@@ -170,8 +170,18 @@
           <option value="maj">Major</option>
           <option value="min">Minor</option>
           <option value="chrom">Chromatic</option>
-        <select> <br><br>
+        </select> <br>
       </div>
+      
+      <h4 class="settings_sub">Instrument:</h4>
+      <div class="key_scale">
+        <select id="instr_sel" onchange="loadSounds(this.options[this.selectedIndex].value)">
+          <option value="piano">Piano</option>
+          <option value="violin">Violin</option>
+          <option value="guitar">Guitar</option>
+        </select> <br>
+      </div>
+            
       
       <h4 class="settings_sub">Volume:</h4>
       <div class="volume">

@@ -151,7 +151,7 @@
     position: fixed;
     font-size: 14px;
     width: 175px;
-    height: 280px;
+    height: 300px;
     background: burlywood;
     border-radius: 5px;
     border: 2px solid;
@@ -159,8 +159,8 @@
 
     left: -webkit-calc(50% - 87px);
     left: -moz-calc(50% - 87px);
-    top: -webkit-calc(50% - 140px);
-    top: -moz-calc(50% - 140px);
+    top: -webkit-calc(50% - 150px);
+    top: -moz-calc(50% - 150px);
     
     z-index: 2;
     
