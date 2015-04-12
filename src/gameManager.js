@@ -370,13 +370,67 @@ var CHROMATIC = [
 function loadSounds(instrument) {
 	//check to see if you can play sounds
 	if (!createjs.Sound.initializeDefaultPlugins()) {
-		window.alert("ERROR: PROBLEM LOADING SOUNDS");
+		window.alert("Your browser does not support sounds. Please try using a different browser.");
 		return; 
 	}
 	
 	//audio path
 	var audioPath = "./sounds/" + instrument + "/";
 	
+	//document.getElementById("display").innerText = "Loading...";
+	
+	//queue all sounds
+	var queue = new createjs.LoadQueue();
+	createjs.Sound.alternateExtensions = ["mp3"];
+	queue.installPlugin(createjs.Sound);
+	//queue.addEventListener("complete", handleComplete);
+	 
+	queue.loadManifest(sounds = [
+		//1nd octave
+		{src: "12_C3.ogg", id: "C3"},
+		{src: "13_Db3.ogg", id: "Db3"},
+		{src: "14_D3.ogg", id: "D3"},
+		{src: "15_Eb3.ogg", id: "Eb3"},
+		{src: "16_E3.ogg", id: "E3"},
+		{src: "17_F3.ogg", id: "F3"},
+		{src: "18_Gb3.ogg", id: "Gb3"},
+		{src: "19_G3.ogg", id: "G3"},
+		{src: "20_Ab3.ogg", id: "Ab3"},
+		{src: "21_A3.ogg", id: "A3"},
+		{src: "22_Bb3.ogg", id: "Bb3"},
+		{src: "23_B3.ogg", id: "B3"},
+		//2rd octave
+		{src: "24_C4.ogg", id: "C4"},
+		{src: "25_Db4.ogg", id: "Db4"},
+		{src: "26_D4.ogg", id: "D4"},
+		{src: "27_Eb4.ogg", id: "Eb4"},
+		{src: "28_E4.ogg", id: "E4"},
+		{src: "29_F4.ogg", id: "F4"},
+		{src: "30_Gb4.ogg", id: "Gb4"},
+		{src: "31_G4.ogg", id: "G4"},
+		{src: "32_Ab4.ogg", id: "Ab4"},
+		{src: "33_A4.ogg", id: "A4"},
+		{src: "34_Bb4.ogg", id: "Bb4"},
+		{src: "35_B4.ogg", id: "B4"},
+		//3th octave
+		{src: "36_C5.ogg", id: "C5"},
+		{src: "37_Db5.ogg", id: "Db5"},
+		{src: "38_D5.ogg", id: "D5"},
+		{src: "39_Eb5.ogg", id: "Eb5"},
+		{src: "40_E5.ogg", id: "E5"},
+		{src: "41_F5.ogg", id: "F5"},
+		{src: "42_Gb5.ogg", id: "Gb5"},
+		{src: "43_G5.ogg", id: "G5"},
+		{src: "44_Ab5.ogg", id: "Ab5"},
+		{src: "45_A5.ogg", id: "A5"},
+		{src: "46_Bb5.ogg", id: "Bb5"},
+		{src: "47_B5.ogg", id: "B5"},
+		
+		{src: "48_C6.ogg", id: "C6"}
+	]);
+	
+
+	/*
 	//library of sounds
 	var sounds = [
 		//1nd octave
@@ -421,7 +475,7 @@ function loadSounds(instrument) {
 		
 		{src: "48_C6.ogg", id: "C6"}
 	];
-	createjs.Sound.alternateExtensions = ["mp3"];
+	*/
 	
 	//loop through sounds array
 	for (var i = 0; i < sounds.length; i++) {
@@ -822,7 +876,7 @@ function initOnce() {
 	
 	//default sounds and scale
 	loadSounds('piano');
-	//loadSounds('violin');
+	loadSounds('violin');
 	//loadSounds('guitar');
 	
 	//display score as 0
