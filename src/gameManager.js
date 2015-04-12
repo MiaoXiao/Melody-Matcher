@@ -806,8 +806,6 @@ function initStart() {
 	document.getElementById("level").innerHTML = parseInt(sessionStorage.getItem("level"));
 }
 
-
-
 //run only once when web page is loaded
 function initOnce() {
     //Call in gui
@@ -824,7 +822,8 @@ function initOnce() {
 	
 	//default sounds and scale
 	loadSounds('piano');
-	//chooseScale('Cmaj');
+	//loadSounds('violin');
+	//loadSounds('guitar');
 	
 	//display score as 0
 	//document.getElementById("score").innerHTML = GAMEINFO.gamescore;
