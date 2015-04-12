@@ -876,7 +876,7 @@ function initOnce() {
 	
 	//default sounds and scale
 	loadSounds('piano');
-	loadSounds('violin');
+	//loadSounds('violin');
 	//loadSounds('guitar');
 	
 	//display score as 0
