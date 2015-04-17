@@ -124,18 +124,21 @@ var MELODYINFO = {
 		}
 		this.score.score_final += this.score.score_flats;
 		
-		//if streak is greater than 1 (melody perfect twice in a row), give 100, 200, 300, 400, 500 ... for every consecutive melody correct
-		if (this.streakCounter > 1) {
-			var temp = (this.streakCounter - 1) * 100;
-			//streak stops when the bonus is 400
-			if (temp <= 500) {
-				this.score.score_streak = temp;
+		//if easy difficulty, do not calculate streak
+		if (parseInt(sessionStorage.getItem("difficulty")) != 0) {
+			//if streak is greater than 1 (melody perfect twice in a row), give 100, 200, 300, 400, 500 ... for every consecutive melody correct
+			if (this.streakCounter > 1) {
+				var temp = (this.streakCounter - 1) * 100;
+				//streak stops when the bonus is 400
+				if (temp <= 500) {
+					this.score.score_streak = temp;
+				}
+				else {
+					this.score.score_streak = 500;
+				}
 			}
-			else {
-				this.score.score_streak = 500;
-			}
+			this.score.score_final += this.score.score_streak;
 		}
-		this.score.score_final += this.score.score_streak;
 		
 		//apply multiplier. round to nearest int
 		this.score.score_final = Math.round(this.score.score_final * GAMEINFO.multi);
@@ -262,13 +265,13 @@ var GAMEINFO = {
 				break;
 			case 10:
 				TIMEMANAGER.maxTime.Sec = 40;
-				GAMEINFO.multi = 1.4;
+				GAMEINFO.multi = 1.5;
 				MELODYINFO.numNotes = 3;
 				MELODYINFO.range = 4;
 				break;
 			case 20:
 				TIMEMANAGER.maxTime.Sec = 20;
-				GAMEINFO.multi = 1.8;
+				GAMEINFO.multi = 2.0;
 				MELODYINFO.numNotes = 4;
 				MELODYINFO.range = 5;
 				break;
@@ -368,6 +371,10 @@ var CHROMATIC = [
 //load all sounds that will be used
 //pass in what instrument to use, violin or piano
 function loadSounds(instrument) {
+	
+	//remove any sounds before loading new ones
+	createjs.Sound.removeAllSounds();
+	
 	//check to see if you can play sounds
 	if (!createjs.Sound.initializeDefaultPlugins()) {
 		window.alert("Your browser does not support sounds. Please try using a different browser.");
@@ -376,58 +383,55 @@ function loadSounds(instrument) {
 	
 	//audio path
 	var audioPath = "./sounds/" + instrument + "/";
-	
-    
-	//document.getElementById("display").innerText = "Loading...";
+	//number of channels (less channels, more optimized instrument change)
+	var channels = 20;
 	
 	//queue all sounds
 	var queue = new createjs.LoadQueue();
 	createjs.Sound.alternateExtensions = ["mp3"];
 	queue.installPlugin(createjs.Sound);
-	//queue.addEventListener("complete", handleComplete);
 	 
-	queue.loadManifest(sounds = [
+	queue.loadManifest([
 		//1nd octave
-		{src: "12_C3.ogg", id: "C3"},
-		{src: "13_Db3.ogg", id: "Db3"},
-		{src: "14_D3.ogg", id: "D3"},
-		{src: "15_Eb3.ogg", id: "Eb3"},
-		{src: "16_E3.ogg", id: "E3"},
-		{src: "17_F3.ogg", id: "F3"},
-		{src: "18_Gb3.ogg", id: "Gb3"},
-		{src: "19_G3.ogg", id: "G3"},
-		{src: "20_Ab3.ogg", id: "Ab3"},
-		{src: "21_A3.ogg", id: "A3"},
-		{src: "22_Bb3.ogg", id: "Bb3"},
-		{src: "23_B3.ogg", id: "B3"},
+		{src: audioPath + "12_C3.ogg", id: "C3", data: channels},
+		{src: audioPath + "13_Db3.ogg", id: "Db3", data: channels},
+		{src: audioPath + "14_D3.ogg", id: "D3", data: channels},
+		{src: audioPath + "15_Eb3.ogg", id: "Eb3", data: channels},
+		{src: audioPath + "16_E3.ogg", id: "E3", data: channels},
+		{src: audioPath + "17_F3.ogg", id: "F3", data: channels},
+		{src: audioPath + "18_Gb3.ogg", id: "Gb3", data: channels},
+		{src: audioPath + "19_G3.ogg", id: "G3", data: channels},
+		{src: audioPath + "20_Ab3.ogg", id: "Ab3", data: channels},
+		{src: audioPath + "21_A3.ogg", id: "A3", data: channels},
+		{src: audioPath + "22_Bb3.ogg", id: "Bb3", data: channels},
+		{src: audioPath + "23_B3.ogg", id: "B3", data: channels},
 		//2rd octave
-		{src: "24_C4.ogg", id: "C4"},
-		{src: "25_Db4.ogg", id: "Db4"},
-		{src: "26_D4.ogg", id: "D4"},
-		{src: "27_Eb4.ogg", id: "Eb4"},
-		{src: "28_E4.ogg", id: "E4"},
-		{src: "29_F4.ogg", id: "F4"},
-		{src: "30_Gb4.ogg", id: "Gb4"},
-		{src: "31_G4.ogg", id: "G4"},
-		{src: "32_Ab4.ogg", id: "Ab4"},
-		{src: "33_A4.ogg", id: "A4"},
-		{src: "34_Bb4.ogg", id: "Bb4"},
-		{src: "35_B4.ogg", id: "B4"},
+		{src: audioPath + "24_C4.ogg", id: "C4", data: channels},
+		{src: audioPath + "25_Db4.ogg", id: "Db4", data: channels},
+		{src: audioPath + "26_D4.ogg", id: "D4", data: channels},
+		{src: audioPath + "27_Eb4.ogg", id: "Eb4", data: channels},
+		{src: audioPath + "28_E4.ogg", id: "E4", data: channels},
+		{src: audioPath + "29_F4.ogg", id: "F4", data: channels},
+		{src: audioPath + "30_Gb4.ogg", id: "Gb4", data: channels},
+		{src: audioPath + "31_G4.ogg", id: "G4", data: channels},
+		{src: audioPath + "32_Ab4.ogg", id: "Ab4", data: channels},
+		{src: audioPath + "33_A4.ogg", id: "A4", data: channels},
+		{src: audioPath + "34_Bb4.ogg", id: "Bb4", data: channels},
+		{src: audioPath + "35_B4.ogg", id: "B4", data: channels},
 		//3th octave
-		{src: "36_C5.ogg", id: "C5"},
-		{src: "37_Db5.ogg", id: "Db5"},
-		{src: "38_D5.ogg", id: "D5"},
-		{src: "39_Eb5.ogg", id: "Eb5"},
-		{src: "40_E5.ogg", id: "E5"},
-		{src: "41_F5.ogg", id: "F5"},
-		{src: "42_Gb5.ogg", id: "Gb5"},
-		{src: "43_G5.ogg", id: "G5"},
-		{src: "44_Ab5.ogg", id: "Ab5"},
-		{src: "45_A5.ogg", id: "A5"},
-		{src: "46_Bb5.ogg", id: "Bb5"},
-		{src: "47_B5.ogg", id: "B5"},
-		
-		{src: "48_C6.ogg", id: "C6"}
+		{src: audioPath + "36_C5.ogg", id: "C5", data: channels},
+		{src: audioPath + "37_Db5.ogg", id: "Db5", data: channels},
+		{src: audioPath + "38_D5.ogg", id: "D5", data: channels},
+		{src: audioPath + "39_Eb5.ogg", id: "Eb5", data: channels},
+		{src: audioPath + "40_E5.ogg", id: "E5", data: channels},
+		{src: audioPath + "41_F5.ogg", id: "F5", data: channels},
+		{src: audioPath + "42_Gb5.ogg", id: "Gb5", data: channels},
+		{src: audioPath + "43_G5.ogg", id: "G5", data: channels},
+		{src: audioPath + "44_Ab5.ogg", id: "Ab5", data: channels},
+		{src: audioPath + "45_A5.ogg", id: "A5", data: channels},
+		{src: audioPath + "46_Bb5.ogg", id: "Bb5", data: channels},
+		{src: audioPath + "47_B5.ogg", id: "B5", data: channels},
+		{src: audioPath + "48_C6.ogg", id: "C6", data: channels}
 	]);
 	
 
@@ -477,11 +481,11 @@ function loadSounds(instrument) {
 		{src: "48_C6.ogg", id: "C6"}
 	];
 	*/
-	
+	/*
 	//loop through sounds array
 	for (var i = 0; i < sounds.length; i++) {
 		createjs.Sound.registerSound(audioPath + sounds[i].src, sounds[i].id, 50);
-	}
+	}*/
 }
 
 //choose a specific scale
@@ -875,7 +879,7 @@ function initOnce() {
 	//make sure playmelody is disabled
 	document.getElementById("playmelodybtn").disabled = true;
 	
-	//default sounds and scale
+	//default instrument
 	loadSounds('piano');
 	//loadSounds('violin');
 	//loadSounds('guitar');

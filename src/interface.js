@@ -5,7 +5,7 @@ var new_difficulty = 0;
 //select difficulty based on radial button
 function dif_selected(difficulty) {
     //Grab the radio form and loop through it looking for the selected btn
-    //sessionStorage.setItem("difficulty", parseInt(difficulty));
+    sessionStorage.setItem("difficulty", parseInt(difficulty));
 	new_difficulty = difficulty;
 }
 
