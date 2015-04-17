@@ -1,97 +1,107 @@
+<!DOCTYPE html>
 <html>
+
   <head>
 		<title> Melody Matcher </title>
+		
+		<!-- Github Fork Me Ribbon-->
+		<div id="ribbon"> <a href="https://github.com/MiaoXiao/Melody-Matcher" target="_blank"><img style="position: absolute; top: 0; left: 0; border: 0;"
+		src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67"
+		alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+		</div>
+		
 		<script src="https://code.createjs.com/createjs-2014.12.12.min.js"></script>
 		<script src="interface.js"></script>
 		<script src="gameManager.js"></script>
+		
   </head>
   
   <body id="main" class="body" onload="initOnce()";>
 <!--  PIANO  -->
     <div id="notes" class="piano">
-    <h1>Melody Matcher (v1.0)</h1>
+    <h1>Melody Matcher</h1>
         
-    <button onclick="onButtonClick('C3', this);" class="playSound key key-natural">C</button>
+	<button id="C3"; onclick="onButtonClick('C3');" class="playSound key key-natural">Q</button>
 	
-    <button onclick="onButtonClick('Db3', this);" class="playSound key key-flat">Db</button>
+    <button id="Db3"; onclick="onButtonClick('Db3');" class="playSound key key-flat">2</button>
 	
-    <button onclick="onButtonClick('D3', this);" class="playSound key key-natural">D</button>
+    <button id="D3"; onclick="onButtonClick('D3');" class="playSound key key-natural">W</button>
 	
-    <button onclick="onButtonClick('Eb3', this);" class="playSound key key-flat">Eb</button>
+    <button id="Eb3"; onclick="onButtonClick('Eb3');" class="playSound key key-flat">3</button>
 	
-    <button onclick="onButtonClick('E3', this);" class="playSound key key-natural">E</button>
+    <button id="E3"; onclick="onButtonClick('E3');" class="playSound key key-natural">E</button>
 	
-    <button onclick="onButtonClick('F3', this);" class="playSound key key-natural">F</button>
+    <button id="F3"; onclick="onButtonClick('F3');" class="playSound key key-natural">R</button>
 	
-    <button onclick="onButtonClick('Gb3', this);" class="playSound key key-flat">Gb</button>
+    <button id="Gb3"; onclick="onButtonClick('Gb3');" class="playSound key key-flat">5</button>
 	
-    <button onclick="onButtonClick('G3', this);" class="playSound key key-natural">G</button>
+    <button id="G3"; onclick="onButtonClick('G3');" class="playSound key key-natural">T</button>
 	
-    <button onclick="onButtonClick('Ab3', this);" class="playSound key key-flat">Ab</button>
+    <button id="Ab3"; onclick="onButtonClick('Ab3');" class="playSound key key-flat">6</button>
 	
-    <button onclick="onButtonClick('A3', this);" class="playSound key key-natural">A</button>
+    <button id="A3"; onclick="onButtonClick('A3');" class="playSound key key-natural">Y</button>
 	
-    <button onclick="onButtonClick('Bb3', this);" class="playSound key key-flat">Bb</button>
+    <button id="Bb3"; onclick="onButtonClick('Bb3');" class="playSound key key-flat">7</button>
 	
-    <button onclick="onButtonClick('B3', this);" class="playSound key key-natural">B</button>
+    <button id="B3"; onclick="onButtonClick('B3');" class="playSound key key-natural">U</button>
 	
-    <button onclick="onButtonClick('C4', this);" class="playSound key key-natural">C</button>
+    <button id="C4"; onclick="onButtonClick('C4');" class="playSound key key-natural">I</button>
 	
-    <button onclick="onButtonClick('Db4', this);" class="playSound key key-flat">Db</button>
+    <button id="Db4"; onclick="onButtonClick('Db4');" class="playSound key key-flat">9</button>
 	
-    <button onclick="onButtonClick('D4', this);" class="playSound key key-natural">D</button>
+    <button id="D4"; onclick="onButtonClick('D4');" class="playSound key key-natural">O</button>
 	
-    <button onclick="onButtonClick('Eb4', this);" class="playSound key key-flat">Eb</button>
+    <button id="Eb4"; onclick="onButtonClick('Eb4');" class="playSound key key-flat">0</button>
 	
-    <button onclick="onButtonClick('E4', this);" class="playSound key key-natural">E</button>
+    <button id="E4"; onclick="onButtonClick('E4');" class="playSound key key-natural">P</button>
     
-    <button onclick="onButtonClick('F4', this);" class="playSound key key-natural">F</button>
+    <button id="F4"; onclick="onButtonClick('F4');" class="playSound key key-natural">{</button>
 	
-    <button onclick="onButtonClick('Gb4', this);" class="playSound key key-flat">Gb</button>
+    <button id="Gb4"; onclick="onButtonClick('Gb4');" class="playSound key key-flat">=</button>
 	
-    <button onclick="onButtonClick('G4', this);" class="playSound key key-natural">G</button>
+    <button id="G4"; onclick="onButtonClick('G4');" class="playSound key key-natural">}</button>
 	
-    <button onclick="onButtonClick('Ab4', this);" class="playSound key key-flat">Ab</button>
+    <button id="Ab4"; onclick="onButtonClick('Ab4');" class="playSound key key-flat">A</button>
 	
-    <button onclick="onButtonClick('A4', this);" class="playSound key key-natural">A</button>
+    <button id="A4"; onclick="onButtonClick('A4');" class="playSound key key-natural">Z</button>
 	
-    <button onclick="onButtonClick('Bb4', this);" class="playSound key key-flat">Bb</button>
+    <button id="Bb4"; onclick="onButtonClick('Bb4');" class="playSound key key-flat">S</button>
 	
-    <button onclick="onButtonClick('B4', this);" class="playSound key key-natural">B</button>
+    <button id="B4"; onclick="onButtonClick('B4');" class="playSound key key-natural">X</button>
 	
-    <button onclick="onButtonClick('C5', this);" class="playSound key key-natural">C</button>
+    <button id="C5"; onclick="onButtonClick('C5');" class="playSound key key-natural">C</button>
     
-    <button onclick="onButtonClick('Db5', this);" class="playSound key key-flat">Db</button>
+    <button id="Db5"; onclick="onButtonClick('Db5');" class="playSound key key-flat">F</button>
 	
-    <button onclick="onButtonClick('D5', this);" class="playSound key key-natural">D</button>
+    <button id="D5"; onclick="onButtonClick('D5');" class="playSound key key-natural">V</button>
 	
-    <button onclick="onButtonClick('Eb5', this);" class="playSound key key-flat">Eb</button>
+    <button id="Eb5"; onclick="onButtonClick('Eb5');" class="playSound key key-flat">G</button>
 	
-    <button onclick="onButtonClick('E5', this);" class="playSound key key-natural">E</button>
+    <button id="E5"; onclick="onButtonClick('E5');" class="playSound key key-natural">B</button>
 	
-    <button onclick="onButtonClick('F5', this);" class="playSound key key-natural">F</button>
+    <button id="F5"; onclick="onButtonClick('F5');" class="playSound key key-natural">N</button>
 	
-    <button onclick="onButtonClick('Gb5', this);" class="playSound key key-flat">Gb</button>
+    <button id="Gb5"; onclick="onButtonClick('Gb5');" class="playSound key key-flat">J</button>
 	
-    <button onclick="onButtonClick('G5', this);" class="playSound key key-natural">G</button>
+    <button id="G5"; onclick="onButtonClick('G5');" class="playSound key key-natural">M</button>
 	
-    <button onclick="onButtonClick('Ab5', this);" class="playSound key key-flat">Ab</button>
+    <button id="Ab5"; onclick="onButtonClick('Ab5');" class="playSound key key-flat">K</button>
 	
-    <button onclick="onButtonClick('A5', this);" class="playSound key key-natural">A</button>
+    <button id="A5"; onclick="onButtonClick('A5');" class="playSound key key-natural">,</button>
 	
-    <button onclick="onButtonClick('Bb5', this);" class="playSound key key-flat">Bb</button>
+    <button id="Bb5"; onclick="onButtonClick('Bb5');" class="playSound key key-flat">L</button>
 	
-    <button onclick="onButtonClick('B5', this);" class="playSound key key-natural">B</button>
+    <button id="B5"; onclick="onButtonClick('B5');" class="playSound key key-natural">.</button>
 
-    <button onclick="onButtonClick('C6', this);" class="playSound key key-natural">C</button>
+    <button id="C6"; onclick="onButtonClick('C6');" class="playSound key key-natural">/</button>
 	
 	</div>
-    
+ 
 <!--  CONTROLS AND SCORE  -->
     <div id="display" class="controls">
 		
         <div class="score">
-          <span>Score: <span>
+          <span>Score: </span>
           <span id="score"></span>
           <span id="update" class="score_update"></span>
         </div>
@@ -100,23 +110,36 @@
           <span>Time: </span><span id="time"></span>
         </div>
         
+        <div class="level">
+          <span>Level: </span><span id="level"></span>
+        </div>
+        
         <div class="buttons">
-          <button id="playmelodybtn" onclick="playMelody();" class="playSound btn">Play Current Melody</button>
-          <br>
-          <button id="restartbtn" onclick="initStart();" class="playSound btn">Restart</button>
+          <button id="playmelodybtn" onclick="playMelody();" class="playSound btn">Play Melody <br>(1)</button>
+		  <button id="restartbtn" onclick="initStart();" class="playSound btn">Restart<br> (Esc)</button>
         </div>
 
     </div>
   </body>
 
+<!-- HOW TO PLAY -->
+	<center><h3> How to play: </h3></center>
+	<p class="directions"> Click <i>'Play Melody'</i> to play a small tune! Your goal is to try to copy that melody, note by note, by playing it back on the piano. 
+			You only have a set amount of time to complete each melody; successfully completing one will reset the timer.
+			On Easy difficulty, the first note of the melody will be highlighted in blue. <br> You can also use your computer keys to play. <br> 
+			<a href="https://github.com/MiaoXiao/Melody-Matcher" target="_blank">More Details</a>
+			</p>
+  
 <!--  SETTINGS  -->
+	<!--Keyboard Shortcuts Tooltips: <input type="checkbox" id="keyboard_tooltip" onClick="update_keyboard_tooltips();"> <br>-->
   <div id="film" class="film" onclick="settings_out()"></div>
   <button id="settings_but" onclick="settings_in();" class="settings_btn btn">Settings</button>
 
   <div id="settings" class="settings">
     <h2 class="settings_head">Settings:</h2>
+	<!--<h5 class ="settings_head">*Any changes will only apply upon restarting the game.</h5>-->
     <div class="settings_vals">
-      
+	  
       <h4 class="settings_sub">Difficulty:</h4>
       <div class="difficulty">
         <form id="dif_radio" action="">
@@ -129,6 +152,7 @@
       <h4 class="settings_sub">Key and Scale:</h4>
       <div class="key_scale">
         <select id="key_type">
+		
           <option value="A">A</option>
           <option value="Bb">Bb</option>
           <option value="B">B</option>
@@ -147,8 +171,18 @@
           <option value="maj">Major</option>
           <option value="min">Minor</option>
           <option value="chrom">Chromatic</option>
-        <select> <br><br>
+        </select> <br>
       </div>
+      
+      <h4 class="settings_sub">Instrument:</h4>
+      <div class="key_scale">
+        <select id="instr_sel" onchange="loadSounds(this.options[this.selectedIndex].value)">
+          <option value="piano">Piano</option>
+          <option value="violin">Violin</option>
+          <option value="guitar">Guitar</option>
+        </select> <br>
+      </div>
+            
       
       <h4 class="settings_sub">Volume:</h4>
       <div class="volume">

@@ -23,6 +23,13 @@
   /*text-align: center;*/
 }
 
+/*hide element if screen is too small*/
+@media only screen and (max-width: 975px) {
+    #ribbon {
+        display: none;
+    }
+}
+
 /*define fade in animation*/
 @-webkit-keyframes fadi {
     from    { opacity: 0; }
@@ -144,7 +151,7 @@
     position: fixed;
     font-size: 14px;
     width: 175px;
-    height: 280px;
+    height: 300px;
     background: burlywood;
     border-radius: 5px;
     border: 2px solid;
@@ -152,20 +159,20 @@
 
     left: -webkit-calc(50% - 87px);
     left: -moz-calc(50% - 87px);
-    top: -webkit-calc(50% - 140px);
-    top: -moz-calc(50% - 140px);
+    top: -webkit-calc(50% - 150px);
+    top: -moz-calc(50% - 150px);
     
     z-index: 2;
     
 /*    To start out of screen    */
-    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
+	-webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
     -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(-1500px);
 }
 
 .settings.in {
     -webkit-transition: -webkit-transform .75s ease-in-out;
     -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
-    -moz-transition: -moz-transform 1s ease-in-out;
+    -moz-transition: -moz-transform .75s ease-in-out;
     -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
 }
 
@@ -178,8 +185,17 @@
 
 .settings_btn {
     position: fixed;
-    top: 5;
-    right: 5;
+    top: 5px;
+    right: 5px;
+}
+
+/* DIRECTIONS */
+p.directions {
+    margin: 0cm 4cm 3m 4cm;
+	align-self: center;
+	border-style: solid;
+	border-width: 1px;
+	padding: 15px;
 }
 
 /* SURVEY */
@@ -189,63 +205,6 @@
     right: 0;
     left: 0;
     text-align: center;
-}
-
-/* START */
-.btn-start {
-    text-align: center;
-    background: #eba7a7;
-    background-image: -webkit-linear-gradient(top, #eba7a7, #b82b2b);
-    background-image: -moz-linear-gradient(top, #eba7a7, #b82b2b);
-    background-image: -ms-linear-gradient(top, #eba7a7, #b82b2b);
-    background-image: -o-linear-gradient(top, #eba7a7, #b82b2b);
-    background-image: linear-gradient(to bottom, #eba7a7, #b82b2b);
-    -webkit-border-radius: 60;
-    -moz-border-radius: 60;
-    font-family: Arial;
-    color: #ffffff;
-    font-size: 57px;
-    padding: 5px 20px 5px 20px;
-    text-decoration: none;
-}
-
-.btn-start:hover {
-    background: #f5bfbf;
-    background-image: -webkit-linear-gradient(top, #f5bfbf, #bd3838);
-    background-image: -moz-linear-gradient(top, #f5bfbf, #bd3838);
-    background-image: -ms-linear-gradient(top, #f5bfbf, #bd3838);
-    background-image: -o-linear-gradient(top, #f5bfbf, #bd3838);
-    background-image: linear-gradient(to bottom, #f5bfbf, #bd3838);
-    text-decoration: none;
-}
-
-.startup {
-    font-size: 24px;
-    padding: 10px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-}
-
-.startup.out {
-    -webkit-transition: -webkit-transform 2s ease-in-out;
-    -webkit-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
-    -moz-transition: -moz-transform 2s ease-in-out;
-    -moz-transform: rotate3d(1, 0, 0, 0deg) translateZ(0px) translateX(-4000px) translateY(0px);
-}
-
-.start_settings {
-    font-size: 24px;
-    padding: 10px;
-    position: relative;
-    width: 100%;
-    text-align: center; 
-}
-
-.small_head {
-    margin: -30px 0px 50px 0px;
 }
 
 /* GAME */
@@ -275,14 +234,25 @@
 .time {
     position: relative;
     width: 170px;
-    top: -50px;
-    left: -webkit-calc(50% + 375px - 170px);
+    top: -28px;
+    left: -webkit-calc(50% + 438px - 170px);
+    left: -moz-calc(50% + 438px - 170px);
+}
+
+.level {
+    position: relative;
+    width: 170px;
+    top: -206px;
+    left: -webkit-calc(50% + 438px - 170px);
+    left: -moz-calc(50% + 438px - 170px);
 }
 
 .buttons {
     position: relative;
     top: -20;
     text-align: center;
+	margin-right: 200px;
+	margin-left: 200px;
 }
 
 @-webkit-keyframes update {
@@ -310,21 +280,13 @@
 }
 
 .piano { /*on start*/
+    width: 880px;
+    height: 150px;
     position: relative;
     font-size: 12px;
-    width: 750px;
     left: -moz-calc(50% - 375px);
     left: -webkit-calc(50% - 375px);
     padding: 0px 0px 10px 0px;
-    -webkit-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
-    -moz-transform: rotate3d(1, 0, 1, 60deg) translateZ(750px) translateX(-67px) translateY(-33px);
-}
-
-.piano.in {
-    -webkit-transition: -webkit-transform 2s ease-in-out;
-    -webkit-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
-    -moz-transition: -moz-transform 2s ease-in-out;
-    -moz-transform: rotate3d(1, 0, 1, 0deg) translateZ(0px) translateX(0px) translateY(0px);
 }
 
 .btn {
@@ -463,7 +425,44 @@
         background-image: linear-gradient(to bottom, #000000, #787878);}
 }
 
+@-webkit-keyframes nat_incorrect {
+    0%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #ffa3a8;}
+    100%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
+@-moz-keyframes nat_incorrect {
+    0%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+    5%  {background: #ffa3a8;}
+    100%  {background: #ffffff;
+        background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        background-image: -moz-linear-gradient(top, #ffffff, #dedede);
+        background-image: -ms-linear-gradient(top, #ffffff, #dedede);
+        background-image: -o-linear-gradient(top, #ffffff, #dedede);
+        background-image: linear-gradient(to bottom, #ffffff, #dedede);}
+}
+
+
 .key-natural {
+  display:inline-block;
+  min-width: 40px;
+  width: 40px;
+  padding:5px 10px;
   background: #ffffff;
   background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
   background-image: -moz-linear-gradient(top, #ffffff, #dedede);
@@ -486,21 +485,25 @@
 }
 
 .key-natural.correct {
-    -webkit-animation-timing-function: ease-in;
-    -webkit-animation: nat_correct 2s;
-    -moz-animation-timing-function: ease-in;
-    -moz-animation: nat_correct 2s;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation: nat_correct 2s;
+  -moz-animation-timing-function: ease-in;
+  -moz-animation: nat_correct 2s;
 }
 
 .key-natural.incorrect {
-    -webkit-animation-timing-function: ease-in;
-    -webkit-animation: nat_incorrect 2s;
-    -moz-animation-timing-function: ease-in;
-    -moz-animation: nat_incorrect 2s;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation: nat_incorrect 2s;
+  -moz-animation-timing-function: ease-in;
+  -moz-animation: nat_incorrect 2s;
 }
 
 .key-flat {
-  background: #000000;
+  display:inline-block;
+  min-width: 30px;
+  width: 30px;
+  padding:5px 10px;
+  
   background: #000000;
   color: #ffffff;
   background-image: -webkit-linear-gradient(top, #000000, #787878);
@@ -546,6 +549,25 @@
   font-family: Arial;
   font-size: 20px;
   text-decoration: none;
+  -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.key-flat.hint {
+  background-color: cornflowerblue;
+}
+
+.key-natural.hint {
+  background: #6495ED;
+  background-image: -webkit-linear-gradient(top, #6495ED, #dedede);
+  background-image: -moz-linear-gradient(top, #6495ED, #dedede);
+  background-image: -ms-linear-gradient(top, #6495ED, #dedede);
+  background-image: -o-linear-gradient(top, #6495ED, #dedede);
+  background-image: linear-gradient(to bottom, #6495ED, #dedede);
 }
 
 .key:hover {
@@ -556,7 +578,6 @@
 /* Changes dimensions based on device?
 source:  http://www.studiopress.com/design/website-respond-mobile-devices.htm
 other help for mobile support: http://www.studiopress.com/design/flexible-grid.htm
-
 testing websites on a computer: http://mobiletest.me/ 
 */
  

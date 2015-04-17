@@ -1,32 +1,34 @@
-//Call on page load
-window.onload = letsgo;
+sessionStorage.setItem("volume", 90);
 
+//save last radial position
+var new_difficulty = 0;
 //select difficulty based on radial button
 function dif_selected(difficulty) {
     //Grab the radio form and loop through it looking for the selected btn
     sessionStorage.setItem("difficulty", parseInt(difficulty));
+	new_difficulty = difficulty;
 }
 
 //start the game by switching html pages (should be removed)
 function letsgo() {
     document.getElementById("display").classList.add('in');
-    //Add minor delay so animation will show
-    setTimeout(function(){ document.getElementById("notes").classList.add('in'); }, 20);
-    
-    chooseScale("C", "maj");
-    
+	//set default key and scale
+	sessionStorage.setItem("current_key", "C");
+	sessionStorage.setItem("current_scale", "maj");
+    chooseScale();
+	
     //Throw players straight into a game (after short delay)
     setTimeout(function(){ initStart(); }, 50);
 }
 
 //change the volume
 function change_vol(vol_amount) {
-    localStorage.setItem("volume", vol_amount);
+    sessionStorage.setItem("volume", vol_amount);
 }
 
-//get thd current volums
+//get the current volume
 function get_vol() {
-    return parseFloat(localStorage.getItem("volume"))/100.0;
+    return parseFloat(sessionStorage.getItem("volume"))/100.0;
 }
 
 function scale_selected(scale) {
@@ -40,12 +42,21 @@ function scale_selected(scale) {
 function highlight_note(key, correct) {
     key.classList.remove("correct");
     key.classList.remove("incorrect");
+    key.classList.remove("hint");
     key.offsetWidth = key.offsetWidth;
     if(correct) {
         key.classList.add("correct");
     } else {
         key.classList.add("incorrect");
     }
+}
+
+var last_high = null;
+
+function hint(elm) {
+    if(last_high !== null) last_high.classList.remove("hint");
+    elm.classList.add("hint");
+    last_high = elm;
 }
 
 //handler
@@ -68,8 +79,7 @@ function animate_numbers_(elm, from, to, time, steps, curr) {
 }
 
 function reset_score(current_score) {
-    
-    console.log(document.getElementById("notes").offsetWidth);
+    //console.log(document.getElementById("notes").offsetWidth);
     animate_numbers(document.getElementById("score"), current_score, 0, 500, 100);
 }
 
@@ -93,7 +103,10 @@ function update_score(gameinfo, scoreinfo) {
     setTimeout(function() { update_spot.innerHTML = ""; }, 5000);
 }
 
+//if you are in settings or not
+var settingsStatus = false;
 function settings_in() {
+	settingsStatus = true;
     document.getElementById("settings_but").disabled = true;
     
     document.getElementById("settings").classList.remove('in');
@@ -109,6 +122,7 @@ function settings_in() {
 }
 
 function settings_out() {
+	settingsStatus = false;
     document.getElementById("settings_but").disabled = false;
     
     document.getElementById("settings").classList.remove('out');
@@ -123,10 +137,10 @@ function settings_out() {
     setTimeout(function() { document.getElementById("film").classList.remove('in'); }, 1000);
     
     var key = document.getElementById("key_type");
-    var key_val = key.options[key.selectedIndex].value;
-    
+    //var key_val = key.options[key.selectedIndex].value;
+    sessionStorage.setItem("current_key", key.options[key.selectedIndex].value);
+	
     var scale = document.getElementById("scale_type");
-    var scale_val = scale.options[scale.selectedIndex].value;
-    
-    chooseScale(key_val, scale_val);
+    //var scale_val = scale.options[scale.selectedIndex].value;
+	sessionStorage.setItem("current_scale", scale.options[scale.selectedIndex].value);
 }
